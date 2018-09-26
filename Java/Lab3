@@ -73,14 +73,16 @@ public class Lab3 {
 
 
 
-	/* Task 2 Running Sum NOT FINISHED */
+　
 
 
+/* Task 2 */
 
-	// Array Running Sum
+
+		
 
 
-	public static void runnignSum2DArray(int[][] myArray, int myInt) {
+	public static void runningSum2DArray(int[][] myArray, int myInt) {
 
 
 		// 1 - Running sum from Left to Right
@@ -99,11 +101,16 @@ public class Lab3 {
 				for (int j = 0; j < myArray[i].length; ++j) {// row <->
 
 
+				
 
-					myArray[i][j + 1] += (myArray[i][j]);
+
+					if (j>0 && j <myArray[i].length) {
 
 
-					
+						myArray[i][j] += (myArray[i][j-1]);
+
+
+					}
 
 
 					System.out.print(myArray[i][j] + " ");
@@ -121,6 +128,12 @@ public class Lab3 {
 
 
 		}
+
+
+		
+
+
+		
 
 
 		// 2 Running sum from Right to left
@@ -418,23 +431,23 @@ public class Lab3 {
 		/* Task 2 */
 
 
-		runnignSum2DArray(myArray, 1); // Test 2D Sum Array
+		runningSum2DArray(myArray, 1); // Test 2D Sum Array
 
 
 
 		/* Task 3 */
 
 
-		printArrayListBasicLoop(singlelist);
+		//printArrayListBasicLoop(singlelist);
 
 
-		printArrayListEnhancedLoop(singlelist);
+		//printArrayListEnhancedLoop(singlelist);
 
 
-		printArrayListForLoopListIterator(singlelist);
+		//printArrayListForLoopListIterator(singlelist);
 
 
-		printArrayListWhileLoopListIterator(singlelist);
+		//printArrayListWhileLoopListIterator(singlelist);
 
 
 
