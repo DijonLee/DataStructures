@@ -380,7 +380,7 @@ public class Lab3 {
 
 
 		ArrayList<Integer> singlelist4 = new ArrayList<Integer>();
-
+//
 
 		singlelist4.add(1);
 
