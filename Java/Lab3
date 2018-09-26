@@ -4,85 +4,109 @@ import java.util.Iterator;
 
 public class Lab3 {
 
-	/* Task 1 print2darray function  NOT FINISHED*/
-
+	/* Task 1 print2darray function NOT FINISHED */
+	// Print 2D Array
 	public static void print2Darray(int[][] myArray) {
 		for (int i = 0; i < myArray.length; i++) {
-			for (int j = 0; i < myArray.length; j++) {
-				System.out.print(myArray[i][j]);
+			for (int j = 0; j < myArray[i].length; j++) {
+				System.out.print(myArray[i][j] + " ");
 			}
+			System.out.println(" ");
 
 		}
 
 	}
-	
-	
+
+	// Print Formatted 2D List
 	public static void print2DList(ArrayList<ArrayList<Integer>> array) {
 		for (ArrayList<Integer> alist : array) {
 			System.out.println(alist);
 		}
 	}
-	
-	
-	/* Task 2  Running Sum NOT FINISHED */
-	
+
+	/* Task 2 Running Sum NOT FINISHED */
+
 	public static void runnignSum2DArray(Array[][] myArray, int myInt) {
-		
-		
+		// 1 - Running sum from Left to Right
+		if (myInt == 1) {
+			int sum = 0;
+
+			for (int i = 0; i < myArray.length; i++) {
+				for (int j = 0; j < myArray[i].length; j++) {
+					sum += myArray[i][j];
+
+				}
+			}
+
+		}
+		// 2 Running sum from Right to left
+		else if (myInt == 2) {
+
+		}
+
+		// 3 Running sum from Top to Bottom
+		else if (myInt == 3) {
+
+		}
+		// Running Sum from Bottom to Top
+		else if (myInt == 4) {
+
+		}
+		else {
+			System.out.println("Input not valid");
+		}
+
 	}
-	
-	
+
 	/* Task 3 Iterate over an ArrayList */
-	
+
 	// Using basic while/ for loop
 	public static void printArrayListBasicLoop(ArrayList<Integer> al) {
-		for ( int i=0;i<al.size();i++) {
+		for (int i = 0; i < al.size(); i++) {
 			Integer elm = al.get(i);
 			System.out.println(elm);
 		}
-		
+
 	}
-	
+
 	// Using enhanced for loop(:)
 	public static void printArrayListEnhancedLoop(ArrayList<Integer> al) {
-		for( Integer elm: al) {
+		for (Integer elm : al) {
 			System.out.println(elm);
-			
+
 		}
 	}
+
 	// Using basic for loop with iterator
 	public static void printArrayListForLoopListIterator(ArrayList<Integer> al) {
-		Iterator<Integer> it = al.iterator(); it.hasNext(); {
+		Iterator<Integer> it = al.iterator();
+		it.hasNext();
+		{
 			Integer elm = it.next();
 			System.out.println(elm);
 		}
 	}
-		
-		// Using basic while loop with iterator
-		public static void printArrayListWhileLoopListIterator(ArrayList<Integer> al) {
-			Iterator<Integer> it = al.iterator();
-			while(it.hasNext()) {
-				Integer elm = it.next();
-				System.out.println(elm);
-			
+
+	// Using basic while loop with iterator
+	public static void printArrayListWhileLoopListIterator(ArrayList<Integer> al) {
+		Iterator<Integer> it = al.iterator();
+		while (it.hasNext()) {
+			Integer elm = it.next();
+			System.out.println(elm);
+
 		}
-		
-		
-		
+
 	}
 
 	public static void main(String[] args) {
-		int [][] myArray = {{10, 15, 30, 40},
-							 {15, 5, 8, 2}, 
-							 {20, 2, 4, 2},
-							 {1, 4, 5, 0}};
-		
-		
+
+		/* Declare Array and Lists */
+		int[][] myArray = { { 10, 15, 30, 40 }, { 15, 5, 8, 2 }, { 20, 2, 4, 2 }, { 1, 4, 5, 0 } };
+
 		ArrayList<ArrayList<Integer>> array = new ArrayList();
+
 		print2Darray(myArray);
 
 	}
 
-	
-	
 }
