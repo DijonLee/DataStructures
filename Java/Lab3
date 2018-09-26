@@ -51,10 +51,22 @@ public class Lab3 {
 	public static void print2DList(ArrayList<ArrayList<Integer>> array) {
 
 
+
 		for (ArrayList<Integer> alist : array) {
 
 
-			System.out.println(alist);
+			for (Integer elm : alist) {
+
+
+				System.out.print(elm +" ");
+
+
+
+			}
+
+
+			System.out.println("");
+
 
 
 		}
@@ -87,13 +99,11 @@ public class Lab3 {
 			for (int i = 0; i < myArray.length; i++) { // column
 
 
-				for (int j = 0; j < myArray[i].length-1; j++) {// row <->
+				for (int j = 0; j < myArray[i].length - 1; j++) {// row <->
 
 
-					
 
-
-					myArray[i][j+1] += (myArray[i][j] + [i][j+1]);
+					// myArray[i][j+1] += (myArray[i][j] + [i][j+1]);
 
 
 
@@ -312,8 +322,6 @@ public class Lab3 {
 		singlelist.add(40);
 
 
-		
-
 
 		// Create list 2 for 2DAL
 
@@ -321,16 +329,16 @@ public class Lab3 {
 		ArrayList<Integer> singlelist2 = new ArrayList<Integer>();
 
 
-		singlelist.add(14);
+		singlelist2.add(14);
 
 
-		singlelist.add(5);
+		singlelist2.add(5);
 
 
-		singlelist.add(8);
+		singlelist2.add(8);
 
 
-		singlelist.add(2);
+		singlelist2.add(2);
 
 
 
@@ -341,19 +349,17 @@ public class Lab3 {
 		ArrayList<Integer> singlelist3 = new ArrayList<Integer>();
 
 
-		singlelist.add(20);
+		singlelist3.add(20);
 
 
-		singlelist.add(2);
+		singlelist3.add(2);
 
 
-		singlelist.add(4);
+		singlelist3.add(4);
 
 
-		singlelist.add(2);
+		singlelist3.add(2);
 
-
-		
 
 
 		// Create List 4 for 2DAL
@@ -362,16 +368,16 @@ public class Lab3 {
 		ArrayList<Integer> singlelist4 = new ArrayList<Integer>();
 
 
-		singlelist.add(1);
+		singlelist4.add(1);
 
 
-		singlelist.add(4);
+		singlelist4.add(4);
 
 
-		singlelist.add(5);
+		singlelist4.add(5);
 
 
-		singlelist.add(0);
+		singlelist4.add(0);
 
 
 
@@ -394,19 +400,17 @@ public class Lab3 {
 
 
 
-		
-
-
 		/* TEST CASES */
 
 
-		 
+
+		// runnignSum2DArray(myArray, 1); // Test 2D Sum Array
 
 
-		runnignSum2DArray(myArray, 1);
+		// print2Darray(myArray); // Test Print 2D Array
 
 
-		// print2Darray(myArray);
+		print2DList(array);
 
 
 
