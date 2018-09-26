@@ -12,7 +12,7 @@ public class Lab3 {
 
 
 
-	/* Task 1 print2darray function NOT FINISHED */
+	/* Task 1 */
 
 
 	// Print 2D Array
@@ -36,9 +36,7 @@ public class Lab3 {
 			System.out.println(" ");
 
 
-
 		}
-
 
 
 	}
@@ -58,7 +56,7 @@ public class Lab3 {
 			for (Integer elm : alist) {
 
 
-				System.out.print(elm +" ");
+				System.out.print(elm + " ");
 
 
 
@@ -66,7 +64,6 @@ public class Lab3 {
 
 
 			System.out.println("");
-
 
 
 		}
@@ -89,26 +86,27 @@ public class Lab3 {
 		// 1 - Running sum from Left to Right
 
 
-		int sum = 0;
-
-
 		if (myInt == 1) {
 
 
-
-			for (int i = 0; i < myArray.length; i++) { // column
-
-
-				for (int j = 0; j < myArray[i].length - 1; j++) {// row <->
+			int sum = 0; // local sum
 
 
 
-					// myArray[i][j+1] += (myArray[i][j] + [i][j+1]);
+			for (int i = 0; i < myArray.length; ++i) { // column
 
+
+				for (int j = 0; j < myArray[i].length; ++j) {// row <->
+
+
+
+					myArray[i][j + 1] += (myArray[i][j]);
+
+
+					
 
 
 					System.out.print(myArray[i][j] + " ");
-
 
 
 				}
@@ -129,6 +127,9 @@ public class Lab3 {
 
 
 		else if (myInt == 2) {
+
+
+			int sum = 0; // local sum
 
 
 			for (int i = myArray.length; i < 0; i--) { // column
@@ -404,13 +405,36 @@ public class Lab3 {
 
 
 
-		// runnignSum2DArray(myArray, 1); // Test 2D Sum Array
+		/* Task 1 */
 
 
 		// print2Darray(myArray); // Test Print 2D Array
 
 
-		print2DList(array);
+		// print2DList(array);
+
+
+
+		/* Task 2 */
+
+
+		runnignSum2DArray(myArray, 1); // Test 2D Sum Array
+
+
+
+		/* Task 3 */
+
+
+		printArrayListBasicLoop(singlelist);
+
+
+		printArrayListEnhancedLoop(singlelist);
+
+
+		printArrayListForLoopListIterator(singlelist);
+
+
+		printArrayListWhileLoopListIterator(singlelist);
 
 
 
