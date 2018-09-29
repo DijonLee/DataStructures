@@ -1,458 +1,326 @@
 import java.sql.Array;
 
-
 import java.util.ArrayList;
-
 
 import java.util.Iterator;
 
-
-
 public class Lab3 {
-
-
 
 	/* Task 1 */
 
-
 	// Print 2D Array
-
 
 	public static void print2Darray(int[][] myArray) {
 
-
 		for (int i = 0; i < myArray.length; i++) {
-
 
 			for (int j = 0; j < myArray[i].length; j++) {
 
-
 				System.out.print(myArray[i][j] + " ");
 
-
 			}
-
 
 			System.out.println(" ");
 
-
 		}
 
-
 	}
-
-
 
 	// Print Formatted 2D List
 
-
 	public static void print2DList(ArrayList<ArrayList<Integer>> array) {
-
-
 
 		for (ArrayList<Integer> alist : array) {
 
-
 			for (Integer elm : alist) {
-
 
 				System.out.print(elm + " ");
 
-
-
 			}
-
 
 			System.out.println("");
 
-
 		}
-
 
 	}
 
-
-
-　
-
-
-/* Task 2 */
-
-
-		
-
+	/* Task 2 */
 
 	public static void runningSum2DArray(int[][] myArray, int myInt) {
 
-
 		// 1 - Running sum from Left to Right
-
 
 		if (myInt == 1) {
 
-
 			int sum = 0; // local sum
-
-
 
 			for (int i = 0; i < myArray.length; ++i) { // column
 
-
 				for (int j = 0; j < myArray[i].length; ++j) {// row <->
 
+					if (j > 0 && j < myArray[i].length) { // if J is not 0 last index and is less than all indexes
 
-				
-
-
-					if (j>0 && j <myArray[i].length) {
-
-
-						myArray[i][j] += (myArray[i][j-1]);
-
+						myArray[i][j] += (myArray[i][j - 1]);
 
 					}
 
-
 					System.out.print(myArray[i][j] + " ");
-
 
 				}
 
-
 				System.out.println(" ");
-
-
 
 			}
 
-
-
 		}
 
-
-		
-
-
-		
-
-
-		// 2 Running sum from Right to left
-
+		// Not working RIGHT TO LEFT
 
 		else if (myInt == 2) {
 
-
 			int sum = 0; // local sum
 
+			
+			//Print
+			for (int i = 0; i < myArray.length; ++i) { // column
+				
+				for(int counter=myArray.length-1; counter >= 1;counter--){
+						myArray[i][counter]+= myArray[i][counter-1];
+					
+				}
+				
+				for (int j = 0; j < myArray[i].length; ++j) {// row <->
+						
+					if (j >4) { // if J is not 0 last index and is less than all indexes
 
-			for (int i = myArray.length; i < 0; i--) { // column
+						myArray[i][j] +=myArray[j][i+1];
+						System.out.print(myArray[i][j] + " ");
 
 
-				for (int j = myArray[i].length; j < 0; j--) { // row <->
-
-
-					myArray[i][j + 1] += myArray[i][j];
-
-
-
+					}
 					System.out.print(myArray[i][j] + " ");
-
-
 
 				}
 
-
 				System.out.println(" ");
-
-
 
 			}
 
-
-
 		}
 
-
-
 		// 3 Running sum from Top to Bottom
-
 
 		else if (myInt == 3) {
 
 
+				int sum = 0; // local sum
 
+				for (int i = 0; i < myArray.length; ++i) { // column
+
+					for (int j = 0; j < myArray[i].length; ++j) {// row <->
+
+						if (i > 0 && j < myArray[i].length) { // if J is not 0 last index and is less than all indexes
+
+							myArray[i][j] += (myArray[i-1][j]);
+
+						}
+
+						System.out.print(myArray[i][j] + " ");
+
+					}
+
+					System.out.println(" ");
+
+				
+
+			}
 		}
 
-
-		// Running Sum from Bottom to Top
-
+		// Running Sum from Bottom to Top BROKEN
 
 		else if (myInt == 4) {
 
+				int sum = 0; // local sum
 
+				for (int i = 0; i < myArray.length; ++i) { // column
 
+					for (int j = 0; j < myArray[i].length; ++j) {// row <->
+
+						if (j > 0 && j < myArray[i].length) { // if J is not 0 last index and is less than all indexes
+
+							myArray[i][j] += (myArray[i][j - 1]);
+
+						}
+
+						System.out.print(myArray[i][j] + " ");
+
+					}
+
+					System.out.println(" ");
+
+				}
+
+			
 		} else {
-
 
 			System.out.println("Input not valid");
 
-
 		}
 
-
-
 	}
-
-
 
 	/* Task 3 Iterate over an ArrayList */
 
-
-
 	// Using basic while/ for loop
-
 
 	public static void printArrayListBasicLoop(ArrayList<Integer> al) {
 
-
 		for (int i = 0; i < al.size(); i++) {
-
 
 			Integer elm = al.get(i);
 
-
 			System.out.println(elm);
-
 
 		}
 
-
-
 	}
-
-
 
 	// Using enhanced for loop(:)
 
-
 	public static void printArrayListEnhancedLoop(ArrayList<Integer> al) {
-
 
 		for (Integer elm : al) {
 
-
 			System.out.println(elm);
-
-
 
 		}
 
-
 	}
-
-
 
 	// Using basic for loop with iterator
 
-
 	public static void printArrayListForLoopListIterator(ArrayList<Integer> al) {
 
-
 		Iterator<Integer> it = al.iterator();
-
 
 		it.hasNext();
 
-
 		{
-
 
 			Integer elm = it.next();
 
-
 			System.out.println(elm);
-
 
 		}
 
-
 	}
-
-
 
 	// Using basic while loop with iterator
 
-
 	public static void printArrayListWhileLoopListIterator(ArrayList<Integer> al) {
-
 
 		Iterator<Integer> it = al.iterator();
 
-
 		while (it.hasNext()) {
-
 
 			Integer elm = it.next();
 
-
 			System.out.println(elm);
-
-
 
 		}
 
-
-
 	}
-
-
 
 	public static void main(String[] args) {
 
-
-
 		/* Declare Array and Lists */
-
 
 		int[][] myArray = { { 10, 15, 30, 40 }, { 15, 5, 8, 2 }, { 20, 2, 4, 2 }, { 1, 4, 5, 0 } };
 
-
-
 		// Create list 1 for 2DAL
-
 
 		ArrayList<Integer> singlelist = new ArrayList<Integer>();
 
-
 		singlelist.add(10);
-
 
 		singlelist.add(15);
 
-
 		singlelist.add(30);
-
 
 		singlelist.add(40);
 
-
-
 		// Create list 2 for 2DAL
-
 
 		ArrayList<Integer> singlelist2 = new ArrayList<Integer>();
 
-
 		singlelist2.add(14);
-
 
 		singlelist2.add(5);
 
-
 		singlelist2.add(8);
-
 
 		singlelist2.add(2);
 
-
-
 		// CreateLlist 3 for 2DList
-
-
 
 		ArrayList<Integer> singlelist3 = new ArrayList<Integer>();
 
-
 		singlelist3.add(20);
 
-
 		singlelist3.add(2);
-
 
 		singlelist3.add(4);
 
-
 		singlelist3.add(2);
-
-
 
 		// Create List 4 for 2DAL
 
-
 		ArrayList<Integer> singlelist4 = new ArrayList<Integer>();
-//
+		//
 
 		singlelist4.add(1);
 
-
 		singlelist4.add(4);
-
 
 		singlelist4.add(5);
 
-
 		singlelist4.add(0);
-
-
 
 		// Add all list to 2D Array List
 
-
 		ArrayList<ArrayList<Integer>> array = new ArrayList<ArrayList<Integer>>();
-
 
 		array.add(singlelist);
 
-
 		array.add(singlelist2);
-
 
 		array.add(singlelist3);
 
-
 		array.add(singlelist4);
-
-
 
 		/* TEST CASES */
 
-
-
 		/* Task 1 */
-
 
 		// print2Darray(myArray); // Test Print 2D Array
 
-
 		// print2DList(array);
-
-
 
 		/* Task 2 */
 
-
-		runningSum2DArray(myArray, 1); // Test 2D Sum Array
-
-
+		// runningSum2DArray(myArray, 1); // Test 2D Sum Array
+		runningSum2DArray(myArray, 2);
 
 		/* Task 3 */
 
+		// printArrayListBasicLoop(singlelist);
 
-		//printArrayListBasicLoop(singlelist);
+		// printArrayListEnhancedLoop(singlelist);
 
+		// printArrayListForLoopListIterator(singlelist);
 
-		//printArrayListEnhancedLoop(singlelist);
-
-
-		//printArrayListForLoopListIterator(singlelist);
-
-
-		//printArrayListWhileLoopListIterator(singlelist);
-
-
+		// printArrayListWhileLoopListIterator(singlelist);
 
 	}
-
-
 
 }
