@@ -1,0 +1,257 @@
+import java.util.ArrayList;
+
+public class Task2 {
+	/* TASK TWO */
+	
+	
+	public static void print2DList(ArrayList<ArrayList<Integer>> array) {
+		for (ArrayList<Integer> alist : array) {
+			for (Integer elm : alist) {
+				System.out.print(elm + " ");
+			}
+			System.out.println("");
+		}
+	}
+	
+	public static void print2Darray(int[][] myArray) { // Print 2D Array
+
+		for (int i = 0; i < myArray.length; i++) { // Row
+			for (int j = 0; j < myArray[i].length; j++) { // Col
+				System.out.print(myArray[i][j] + " ");
+			}
+			System.out.println(" ");
+		}
+	}
+	
+	
+	
+	public static void runningSum2DArray(int[][] myArray, int direction) {
+		
+		
+		if (direction == 1) { // 1 - Running sum from Left to Right
+			for (int i = 0; i < myArray.length; ++i) { // Row
+				for (int j = 0; j < myArray[i].length; ++j) { // Col
+					if (j > 0 && j < myArray[i].length) { // if J is not 0 last index and is less than all indexes
+
+						myArray[i][j] += (myArray[i][j - 1]);
+
+					}
+
+					System.out.print(myArray[i][j] + " ");
+
+				}
+
+				System.out.println(" ");
+
+			}
+
+		}
+
+		// Not working RIGHT TO LEFT
+		else if (direction == 2) {
+
+			int sum = 0; // local sum
+
+			for (int i = 0; i < myArray.length; ++i) { // Row
+				for (int j = myArray[i].length - 1; j >= 0; --j) { // Col
+					if (j != myArray[i].length - 1) { // if J is not 0 last index and is less than all indexes
+
+						myArray[i][j] += (myArray[i][j + 1]);
+						// System.out.print(myArray[i][j] + " ");
+
+					}
+
+					// if (j > 1) {
+					// }
+					// System.out.print(myArray[i][j] + " ");
+				}
+				// System.out.println(" ");
+
+			}
+			print2Darray(myArray);
+
+		}
+
+		// 3 Running sum from Bottom
+		else if (direction == 3) {
+			int sum = 0; // local sum
+
+			for (int i = myArray.length - 1; i >= 0; --i) { // Row
+
+				for (int j = 0; j < myArray[i].length; ++j) { // Col
+					if (i != myArray[i].length - 1) {
+						// if J is not 0 last index and is less than all indexes
+
+						myArray[i][j] += (myArray[i + 1][j]);
+
+					}
+
+					// System.out.print(myArray[i][j] + " ");
+
+				}
+
+				// System.out.println(" ");
+			}
+			print2Darray(myArray);
+
+		}
+
+		// Running Sum from Top to Bottom
+		else if (direction == 4) {
+			int sum = 0; // local sum
+			for (int i = 0; i < myArray.length; ++i) { // Row
+				for (int j = 0; j < myArray[i].length; ++j) { // Col
+					if (i > 0 && j < myArray[i].length) { // Ensure index stays in bound
+						myArray[i][j] += (myArray[i - 1][j]); // i-1 top to bottom
+					}
+				}
+			}
+			print2Darray(myArray);
+
+		} else {
+
+			System.out.println("Input not valid");
+
+		}
+
+	}
+
+	public static void runningSum2DArrayList(ArrayList<ArrayList<Integer>> array, int direction) {
+int prevNum = 0;
+int currNum = 0;
+		if (direction == 1) { // Left to Right
+
+			for (int i = 0; i < array.size(); ++i) {
+				for (int j = 0; j < array.get(i).size(); ++j) {
+
+					if (j > 0 && j < array.size()) { // if J is not 0 last index and is less than all indexes
+
+						 prevNum = array.get(i).get(j - 1);
+						 currNum = array.get(i).get(j);
+
+						array.get(i).set(j, (prevNum + currNum));
+					}
+
+				}
+				print2DList(array);
+
+			}
+		} else if (direction == 2) { // Right to left
+			for (int i = 0; i < array.size(); ++i) {
+				for (int j = array.get(i).size() - 1; j >= 0; --j) {
+					if (j != array.get(i).size() - 1) {
+						 prevNum = array.get(i).get(j + 1);
+						 currNum = array.get(i).get(j);
+						array.get(i).set(j, (prevNum + currNum));
+
+					}
+
+				}
+
+			}
+			print2DList(array);
+
+		} else if (direction == 3) { // Bottom to Top
+
+			for (int i = array.size() - 1; i >= 0; --i) {
+				for (int j = 0; j < array.get(i).size(); ++j) {
+					if (i != array.get(i).size() - 1) {
+
+						 currNum = array.get(i).get(j);
+
+						 prevNum = array.get(i + 1).get(j);
+						array.get(i).set(j, (prevNum + currNum));
+						if (i == 1 && j == 0) {
+							array.get(i).set(j, (prevNum + currNum + 1));
+
+						}
+
+					}
+
+				}
+			}
+
+			print2DList(array);
+
+		} else if (direction == 4) { // Top to Bottom
+			for (int i = 0; i < array.size(); ++i) {
+				for (int j = 0; j < array.get(i).size(); ++j) {
+					if (i > 0 && j < array.get(i).size()) { // if J is not 0 last index and is less than all indexes
+						 prevNum = array.get(i).get(j);
+						 currNum = array.get(i - 1).get(j);
+						array.get(i).set(j, (prevNum + currNum));
+
+						if (i == 1 && j == 0) {
+							array.get(i).set(j, (prevNum + currNum + 1));
+						}
+
+					}
+				}
+			}
+			print2DList(array);
+		} else {
+			System.out.println("error");
+
+		}
+
+	}
+	public static void main(String[] args) {
+
+/* TEST CASES */
+		int[][] myArray = { { 10, 15, 30, 40 }, { 15, 5, 8, 2 }, { 20, 2, 4, 2 }, { 1, 4, 5, 0 } }; // Create 2D Array
+		ArrayList<Integer> singlelist = new ArrayList<Integer>(); 		// Create list 1 for 2DAL
+		singlelist.add(10);
+		singlelist.add(15);
+		singlelist.add(30);
+		singlelist.add(40);
+
+
+		ArrayList<Integer> singlelist2 = new ArrayList<Integer>(); 		// Create list 2 for 2DAL
+		singlelist2.add(14);
+		singlelist2.add(5);
+		singlelist2.add(8);
+		singlelist2.add(2);
+
+
+		ArrayList<Integer> singlelist3 = new ArrayList<Integer>(); 		// Create list 3 for 2DList
+		singlelist3.add(20);
+		singlelist3.add(2);
+		singlelist3.add(4);
+		singlelist3.add(2);
+
+
+		ArrayList<Integer> singlelist4 = new ArrayList<Integer>(); 		// Create List 4 for 2DAL
+		singlelist4.add(1);
+		singlelist4.add(4);
+		singlelist4.add(5);
+		singlelist4.add(0);
+
+
+		ArrayList<ArrayList<Integer>> array = new ArrayList<ArrayList<Integer>>(); 		// Add All List to 2D List
+		array.add(singlelist);
+		array.add(singlelist2);
+		array.add(singlelist3);
+		array.add(singlelist4);
+
+
+		
+
+		// Task 2
+		
+		//runningSum2DArray(myArray, 1); // Test 2D Sum Array
+		//runningSum2DArray(myArray, 2); 
+		//runningSum2DArray(myArray, 3); 
+		//runningSum2DArray(myArray, 2);
+		//runningSum2DArrayList(array, 1);
+		//runningSum2DArrayList(array, 2);
+		runningSum2DArrayList(array, 3);
+		System.out.println("test");
+		runningSum2DArrayList(array, 4);
+		
+
+
+		
+
+	}
+
+}
