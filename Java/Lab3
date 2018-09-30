@@ -54,9 +54,9 @@ public class Lab3 {
 
 			int sum = 0; // local sum
 
-			for (int i = 0; i < myArray.length; ++i) { // column
+			for (int i = 0; i < myArray.length; ++i) { // row
 
-				for (int j = 0; j < myArray[i].length; ++j) {// row <->
+				for (int j = 0; j < myArray[i].length; ++j) {// col <->
 
 					if (j > 0 && j < myArray[i].length) { // if J is not 0 last index and is less than all indexes
 
@@ -69,6 +69,8 @@ public class Lab3 {
 				}
 
 				System.out.println(" ");
+				
+				 
 
 			}
 
@@ -80,58 +82,50 @@ public class Lab3 {
 
 			int sum = 0; // local sum
 
-			
-			//Print
-			for (int i = 0; i < myArray.length; ++i) { // column
-				
-				for(int counter=myArray.length-1; counter >= 1;counter--){
-						myArray[i][counter]+= myArray[i][counter-1];
-					
-				}
-				
-				for (int j = 0; j < myArray[i].length; ++j) {// row <->
-						
-					if (j >4) { // if J is not 0 last index and is less than all indexes
+			for (int i = 0; i < myArray.length; ++i) { // row
 
-						myArray[i][j] +=myArray[j][i+1];
-						System.out.print(myArray[i][j] + " ");
+				for (int j = myArray[i].length-1; j >= 0; --j) {// col <->
+					if (j !=myArray[i].length-1 ) { // if J is not 0 last index and is less than all indexes
 
+						myArray[i][j] += (myArray[i][j +1]);
+					//	System.out.print(myArray[i][j] + " ");
 
 					}
-					System.out.print(myArray[i][j] + " ");
+					
+			//		if (j > 1) {
+					//}
+						//System.out.print(myArray[i][j] + " ");
+					}
+				//System.out.println(" ");
 
 				}
-
-				System.out.println(" ");
+			print2Darray(myArray);
 
 			}
 
-		}
+		
 
 		// 3 Running sum from Top to Bottom
 
 		else if (myInt == 3) {
 
+			int sum = 0; // local sum
 
-				int sum = 0; // local sum
+			for (int i = 0; i < myArray.length; ++i) { // column
 
-				for (int i = 0; i < myArray.length; ++i) { // column
+				for (int j = 0; j < myArray[i].length; ++j) {// row <->
 
-					for (int j = 0; j < myArray[i].length; ++j) {// row <->
+					if (i > 0 && j < myArray[i].length) { // if J is not 0 last index and is less than all indexes
 
-						if (i > 0 && j < myArray[i].length) { // if J is not 0 last index and is less than all indexes
-
-							myArray[i][j] += (myArray[i-1][j]);
-
-						}
-
-						System.out.print(myArray[i][j] + " ");
+						myArray[i][j] += (myArray[i - 1][j]);
 
 					}
 
-					System.out.println(" ");
+					System.out.print(myArray[i][j] + " ");
 
-				
+				}
+
+				System.out.println(" ");
 
 			}
 		}
@@ -140,27 +134,27 @@ public class Lab3 {
 
 		else if (myInt == 4) {
 
-				int sum = 0; // local sum
+			int sum = 0; // local sum
 
-				for (int i = 0; i < myArray.length; ++i) { // column
+			for (int i = myArray.length-1; i >= 0; --i) { // column
 
-					for (int j = 0; j < myArray[i].length; ++j) {// row <->
+				for (int j = 0; j < myArray[i].length; ++j) {// row <->
+					if (i !=myArray[i].length-1 ) {
+					// if J is not 0 last index and is less than all indexes
 
-						if (j > 0 && j < myArray[i].length) { // if J is not 0 last index and is less than all indexes
-
-							myArray[i][j] += (myArray[i][j - 1]);
-
-						}
-
-						System.out.print(myArray[i][j] + " ");
+						myArray[i][j] += (myArray[i+1][j]);
 
 					}
 
-					System.out.println(" ");
+					//System.out.print(myArray[i][j] + " ");
 
 				}
 
-			
+				//System.out.println(" ");
+			}
+			print2Darray(myArray);
+
+
 		} else {
 
 			System.out.println("Input not valid");
@@ -309,7 +303,7 @@ public class Lab3 {
 		/* Task 2 */
 
 		// runningSum2DArray(myArray, 1); // Test 2D Sum Array
-		runningSum2DArray(myArray, 2);
+		runningSum2DArray(myArray, 4);
 
 		/* Task 3 */
 
