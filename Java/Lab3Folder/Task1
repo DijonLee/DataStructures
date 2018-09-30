@@ -1,0 +1,77 @@
+import java.util.ArrayList;
+
+public class Task1 {
+	
+	
+	/* TASK ONE */
+
+	public static void print2Darray(int[][] myArray) { // Print 2D Array
+
+		for (int i = 0; i < myArray.length; i++) { // Row
+			for (int j = 0; j < myArray[i].length; j++) { // Col
+				System.out.print(myArray[i][j] + " ");
+			}
+			System.out.println(" ");
+		}
+	}
+
+	// Print Formatted 2D List
+
+	public static void print2DList(ArrayList<ArrayList<Integer>> array) {
+		for (ArrayList<Integer> alist : array) {
+			for (Integer elm : alist) {
+				System.out.print(elm + " ");
+			}
+			System.out.println("");
+		}
+	}
+	
+	public static void main(String[] args) {
+
+		/* Declare Array and Lists */
+
+		int[][] myArray = { { 10, 15, 30, 40 }, { 15, 5, 8, 2 }, { 20, 2, 4, 2 }, { 1, 4, 5, 0 } }; // Create 2D Array
+		ArrayList<Integer> singlelist = new ArrayList<Integer>(); 		// Create list 1 for 2DAL
+		singlelist.add(10);
+		singlelist.add(15);
+		singlelist.add(30);
+		singlelist.add(40);
+
+
+		ArrayList<Integer> singlelist2 = new ArrayList<Integer>(); 		// Create list 2 for 2DAL
+		singlelist2.add(14);
+		singlelist2.add(5);
+		singlelist2.add(8);
+		singlelist2.add(2);
+
+
+		ArrayList<Integer> singlelist3 = new ArrayList<Integer>(); 		// Create list 3 for 2DList
+		singlelist3.add(20);
+		singlelist3.add(2);
+		singlelist3.add(4);
+		singlelist3.add(2);
+
+
+		ArrayList<Integer> singlelist4 = new ArrayList<Integer>(); 		// Create List 4 for 2DAL
+		singlelist4.add(1);
+		singlelist4.add(4);
+		singlelist4.add(5);
+		singlelist4.add(0);
+
+
+		ArrayList<ArrayList<Integer>> array = new ArrayList<ArrayList<Integer>>(); 		// Add All List to 2D List
+		array.add(singlelist);
+		array.add(singlelist2);
+		array.add(singlelist3);
+		array.add(singlelist4);
+
+		/* TEST CASES */
+
+		
+	//	print2Darray(myArray); // Test Print 2D Array
+	//	print2DList(array);
+
+	
+
+	}
+}
