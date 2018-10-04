@@ -1,0 +1,11 @@
+package lAB4;
+
+enum type {
+	DNA, RNA
+}
+
+public class sequenceObj {
+	type myType;
+	int position;
+	LList mySequence;
+}
