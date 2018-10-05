@@ -1,4 +1,4 @@
-package lAB4;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,9 +23,10 @@ public class Main {
 			// If line is not empty //
 			String[] instructionLine = new String[1];
 			instructionLine = line.split(" ");
-				System.out.print(instructionLine[0]);
-				instruction(instructionLine[0],instructionLine[1],instructionLine[2]);
-				Arrays.fill(instructionLine, null);
+				System.out.println(Arrays.toString(instructionLine));
+				
+				//instruction(instructionLine[0],instructionLine[1],instructionLine[2]);
+				//Arrays.fill(instructionLine, null);
 			
 
 			}
