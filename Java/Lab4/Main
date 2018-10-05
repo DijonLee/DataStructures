@@ -1,113 +1,83 @@
 
+
 import java.io.File;
+
 import java.io.FileNotFoundException;
+
 import java.util.Arrays;
+
 import java.util.NoSuchElementException;
+
 import java.util.Scanner;
 
+
+
 public class Main {
+
 	static String[] instructionArray = new String[1];
+
+
 
 	public static void main(String[] args) throws FileNotFoundException {
 
+
+
 		readText(args[0], args[1]);
+
 	}
+
+
 
 	/* READ THE COMMAND FILE */
+
 	public static void readText(String arraySize, String filename)
+
 			throws /* FileNotFoundException, */NoSuchElementException, FileNotFoundException {
+
 		Scanner scan = new Scanner(new File(filename)); // scans all the tesxt
+
 		/* GET INSTRUCTION LINE BY LINE */
+
 		while (scan.hasNext() ) { //
+
 			String line = scan.nextLine(); // go line by line
 
+
+
 			// If line is not empty //
+
 			//String[] instructionLine = new String[1];
+
 			//System.out.println());
 
+
+
 			instructionArray = line.split(" ");
+
 			//System.out.println(Arrays.toString(instructionArray));
+
 			//System.out.println(line);
 
+
+
 			  String[] removedNull = Arrays.stream(			instructionArray)
+
 		                .filter(value ->
+
 		                        value != null && value.length() > 0
+
 		                )
+
 		                .toArray(size -> new String[size]);
+
 			// instruction(instructionLine[0],instructionLine[1],instructionLine[2]);
+
 			// Arrays.fill(instructionLine, null);
+
 				System.out.println(Arrays.toString(removedNull));
 
+
+
 			}
+
 		
-		
-		
-	//	System.out.println(instructionLine[0]);
-		/*int i = 0;
-		while (i<instructionLine.length) {
-			String command1 = instructionLine[i];
-			String command2 = instructionLine[i+1];
-			String command3 = instructionLine[i+2];
-			instruction(command1,command2,command3);
-			System.out.print("do");
-			//i+=3;
-		}
-		*/
-
-		}
-
-	
-
-	/* DO INSTRUCTION */
-	public static void instruction(String myCommand, String myCommand2, String... myCommand3) {
-		if (myCommand == "insert") {
-			System.out.print("test");
-			System.out.println("insertion");
-		} else if (myCommand == "print") {
-		} else if (myCommand == "copy") {
-		}
-
-		else if (myCommand == "transcribe") {
-		} else if (myCommand == " ") {
-		}
-
-		else {
-			System.out.println("invalid response");
-
-		}
-
-	}
-
-	public static void insertInstruction(int position, String type, String sequence) {
-	}
-
-	public static void printInstruction() {
-	}
-
-	public static void copyInstruction() {
-	}
-
-	public static void transcribeInstruction() {
-	}
-
-	// read each line
-
-	// if first word is insrrt,remove,print, clip then go to print
-	// else if " " skip
-	// else not a valid command
-}
-
-// imeplement sequences of linkeslist
-// store one letter of sequence in a node
-
-// maintain sequence array - stores various sequences
-
-// commands rfer to entries in the squence array
-
-// sequece array will store the sequnce type RNA or DNA
-// and have a pointer/ access to the linkedlist the stores the sequence
-
-// type field uses an enumerated var
-// also enum value to recognize the given position is unused
-
-//
