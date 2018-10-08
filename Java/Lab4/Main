@@ -1,5 +1,4 @@
 
-
 import java.io.File;
 
 import java.io.FileNotFoundException;
@@ -10,23 +9,17 @@ import java.util.NoSuchElementException;
 
 import java.util.Scanner;
 
-
-
 public class Main {
 
 	static String[] instructionArray = new String[1];
 
-
-
 	public static void main(String[] args) throws FileNotFoundException {
-
-
+		int arraySize = Integer.parseInt(args[0]);
 
 		readText(args[0], args[1]);
-
+		LList llist = new LList(); // Create linkedlist
+		sequenceObj[] sequenceArr = new sequenceObj[arraySize]; // Create Sequence Array
 	}
-
-
 
 	/* READ THE COMMAND FILE */
 
@@ -38,47 +31,95 @@ public class Main {
 
 		/* GET INSTRUCTION LINE BY LINE */
 
-		while (scan.hasNext() ) { //
+		while (scan.hasNext()) { //
 
 			String line = scan.nextLine(); // go line by line
 
-
-
 			// If line is not empty //
 
-			//String[] instructionLine = new String[1];
+			// String[] instructionLine = new String[1];
 
-			//System.out.println());
-
-
+			// System.out.println());
 
 			instructionArray = line.split(" ");
 
-			//System.out.println(Arrays.toString(instructionArray));
+			// System.out.println(Arrays.toString(instructionArray));
 
-			//System.out.println(line);
+			// System.out.println(line);
 
+			String[] removedNull = Arrays.stream(instructionArray)
 
+					.filter(value ->
 
-			  String[] removedNull = Arrays.stream(			instructionArray)
+					value != null && value.length() > 0
 
-		                .filter(value ->
+					)
 
-		                        value != null && value.length() > 0
-
-		                )
-
-		                .toArray(size -> new String[size]);
+					.toArray(size -> new String[size]);
 
 			// instruction(instructionLine[0],instructionLine[1],instructionLine[2]);
 
 			// Arrays.fill(instructionLine, null);
 
-				System.out.println(Arrays.toString(removedNull));
+			System.out.println(Arrays.toString(removedNull));
+			commandAction(removedNull);
 
+		}
 
+	}
+
+	public static void commandAction(String[] commandArr) {
+		if (commandArr.length == 0) {
+			// System.out.println("null entry");
+		}
+		/* INSERT OR CLIP */
+		else if (commandArr.length == 4) {
+			if (commandArr[0].equals("insert")) {
+				insertCommand(commandArr);
+			} else if (commandArr[0].equals("clip"))
+				;
+
+		}
+		/* COPY PRINTPOS */
+		else if (commandArr.length == 3) {
+
+			/* TRANSCRIBE, REMOVE OR */
+		} else if (commandArr.length == 2) {
+			if (commandArr[0].equals("transcribe")) {
 
 			}
 
-		
+		}
+
+		else if (commandArr.length == 1) {
+			if (commandArr[0].equals("print")) {
+				// System.out.println("print");
+			}
+		}
+	}
+
+	public static void insertCommand(String[] commandArr) {
+		// [insert, 2, DNA, AGG]
+		// Take in Position, Type, Sequence
+		sequenceObj myObj = new sequenceObj(commandArr[1], commandArr[2], commandArr[3]);
+		System.out.println("Printing my Object" + myObj.toString());
+	}
+
+	public static void transcribeCommand(String[] commandArr) {
+
+	}
+
+	public static void copyCommand() {
+
+	}
+
+	public static void clipCommand() {
+
+	}
+
+	public static void printCommand() {
+
+	}
+}
+
 // Updated
