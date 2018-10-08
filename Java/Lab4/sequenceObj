@@ -1,11 +1,42 @@
-package lAB4;
 
 enum type {
-	DNA, RNA
+	DNA, RNA;
 }
 
 public class sequenceObj {
 	type myType;
 	int position;
-	LList mySequence;
+	LList mySequence ; 
+	
+	
+	
+	
+	
+	public sequenceObj(String takeInPosition, String takeType, String takeSequence) {
+
+		if (takeType.equals("DNA")) {
+			 myType = type.DNA;
+
+		} else {
+			 myType = type.RNA;
+
+		}
+		 position = Integer.parseInt(takeInPosition);
+		 mySequence = new LList<String>();
+
+		String[] sequenceLink = takeSequence.split("");
+		for (int i = 0; i < sequenceLink.length; i++) {
+			mySequence.append(sequenceLink[i]);
+
+		}
+
+	}
+	@Override
+	public String toString(){
+		return (" type:" + myType + "position"+ position+ "LList" + mySequence);
+		
+		
+	}
+
+
 }
