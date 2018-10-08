@@ -15,7 +15,7 @@ public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		int arraySize = Integer.parseInt(args[0]);
-
+// Argument 1 = Array Size, Argument 2  = File
 		readText(args[0], args[1]);
 		LList llist = new LList(); // Create linkedlist
 		sequenceObj[] sequenceArr = new sequenceObj[arraySize]; // Create Sequence Array
@@ -102,7 +102,9 @@ public class Main {
 		// [insert, 2, DNA, AGG]
 		// Take in Position, Type, Sequence
 		sequenceObj myObj = new sequenceObj(commandArr[1], commandArr[2], commandArr[3]);
-		System.out.println("Printing my Object" + myObj.toString());
+		System.out.println("" + myObj.toString());
+		myObj.printSequence();
+
 	}
 
 	public static void transcribeCommand(String[] commandArr) {
