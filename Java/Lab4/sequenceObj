@@ -30,11 +30,19 @@ public class sequenceObj {
 
 		}
 
+
 	}
 	@Override
 	public String toString(){
-		return (" type:" + myType + "position"+ position+ "LList" + mySequence);
+		//mySequence.print();	
+		return (" type:" + myType + "\n position: "+ position+ "\n LList:");
 		
+		
+	}
+	public void printSequence() {
+		mySequence.print();
+
+		// TODO Auto-generated method stub
 		
 	}
 
