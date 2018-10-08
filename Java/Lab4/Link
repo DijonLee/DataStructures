@@ -29,4 +29,9 @@ public class Link<E> {
 	E setElement(E it) {
 		return element = it;
 	}
+
+	public char[] getValue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
