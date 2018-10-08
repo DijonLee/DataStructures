@@ -66,7 +66,13 @@ public class LList<E> implements List<E> {
 
 	
 	public void print() {
-		curr = tail;
+		
+		while (curr !=null) {
+			//System.out.println("PRINTING LINKEDLIST");
+			
+			System.out.print(curr.element());
+			curr = curr.next();
+	}
 	}
 	/** Move curr one step left; no change if now at front */
 	public void prev() {
