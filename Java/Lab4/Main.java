@@ -135,9 +135,8 @@ public class Main {
 	}
 
 	public static void printPosCommand(String[] commandArr) {
-		int position = Integer.parseInt(commandArr[1]) - 1;
-
-		System.out.println("Print Position" + commandArr[position]); // PRINT COMMANDS
+		int position = Integer.parseInt(commandArr[1]);
+		//System.out.println("Print Position" + commandArr[position]); // PRINT COMMANDS
 
 		/*
 		 * // CREATE A LINKEDLIST SEQUENCE String[] sequenceLink =
