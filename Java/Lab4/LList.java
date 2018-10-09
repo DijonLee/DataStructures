@@ -67,17 +67,21 @@ public class LList<E> implements List<E> {
 	public void print() {
 		String result = "";
 		while (curr.next() != null) {
-			// System.out.println("PRINTING LINKEDLIST");
 			curr = curr.next();
 			result += curr.element() + ",";
-
-			// System.out.print(curr.next());
-
 		}
-		 System.out.print(result);
+		System.out.print(result);
 
-		System.out.print("List:" + result);
-		System.out.println();
+	}
+
+	public String getasString() {
+		String result = "";
+		while (curr.next() != null) {
+			curr = curr.next();
+			result += curr.element() + ",";
+		}
+		return result;
+
 	}
 
 	/** Move curr one step left; no change if now at front */
