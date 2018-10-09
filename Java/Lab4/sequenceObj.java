@@ -1,13 +1,9 @@
 
-
 public class sequenceObj {
-	
-	
 
-enum type {
-	DNA, RNA;
-}
-
+	enum type {
+		DNA, RNA;
+	}
 
 	type myType;
 	int position;
@@ -29,32 +25,28 @@ enum type {
 		String[] sequenceLink = takeSequence.split("");
 		for (int i = 0; i < sequenceLink.length; i++) {
 			// System.out.println(sequenceLink[i]);
-			mySequence.insert(sequenceLink[i]);
-			//System.out.println(sequenceLink[i]);
+			mySequence.append(sequenceLink[i]);
+			// System.out.println(sequenceLink[i]);
 
 		}
-	//	System.out.println("INNER SEQUENCE");
-	//	mySequence.print();
-
-	}
-
-	@Override
-	public String toString() {
+		// System.out.println("INNER SEQUENCE");
 		// mySequence.print();
-		return ("\n  type:" + myType + "    position: " + position  + " List:" +mySequence+ " \n");
 
 	}
 
-	public void printSequence() {
-		//System.out.println("PRINTING MY SEQUENCE");
-	//	mySequence.print();
-
-		// TODO Auto-generated method stub
-
-	}
 	
+	/* PRINT ALL SEQUENCES */
+	public String mytoString() {
+		mySequence.print();		
+	//	String seqString = mySequence.();
+		return (" " /*+ myType + " " + position*/ );
+
+	}
+
+	
+
 	public void PrintPos() {
-		
+
 	}
 
 }
