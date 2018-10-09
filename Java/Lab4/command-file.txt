@@ -1,0 +1,39 @@
+insert 2 DNA AGG
+insert 3   DNA  CUP
+
+print
+print   2
+
+remove 2
+print
+
+insert 1  RNA ACCGA
+
+copy 0 1
+print
+
+  copy   1 0
+print
+
+clip  1 2 4
+print
+
+insert 4 RNA      AACCAA
+            clip 4 4 1
+print
+
+insert 5 RNA CAAAAC
+
+print
+
+insert 3 RNA AAAC
+print
+
+print
+
+
+insert 3 DNA CAAGT
+print
+              
+transcribe 3
+print 3
