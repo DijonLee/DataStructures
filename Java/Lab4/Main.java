@@ -56,39 +56,52 @@ public class Main {
 		else if (commandArr.length == 4) {
 			if (commandArr[0].equals("insert")) {
 				insertCommand(commandArr);
-			} else if (commandArr[0].equals("clip"))
-				;
+			} else if (commandArr[0].equals("clip")) {
+
+			}
+
 		}
-		/* COPY PRINTPOS */
+		/* COPY TRANSCRIBE */
 		else if (commandArr.length == 3) {
 			if (commandArr[0].equals("copy")) {
+				copyCommand(commandArr);
 
 				/* TRANSCRIBE, REMOVE OR PRINT POS */
 			} else if (commandArr.length == 2) {
 				if (commandArr[0].equals("transcribe")) {
+					transcribeCommand(commandArr);
 
-				} else if (commandArr[0].equals("remove")) {
+				} else if (commandArr[0].equals("XXXXXXXXXXX")) {
 					removeCommand(commandArr);
 
 				}
 
 			}
 		}
-
+		/* PRINT POS */
 		else if (commandArr.length == 2) {
 
 			if (commandArr[0].equals("print")) {
 				printPosCommand(commandArr);
-			} else {
+			} else if (commandArr[0].equals("remove")) {
+				removeCommand(commandArr);
+			}
+
+			else {
 				System.out.print("");
 			}
 		}
-
+		/* PRINT */
 		else if (commandArr.length == 1) {
 			if (commandArr[0].equals("print")) {
 				for (int i = 0; i < arraySize; i++) {
 					if (sequenceArr[i] != null) {
-						System.out.println(sequenceArr[i]);
+
+						sequenceArr[i].mySequence.print();
+						System.out.print(" " + sequenceArr[i].position);
+						System.out.print(" " + sequenceArr[i].myType);
+
+						System.out.println("");
 
 					}
 
@@ -102,9 +115,9 @@ public class Main {
 		// [insert, 2, DNA, AGG]
 		// Take in Position, Type, Sequence
 		sequenceObj myObj = new sequenceObj(commandArr[1], commandArr[2], commandArr[3]);
-		int position = (Integer.parseInt(commandArr[1]) - 1);
+		int position = (Integer.parseInt(commandArr[1]));
 		// System.out.println("" + myObj.toString());
-		myObj.printSequence();
+		// myObj.printSequence();
 
 		// INSERT INTO ARRAY POSITION
 		sequenceArr[position] = myObj;
@@ -114,8 +127,9 @@ public class Main {
 	public static void transcribeCommand(String[] commandArr) {
 		int position = Integer.parseInt(commandArr[1]);
 		/* NULL ERR */
-		if ( sequenceArr[position] == null) {
-			
+		if (sequenceArr[position] == null) {
+			System.out.println("CANNOT TRANSCRIBE RNA ON NULL");
+
 		}
 		/* TRAMSCRIBE DNA TO RNA */
 
@@ -126,17 +140,19 @@ public class Main {
 
 		else if (sequenceArr[position].myType == sequenceObj.type.RNA) {
 
-			System.out.println("Error cannot transcribe on RNA sequence");
-			
+			System.out.println("CANNOT TRANSCRIBE RNA ON RNA");
+
 		}
-		
-		
-		
+
 	}
 
 	public static void printPosCommand(String[] commandArr) {
-		int position = Integer.parseInt(commandArr[1]);
-		//System.out.println("Print Position" + commandArr[position]); // PRINT COMMANDS
+		// int position = Integer.parseInt(commandArr[1]);
+		// System.out.println(sequenceArr[position].mySequence.toString());
+
+		// sequenceArr[position].mySequence.print();
+		// System.out.println("Print Position" + commandArr[position]); // PRINT
+		// COMMANDS
 
 		/*
 		 * // CREATE A LINKEDLIST SEQUENCE String[] sequenceLink =
@@ -151,6 +167,7 @@ public class Main {
 	// REMOVE POS
 	public static void removeCommand(String[] commandArr) {
 		int position = Integer.parseInt(commandArr[1]);
+		System.out.println("REMOVING POSITION" + position);
 		sequenceArr[position] = null;
 
 	}
@@ -163,15 +180,11 @@ public class Main {
 		if (sequenceArr[position1] != null) {
 			sequenceArr[position2] = sequenceArr[position1];
 		} else {
-			System.out.println("Unable to copy null");
+			System.out.println("UNABLE TO COPY ON NULL");
 		}
 	}
 
 	public static void clipCommand() {
-
-	}
-
-	public static void printCommand(sequenceObj[] sequenceArr, int arraySize) {
 
 	}
 
