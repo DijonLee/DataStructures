@@ -1,9 +1,14 @@
 
+
+public class sequenceObj {
+	
+	
+
 enum type {
 	DNA, RNA;
 }
 
-public class sequenceObj {
+
 	type myType;
 	int position;
 	LList<String> mySequence = new LList<String>();
@@ -41,11 +46,15 @@ public class sequenceObj {
 	}
 
 	public void printSequence() {
-		System.out.println("PRINTING MY SEQUENCE");
-		mySequence.print();
+		//System.out.println("PRINTING MY SEQUENCE");
+	//	mySequence.print();
 
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void PrintPos() {
+		
 	}
 
 }
