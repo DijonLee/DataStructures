@@ -34,27 +34,23 @@ public class Main {
 
 		Scanner scan = new Scanner(new File(filename)); // scans all the tesxt
 
-
 		while (scan.hasNext()) { // GET INSTRUCTION LINE BY LINE */
 			String line = scan.nextLine(); // go line by line
 			instructionArray = line.split(" ");
-			String[] removedNull = Arrays.stream(instructionArray)
-					.filter(value ->
-					value != null && value.length() > 0
-					)
+			String[] removedNull = Arrays.stream(instructionArray).filter(value -> value != null && value.length() > 0)
 					.toArray(size -> new String[size]);
 
-		System.out.println(Arrays.toString(removedNull)); // PRINT COMMANDS
+			System.out.println(Arrays.toString(removedNull)); // PRINT COMMANDS
 			commandAction(removedNull); // DETERMINE COMMAND
 
 		}
 
 	}
- 
+
 	/* DETERMINE COMMAND */
-	
+
 	public static void commandAction(String[] commandArr) {
-		if (commandArr.length == 0) { 			// System.out.println("null entry");
+		if (commandArr.length == 0) { // System.out.println("null entry");
 		}
 		/* INSERT OR CLIP */
 		else if (commandArr.length == 4) {
@@ -75,11 +71,16 @@ public class Main {
 					removeCommand(commandArr);
 
 				}
-			} else if (commandArr[0].equals("print")) {
+
+			}
+		}
+
+		else if (commandArr.length == 2) {
+
+			if (commandArr[0].equals("print")) {
 				printPosCommand(commandArr);
-				
-					
-				
+			} else {
+				System.out.print("");
 			}
 		}
 
@@ -103,7 +104,7 @@ public class Main {
 		sequenceObj myObj = new sequenceObj(commandArr[1], commandArr[2], commandArr[3]);
 		int position = (Integer.parseInt(commandArr[1]) - 1);
 		// System.out.println("" + myObj.toString());
-		 myObj.printSequence();
+		myObj.printSequence();
 
 		// INSERT INTO ARRAY POSITION
 		sequenceArr[position] = myObj;
@@ -111,24 +112,43 @@ public class Main {
 	}
 
 	public static void transcribeCommand(String[] commandArr) {
+		int position = Integer.parseInt(commandArr[1]);
+		/* NULL ERR */
+		if ( sequenceArr[position] == null) {
+			
+		}
+		/* TRAMSCRIBE DNA TO RNA */
 
+		else if (sequenceArr[position].myType == sequenceObj.type.DNA) {
+
+		}
+		/* RNA TO RNA ERR */
+
+		else if (sequenceArr[position].myType == sequenceObj.type.RNA) {
+
+			System.out.println("Error cannot transcribe on RNA sequence");
+			
+		}
+		
+		
+		
 	}
 
 	public static void printPosCommand(String[] commandArr) {
-		int position = Integer.parseInt(commandArr[1]);
-		
-		System.out.println(commandArr[position]); // PRINT COMMANDS
+		int position = Integer.parseInt(commandArr[1]) - 1;
 
-/*
-		// CREATE A LINKEDLIST SEQUENCE
-		String[] sequenceLink = takeSequence.split("");
-		for (int i = 0; i < sequenceLink.length; i++) {
-			mySequence.insert(sequenceLink[i]);
+		System.out.println("Print Position" + commandArr[position]); // PRINT COMMANDS
 
-		}
-		*/
+		/*
+		 * // CREATE A LINKEDLIST SEQUENCE String[] sequenceLink =
+		 * takeSequence.split(""); for (int i = 0; i < sequenceLink.length; i++) {
+		 * mySequence.insert(sequenceLink[i]);
+		 * 
+		 * }
+		 */
 
 	}
+
 	// REMOVE POS
 	public static void removeCommand(String[] commandArr) {
 		int position = Integer.parseInt(commandArr[1]);
@@ -136,8 +156,16 @@ public class Main {
 
 	}
 
-	public static void copyCommand() {
+	public static void copyCommand(String[] commandArr) {
+		/* Copy Seq in Pos1 to Pos 2 */
+		int position1 = Integer.parseInt(commandArr[1]);
+		int position2 = Integer.parseInt(commandArr[2]);
 
+		if (sequenceArr[position1] != null) {
+			sequenceArr[position2] = sequenceArr[position1];
+		} else {
+			System.out.println("Unable to copy null");
+		}
 	}
 
 	public static void clipCommand() {
