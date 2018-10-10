@@ -1,328 +1,393 @@
-import java.sql.Array;
+package my.proj;
 
-import java.util.ArrayList;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
-import java.util.Iterator;
+import java.util.Random;
 
-public class Lab3 {
+import java.util.Scanner;
 
-	/* Task 1 */
+public class Project {
 
-	// Print 2D Array
+	/* VARIABLES */
 
-	public static void print2Darray(int[][] myArray) {
+	static int[][] board = new int[4][4]; // array board
 
-		for (int i = 0; i < myArray.length; i++) {
-
-			for (int j = 0; j < myArray[i].length; j++) {
-
-				System.out.print(myArray[i][j] + " ");
-
-			}
-
-			System.out.println(" ");
-
-		}
-
-	}
-
-	// Print Formatted 2D List
-
-	public static void print2DList(ArrayList<ArrayList<Integer>> array) {
-
-		for (ArrayList<Integer> alist : array) {
-
-			for (Integer elm : alist) {
-
-				System.out.print(elm + " ");
-
-			}
-
-			System.out.println("");
-
-		}
-
-	}
-
-	/* Task 2 */
-
-	public static void runningSum2DArray(int[][] myArray, int myInt) {
-
-		// 1 - Running sum from Left to Right
-
-		if (myInt == 1) {
-
-			int sum = 0; // local sum
-
-			for (int i = 0; i < myArray.length; ++i) { // column
-
-				for (int j = 0; j < myArray[i].length; ++j) {// row <->
-
-					if (j > 0 && j < myArray[i].length) { // if J is not 0 last index and is less than all indexes
-
-						myArray[i][j] += (myArray[i][j - 1]);
-
-					}
-
-					System.out.print(myArray[i][j] + " ");
-
-				}
-
-				System.out.println(" ");
-
-			}
-
-		}
-
-		// Not working RIGHT TO LEFT
-
-		else if (myInt == 2) {
-
-			int sum = 0; // local sum
-
-			
-			
-			
-			//Print
-			for (int i = 0; i < myArray.length; ++i) { // column
-				
-				for(int counter=myArray.length-1; counter >= 1;counter--){
-						myArray[i][counter]+= myArray[i][counter-1];
-					
-				}
-				
-				for (int j = 0; j < myArray[i].length; ++j) {// row <->
-						
-					if (j >4) { // if J is not 0 last index and is less than all indexes
-
-						myArray[i][j] +=myArray[j][i+1];
-						System.out.print(myArray[i][j] + " ");
-
-
-					}
-					System.out.print(myArray[i][j] + " ");
-
-				}
-
-				System.out.println(" ");
-
-			}
-
-		}
-
-		// 3 Running sum from Top to Bottom
-
-		else if (myInt == 3) {
-
-
-				int sum = 0; // local sum
-
-				for (int i = 0; i < myArray.length; ++i) { // column
-
-					for (int j = 0; j < myArray[i].length; ++j) {// row <->
-
-						if (i > 0 && j < myArray[i].length) { // if J is not 0 last index and is less than all indexes
-
-							myArray[i][j] += (myArray[i-1][j]);
-
-						}
-
-						System.out.print(myArray[i][j] + " ");
-
-					}
-
-					System.out.println(" ");
-
-				
-
-			}
-		}
-
-		// Running Sum from Bottom to Top BROKEN
-
-		else if (myInt == 4) {
-
-				int sum = 0; // local sum
-
-				for (int i = 0; i < myArray.length; ++i) { // column
-
-					for (int j = 0; j < myArray[i].length; ++j) {// row <->
-
-						if (j > 0 && j < myArray[i].length) { // if J is not 0 last index and is less than all indexes
-
-							myArray[i][j] += (myArray[i][j - 1]);
-
-						}
-
-						System.out.print(myArray[i][j] + " ");
-
-					}
-
-					System.out.println(" ");
-
-				}
-
-			
-		} else {
-
-			System.out.println("Input not valid");
-
-		}
-
-	}
-
-	/* Task 3 Iterate over an ArrayList */
-
-	// Using basic while/ for loop
-
-	public static void printArrayListBasicLoop(ArrayList<Integer> al) {
-
-		for (int i = 0; i < al.size(); i++) {
-
-			Integer elm = al.get(i);
-
-			System.out.println(elm);
-
-		}
-
-	}
-
-	// Using enhanced for loop(:)
-
-	public static void printArrayListEnhancedLoop(ArrayList<Integer> al) {
-
-		for (Integer elm : al) {
-
-			System.out.println(elm);
-
-		}
-
-	}
-
-	// Using basic for loop with iterator
-
-	public static void printArrayListForLoopListIterator(ArrayList<Integer> al) {
-
-		Iterator<Integer> it = al.iterator();
-
-		it.hasNext();
-
-		{
-
-			Integer elm = it.next();
-
-			System.out.println(elm);
-
-		}
-
-	}
-
-	// Using basic while loop with iterator
-
-	public static void printArrayListWhileLoopListIterator(ArrayList<Integer> al) {
-
-		Iterator<Integer> it = al.iterator();
-
-		while (it.hasNext()) {
-
-			Integer elm = it.next();
-
-			System.out.println(elm);
-
-		}
-
-	}
-
+	static boolean isNotFull;
+	static boolean confirmationYN;
 	public static void main(String[] args) {
 
-		/* Declare Array and Lists */
+		/* RUNTIME VARIABLES */
 
-		int[][] myArray = { { 10, 15, 30, 40 }, { 15, 5, 8, 2 }, { 20, 2, 4, 2 }, { 1, 4, 5, 0 } };
+		// Scanner for input, boolean for running game
 
-		// Create list 1 for 2DAL
+		System.out.println("Game Start");
+		
+		doRandom();
+		doRandom();
+		printArr();
 
-		ArrayList<Integer> singlelist = new ArrayList<Integer>();
+		Scanner sc = new Scanner(System.in);
 
-		singlelist.add(10);
+		String input;
 
-		singlelist.add(15);
+		boolean quit = false;
 
-		singlelist.add(30);
+		while ((quit != true)) {
 
-		singlelist.add(40);
+			input = sc.nextLine();
 
-		// Create list 2 for 2DAL
+			// IF YOU PRESS W GO TO
 
-		ArrayList<Integer> singlelist2 = new ArrayList<Integer>();
+			if (input.equals("s")) {
+				System.out.println("s");
 
-		singlelist2.add(14);
+				pressS();
 
-		singlelist2.add(5);
+			} else if (input.equals("a")) {
+				System.out.println("a");
+				pressA();
 
-		singlelist2.add(8);
+			} else if (input.equals("w")) {
+				System.out.println("w");
 
-		singlelist2.add(2);
+				pressW();
 
-		// CreateLlist 3 for 2DList
+			} else if (input.equals("d")) {
+				System.out.println("d");
 
-		ArrayList<Integer> singlelist3 = new ArrayList<Integer>();
 
-		singlelist3.add(20);
+				pressD();
 
-		singlelist3.add(2);
+				// quit if input == q
 
-		singlelist3.add(4);
+			} else if (input.equals("q")) {
+				System.out.println("q");
 
-		singlelist3.add(2);
+				System.out.println("Quit");
+				confirmation();
 
-		// Create List 4 for 2DAL
+				if (confirmationYN) {
 
-		ArrayList<Integer> singlelist4 = new ArrayList<Integer>();
-		//
+					quit = true;
 
-		singlelist4.add(1);
+				}
+				printArr();
 
-		singlelist4.add(4);
+			} else if (input.equals("r")) {
 
-		singlelist4.add(5);
+				confirmation();
 
-		singlelist4.add(0);
+				if (confirmationYN) {
 
-		// Add all list to 2D Array List
+					for (int row = 0; row < board.length; ++row) {
 
-		ArrayList<ArrayList<Integer>> array = new ArrayList<ArrayList<Integer>>();
+						for (int col = 0; col < board[row].length; ++col) {
+							board[row][col] = 0;
 
-		array.add(singlelist);
+						}
+					}
+					System.out.println("Restart");
 
-		array.add(singlelist2);
+				}
 
-		array.add(singlelist3);
+				printArr();
+			
+// RESTART - NEW GAME
 
-		array.add(singlelist4);
-
-		/* TEST CASES */
-
-		/* Task 1 */
-
-		// print2Darray(myArray); // Test Print 2D Array
-
-		// print2DList(array);
-
-		/* Task 2 */
-
-		// runningSum2DArray(myArray, 1); // Test 2D Sum Array
-		runningSum2DArray(myArray, 2);
-
-		/* Task 3 */
-
-		// printArrayListBasicLoop(singlelist);
-
-		// printArrayListEnhancedLoop(singlelist);
-
-		// printArrayListForLoopListIterator(singlelist);
-
-		// printArrayListWhileLoopListIterator(singlelist);
+		}
+		else {
+			System.out.println("invalid command");
+		}
+		}
 
 	}
 
+	
+	public static void confirmation() {
+		Scanner scanCon = new Scanner(System.in);
+
+		System.out.println("Are you sure you wanna restart? input y/n");
+		String confirmation = scanCon.nextLine();
+
+		if (confirmation.equals("y")) {
+			confirmationYN = true;
+		} else if (confirmation.equals("n")) {
+			confirmationYN = false;
+		} else {
+			System.out.println("Try again");
+
+			return;
+
+		}
+
+	}
+	
+	public static void pressS() {
+
+		// Bottom to top See Lab 3
+		for (int row = board.length - 1; row >= 0; --row) {
+			for (int col = 0; col < board[row].length; ++col) {
+				if (row != board[row].length - 1) {
+					// If they are equal add together
+					if (board[row][col] == board[row + 1][col]) {
+						board[row][col] += board[row + 1][col];
+						board[row + 1][col] = 0;
+
+					}
+					// If Empty space above
+					if (board[row][col] != 0 && board[row + 1][col] == 0) {
+						board[row + 1][col] = board[row][col];
+						board[row][col] = 0;
+
+					}
+				}
+
+				// If there is a match
+
+				// if( !((board[row][col]) && (board[row][col] == board[row-1][col])) {
+
+				// System.out.println("match");
+
+			}
+
+		}
+
+		// if row 4 can go up do math
+
+		// if row 3 can go up do math
+
+		// if row two = row 1 numbers do math
+
+		//
+
+		//
+
+		checkFull(); // Put Random number on board
+
+		printArr(); // Disp results
+
+		// break;
+
+		// else {
+
+	}
+
+	// }
+
+	// }
+	// Not working
+	public static void pressD() {
+		for (int row = 0; row < board.length; ++row) {
+			for (int col = board[row].length - 1; col >= 0; --col) {
+				if (col != board[row].length - 1) {
+					if (board[row][col] == board[row][col + 1]) {
+						board[row][col] += board[row][col + 1];
+						board[row][col + 1] = 0;
+						// If empty space to the right
+
+					}
+					if (board[row][col] != 0 && board[row][col + 1] == 0) {
+						board[row][col + 1] = board[row][col];
+						board[row][col] = 0;
+					}
+				}
+			}
+		}
+		checkFull(); // Put Random number on board
+
+		printArr();
+
+	}
+
+	public static void pressW() {
+		for (int row = 0; row < board.length; ++row) {
+			for (int col = 0; col < board[row].length; ++col) {
+				if (row > 0 && col < board[row].length) {
+					if (board[row][col] == board[row - 1][col]) {
+						board[row - 1][col] += board[row][col];
+						board[row][col] = 0;
+					}
+//					 If Empty space below
+					if (board[row][col] != 0 && board[row - 1][col] == 0) {
+						board[row - 1][col] = board[row][col];
+						board[row][col] = 0;
+					}
+					
+					//rpw 3 not 0
+					if (board[3][col] != 0 && board[2][col] == 0 && board[1][col] == 0 && board[0][col] == 0) {
+						board[0][col] = board[3][col];
+						board[3][col] = 0;
+					}
+					
+					//row 3 not 0 and row 0 not 0
+					if (board[3][col] != 0 && board[2][col] == 0 && board[1][col] == 0 && board[0][col] != 0) {
+						board[1][col] = board[3][col];
+						board[3][col] = 0;
+					}
+					
+					
+					//row 2 not 0
+					if (board[3][col] == 0 && board[2][col] != 0 && board[1][col] == 0 && board[0][col] == 0) {
+						board[0][col] = board[2][col];
+						board[2][col] = 0;
+					}
+					
+					//adding
+					if (board[row][col] == board[row - 1][col]) {
+						board[row - 1][col] += board[row][col];
+						board[row][col] = 0;
+					}
+					
+					if (board[2][col] == board[1][col]) {
+						board[1][col] += board[2][col];
+						board[2][col] = 0;
+					}
+					if (board[1][col] == board[0][col]) {
+						board[0][col] += board[1][col];
+						board[1][col] = 0;
+					}
+				}
+
+			}
+
+		}
+		checkFull(); // Put Random number on board
+		
+		printArr();
+	}
+	// possibly fixed
+	public static void pressA() {
+
+		for (int row = 0; row < board.length; ++row) {
+			for (int col = 0; col < board[row].length; ++col) {
+
+				if (col > 0 && col < (board[row].length)) {
+
+					// ensure no break
+					if (board[row][col] == board[row][col - 1]) { // match on left?
+						board[row][col] += board[row][col - 1];
+						board[row][col - 1] = 0;
+						// If empty space to the left
+											
+					}
+					
+					if (board[row][3] != 0 && board[row][2] == 0 && board[row][1] == 0 && board[row][0] == 0) {
+						board[row][0] = board[row][3];
+						board[row][3] = 0;						
+					}
+					if (board[row][3] != 0 && board[row][2] == 0 && board[row][1] == 0 && board[row][0] != 0) {
+						board[row][1] = board[row][3];
+						board[row][3] = 0;						
+					}
+					if (board[row][3] == 0 && board[row][2] != 0 && board[row][1] == 0 && board[row][0] == 0) {
+						board[row][0] = board[row][2];
+						board[row][2] = 0;
+					}
+					if (board[row][col] != 0 && board[row][col - 1] == 0) {
+						board[row][col - 1] = board[row][col];
+						board[row][col] = 0;
+					}
+					
+					if (board[row][col] == board[row][col - 1]) { // match on left?
+						board[row][col - 1] += board[row][col];
+						board[row][col] = 0;
+						// If empty space to the left
+											
+					}
+					if (board[row][2] == board[row][1]) { // match on left?
+						board[row][1] += board[row][2];
+						board[row][2] = 0;
+						// If empty space to the left
+					}
+				}
+			}
+
+		}
+		checkFull();
+		printArr();
+	}
+
+	public static void doRandom() {
+
+		// Create random x and y to select
+
+		Random random = new Random();
+
+		int min = 0;
+
+		int max = 3;
+
+		int index = random.nextInt(4);
+
+		int arrIndex = random.nextInt(4);
+
+		int randomNum = new Random().nextDouble() < 0.8 ? 2 : 4; // Random number with 80 chance 2 rest 4
+
+		// Check if board is full
+		// If the random index already selected is full try again
+
+		if (board[arrIndex][index] != 0) {
+
+			// System.out.println("Trying again");
+
+			doRandom();
+
+		} else {
+
+			// Else Assign Value to random index
+
+			board[arrIndex][index] = randomNum;
+
+		}
+
+	}
+
+	/* Print the Board */
+
+	public static void printArr() {
+
+		for (int[] row : board) {
+
+			for (int item : row) {
+
+				System.out.printf("%4d", item);
+
+			}
+
+			System.out.println();
+
+		}
+
+		System.out.println();
+
+	}
+
+	public static boolean checkFull() {
+
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board[row].length; col++) {
+				if (board[row][col] == 0) {
+					doRandom();
+
+					return true;
+
+				}
+			}
+
+		}
+		return false;
+
+		/*
+		 * public static void getRidEmpty(String deleteDir) {
+		 * 
+		 * 
+		 * if(deleteDir == "l") { for (int row = 0; row <board.length;++row) { for (int
+		 * col =0; col <board[row].length;++col) { if ( )
+		 * 
+		 * } }
+		 * 
+		 * } }
+		 */
+	}
 }
