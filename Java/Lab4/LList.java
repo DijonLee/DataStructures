@@ -65,16 +65,23 @@ public class LList<E> implements List<E> {
 	}
 
 	public void print() {
-		String result= " ";
+		String result = " ";
 
 		Link<E> temp = head.next();
 		while (temp != null) {
-			result +=temp.element();
+			result += temp.element();
 			temp = temp.next();
 		}
 		System.out.print(result);
 
-
+	}
+	
+	public void transcribe() {
+		Link<E> temp = head.next();
+		while (temp != null) {
+			if ()
+		}
+		
 	}
 
 	/** Move curr one step left; no change if now at front */
