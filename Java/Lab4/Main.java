@@ -171,8 +171,8 @@ public class Main {
 	}
 
 	public static void printPosCommand(String[] commandArr) {
-		// int position = Integer.parseInt(commandArr[1]);
-		// System.out.println(sequenceArr[position].mySequence.toString());
+		 int position = Integer.parseInt(commandArr[1]);
+		 System.out.println(sequenceArr[position].mySequence.toString());
 
 		// sequenceArr[position].mySequence.print();
 		// System.out.println("Print Position" + commandArr[position]); // PRINT
