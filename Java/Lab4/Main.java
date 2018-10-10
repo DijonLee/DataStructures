@@ -14,7 +14,7 @@ public class Main {
 	static String[] instructionArray = new String[1];
 	static sequenceObj[] sequenceArr;
 	static int arraySize;
-
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		arraySize = Integer.parseInt(args[0]);
 		// Argument 1 = Array Size, Argument 2 = File
@@ -91,24 +91,48 @@ public class Main {
 				System.out.print("");
 			}
 		}
-		/* PRINT */
+		/* PRINT ALL SEQUENCES */
 		else if (commandArr.length == 1) {
 			if (commandArr[0].equals("print")) {
-				for (int i = 0; i < arraySize; i++) {
-					if (sequenceArr[i] != null) {
 
-						sequenceArr[i].mySequence.print();
-						System.out.print(" " + sequenceArr[i].position);
-						System.out.print(" " + sequenceArr[i].myType);
+				printCommand(sequenceArr);
 
-						System.out.println("");
+			}
+			/*
+			 * for (int i = 0; i < arraySize; i++) { if (sequenceArr[i] != null) {
+			 * 
+			 * 
+			 * System.out.print(sequenceArr[i].mytoString()); System.out.print(" " +
+			 * sequenceArr[i].position); System.out.print(" " + sequenceArr[i].myType);
+			 * 
+			 * 
+			 * System.out.println("");
+			 * 
+			 * }
+			 * 
+			 * // System.out.println(Arrays.toString(sequenceArr)); }
+			 */
+		}
+	}
 
-					}
+	public static void printCommand(sequenceObj[] sequenceArr2) {
+		// TODO Auto-generated method stub
 
-					// System.out.println(Arrays.toString(sequenceArr));
-				}
+		for (int i = 0; i < arraySize; i++) {
+			if (sequenceArr[i] != null) {
+//				 System.out.print(sequenceArr[i].mySequence.myGetString() + " ");
+				System.out.print(sequenceArr[i].myGetString());
+				 System.out.print(sequenceArr[i].myType + " ");
+				 System.out.print(sequenceArr[i].position + "\n");
+				// System.out.print(sequenceArr[i].mySequence.toS + "\n");
+				// System.out.println(sequenceArr[i].myGetString());
+
+				// System.out.println(sequenceArr[i]);
+				// System.out.println("Debug");
+
 			}
 		}
+
 	}
 
 	public static void insertCommand(String[] commandArr) {
@@ -164,7 +188,7 @@ public class Main {
 
 	}
 
-	// REMOVE POS
+	// REMOVE POS WORKING
 	public static void removeCommand(String[] commandArr) {
 		int position = Integer.parseInt(commandArr[1]);
 		System.out.println("REMOVING POSITION" + position);
@@ -172,6 +196,7 @@ public class Main {
 
 	}
 
+	// COPY WORKING
 	public static void copyCommand(String[] commandArr) {
 		/* Copy Seq in Pos1 to Pos 2 */
 		int position1 = Integer.parseInt(commandArr[1]);
@@ -184,6 +209,7 @@ public class Main {
 		}
 	}
 
+	// CLIP TBD
 	public static void clipCommand() {
 
 	}
