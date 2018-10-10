@@ -1,219 +1,256 @@
 
-import java.io.File;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
-import java.io.FileNotFoundException;
+/** Linked list implementation */
+public class LList<E> implements List<E> {
+	private Link<E> head; // Pointer to list header
+	private Link<E> tail; // Pointer to last element
+	protected Link<E> curr; // Access to current element
+	private int cnt; // Size of list
 
-import java.util.Arrays;
+	/** Constructors */
+	LList(int size) {
+		this();
+	} // Constructor -- Ignore size
 
-import java.util.NoSuchElementException;
+	LList() {
+		curr = tail = head = new Link<E>(null); // Create header
+		cnt = 0;
+	}
 
-import java.util.Scanner;
+	/** Remove all elements */
+	public void clear() {
+		head.setNext(null); // Drop access to links
+		curr = tail = head = new Link<E>(null); // Create header
+		cnt = 0;
+	}
 
-public class Main {
+	/** Insert "it" at current position */
+	public void insert(E it) {
+		curr.setNext(new Link<E>(it, curr.next()));
+		if (tail == curr)
+			tail = curr.next(); // New tail
+		cnt++;
+	}
 
-	static String[] instructionArray = new String[1];
-	static sequenceObj[] sequenceArr;
-	static int arraySize;
-	
-	public static void main(String[] args) throws FileNotFoundException {
-		arraySize = Integer.parseInt(args[0]);
-		// Argument 1 = Array Size, Argument 2 = File
-		sequenceArr = new sequenceObj[arraySize]; // Create Sequence Array
-		LList llist = new LList(); // Create linkedlist
+	/** Append "it" to list */
+	public void append(E it) {
+		tail = tail.setNext(new Link<E>(it, null));
+		cnt++;
+	}
 
-		readText(args[0], args[1]);
-		System.out.println("CURRENT SEQUENCE ARRAY");
+	/** Remove and return current element */
+	public E remove() {
+		if (curr.next() == null)
+			return null; // Nothing to remove
+		E it = curr.next().element(); // Remember value
+		if (tail == curr.next())
+			tail = curr; // Removed last
+		curr.setNext(curr.next().next()); // Remove from list
+		cnt--; // Decrement count
+		return it; // Return value
+	}
+
+	/** Set curr at list start */
+	public void moveToStart() {
+		curr = head;
+	}
+
+	/** Set curr at list end */
+	public void moveToEnd() {
+		curr = tail;
+	}
+
+	public void print() {
+		Link<E> temp = head;
+		String result= " ";
+		while (temp != null) {
+			result +=temp.element();
+			temp = temp.next();
+		}
+		System.out.print(result);
+
 
 	}
 
-	/* READ THE COMMAND FILE */
-
-	public static void readText(String arraySize, String filename)
-
-			throws /* FileNotFoundException, */NoSuchElementException, FileNotFoundException {
-
-		Scanner scan = new Scanner(new File(filename)); // scans all the tesxt
-
-		while (scan.hasNext()) { // GET INSTRUCTION LINE BY LINE */
-			String line = scan.nextLine(); // go line by line
-			instructionArray = line.split(" ");
-			String[] removedNull = Arrays.stream(instructionArray).filter(value -> value != null && value.length() > 0)
-					.toArray(size -> new String[size]);
-
-			System.out.println(Arrays.toString(removedNull)); // PRINT COMMANDS
-			commandAction(removedNull); // DETERMINE COMMAND
-
-		}
-
+	/** Move curr one step left; no change if now at front */
+	public void prev() {
+		if (curr == head)
+			return; // No previous element
+		Link<E> temp = head;
+		// March down list until we find the previous element
+		while (temp.next() != curr)
+			temp = temp.next();
+		curr = temp;
 	}
 
-	/* DETERMINE COMMAND */
-
-	public static void commandAction(String[] commandArr) {
-		if (commandArr.length == 0) { // System.out.println("null entry");
-		}
-		/* INSERT OR CLIP */
-		else if (commandArr.length == 4) {
-			if (commandArr[0].equals("insert")) {
-				insertCommand(commandArr);
-			} else if (commandArr[0].equals("clip")) {
-
-			}
-
-		}
-		/* COPY TRANSCRIBE */
-		else if (commandArr.length == 3) {
-			if (commandArr[0].equals("copy")) {
-				copyCommand(commandArr);
-
-				/* TRANSCRIBE, REMOVE OR PRINT POS */
-			} else if (commandArr.length == 2) {
-				if (commandArr[0].equals("transcribe")) {
-					transcribeCommand(commandArr);
-
-				} else if (commandArr[0].equals("XXXXXXXXXXX")) {
-					removeCommand(commandArr);
-
-				}
-
-			}
-		}
-		/* PRINT POS */
-		else if (commandArr.length == 2) {
-
-			if (commandArr[0].equals("print")) {
-				printPosCommand(commandArr);
-			} else if (commandArr[0].equals("remove")) {
-				removeCommand(commandArr);
-			}
-
-			else {
-				System.out.print("");
-			}
-		}
-		/* PRINT ALL SEQUENCES */
-		else if (commandArr.length == 1) {
-			if (commandArr[0].equals("print")) {
-
-				printCommand(sequenceArr);
-
-			}
-			/*
-			 * for (int i = 0; i < arraySize; i++) { if (sequenceArr[i] != null) {
-			 * 
-			 * 
-			 * System.out.print(sequenceArr[i].mytoString()); System.out.print(" " +
-			 * sequenceArr[i].position); System.out.print(" " + sequenceArr[i].myType);
-			 * 
-			 * 
-			 * System.out.println("");
-			 * 
-			 * }
-			 * 
-			 * // System.out.println(Arrays.toString(sequenceArr)); }
-			 */
-		}
+	/** Move curr one step right; no change if now at end */
+	public void next() {
+		if (curr != tail)
+			curr = curr.next();
 	}
 
-	public static void printCommand(sequenceObj[] sequenceArr2) {
+	/** @return List length */
+	public int length() {
+		return cnt;
+	}
+
+	/** @return The position of the current element */
+	public int currPos() {
+		Link<E> temp = head;
+		int i;
+		for (i = 0; curr != temp; i++)
+			temp = temp.next();
+		return i;
+	}
+
+	/** Move down list to "pos" position */
+	public void moveToPos(int pos) {
+		assert (pos >= 0) && (pos <= cnt) : "Position out of range";
+		curr = head;
+		for (int i = 0; i < pos; i++)
+			curr = curr.next();
+	}
+
+	/** @return Current element value */
+	public E getValue() {
+		if (curr.next() == null)
+			return null;
+		return curr.next().element();
+	}
+
+	@Override
+	public boolean add(E e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void add(int index, E element) {
 		// TODO Auto-generated method stub
 
-		for (int i = 0; i < arraySize; i++) {
-			if (sequenceArr[i] != null) {
-//				 System.out.print(sequenceArr[i].mySequence.myGetString() + " ");
-				System.out.print(sequenceArr[i].myGetString());
-				 System.out.print(sequenceArr[i].myType + " ");
-				 System.out.print(sequenceArr[i].position + "\n");
-				// System.out.print(sequenceArr[i].mySequence.toS + "\n");
-				// System.out.println(sequenceArr[i].myGetString());
-
-				// System.out.println(sequenceArr[i]);
-				// System.out.println("Debug");
-
-			}
-		}
-
 	}
 
-	public static void insertCommand(String[] commandArr) {
-		// [insert, 2, DNA, AGG]
-		// Take in Position, Type, Sequence
-		sequenceObj myObj = new sequenceObj(commandArr[1], commandArr[2], commandArr[3]);
-		int position = (Integer.parseInt(commandArr[1]));
-		// System.out.println("" + myObj.toString());
-		// myObj.printSequence();
-
-		// INSERT INTO ARRAY POSITION
-		sequenceArr[position] = myObj;
-
+	@Override
+	public boolean addAll(Collection<? extends E> c) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	public static void transcribeCommand(String[] commandArr) {
-		int position = Integer.parseInt(commandArr[1]);
-		/* NULL ERR */
-		if (sequenceArr[position] == null) {
-			System.out.println("CANNOT TRANSCRIBE RNA ON NULL");
-
-		}
-		/* TRAMSCRIBE DNA TO RNA */
-
-		else if (sequenceArr[position].myType == sequenceObj.type.DNA) {
-
-		}
-		/* RNA TO RNA ERR */
-
-		else if (sequenceArr[position].myType == sequenceObj.type.RNA) {
-
-			System.out.println("CANNOT TRANSCRIBE RNA ON RNA");
-
-		}
-
+	@Override
+	public boolean addAll(int index, Collection<? extends E> c) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	public static void printPosCommand(String[] commandArr) {
-		// int position = Integer.parseInt(commandArr[1]);
-		// System.out.println(sequenceArr[position].mySequence.toString());
-
-		// sequenceArr[position].mySequence.print();
-		// System.out.println("Print Position" + commandArr[position]); // PRINT
-		// COMMANDS
-
-		/*
-		 * // CREATE A LINKEDLIST SEQUENCE String[] sequenceLink =
-		 * takeSequence.split(""); for (int i = 0; i < sequenceLink.length; i++) {
-		 * mySequence.insert(sequenceLink[i]);
-		 * 
-		 * }
-		 */
-
+	@Override
+	public boolean contains(Object o) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	// REMOVE POS WORKING
-	public static void removeCommand(String[] commandArr) {
-		int position = Integer.parseInt(commandArr[1]);
-		System.out.println("REMOVING POSITION" + position);
-		sequenceArr[position] = null;
-
+	@Override
+	public boolean containsAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	// COPY WORKING
-	public static void copyCommand(String[] commandArr) {
-		/* Copy Seq in Pos1 to Pos 2 */
-		int position1 = Integer.parseInt(commandArr[1]);
-		int position2 = Integer.parseInt(commandArr[2]);
-
-		if (sequenceArr[position1] != null) {
-			sequenceArr[position2] = sequenceArr[position1];
-		} else {
-			System.out.println("UNABLE TO COPY ON NULL");
-		}
+	@Override
+	public E get(int index) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	// CLIP TBD
-	public static void clipCommand() {
-
+	@Override
+	public int indexOf(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Iterator<E> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int lastIndexOf(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ListIterator<E> listIterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ListIterator<E> listIterator(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean remove(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public E remove(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean removeAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean retainAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public E set(int index, E element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int size() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<E> subList(int fromIndex, int toIndex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object[] toArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T[] toArray(T[] a) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
-
-// Updated
