@@ -11,6 +11,9 @@ public class Project {
 	/* VARIABLES */
 
 	static int[][] board = new int[4][4]; // array board
+	static int[][] prevBoard = new int[4][4];
+	static int[][] nextBoard = new int [4][4];
+
 	static int validMoves = 0;
 	static boolean isNotFull;
 	static boolean confirmationYN;
@@ -26,7 +29,14 @@ public class Project {
 
 		doRandom();
 		doRandom();
+
 		printArr();
+		// INTIALIZES PREV BOAR DTO BOARD //
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				prevBoard[i][j] = board[i][j];
+			}
+		}
 
 		Scanner sc = new Scanner(System.in);
 
@@ -98,27 +108,61 @@ public class Project {
 			}
 		}
 
+		/*
+		 * if (java.util.Arrays.deepEquals(board, prevBoard)) {
+		 * System.out.println("equal");
+		 * 
+		 * } else { validMoves++; prevBoard = board;
+		 * 
+		 * }
+		 * 
+		 * }
+		 * 
+		 */
 	}
 
-	public static void confirmation() {
-		Scanner scanCon = new Scanner(System.in);
+	public static boolean isValid(int[][] arr1, int[][] arr2) {
+		for (int i = 0; i < arr1.length; i++) {
+			for (int j = 0; j < arr1[i].length; j++) {
+				if (arr1[i][j] != arr2[i][j]) {
+					validMoves += 1;
+					copyBoard();
 
-		System.out.println("Are you sure you wanna restart? input y/n");
-		String confirmation = scanCon.nextLine();
+				}
+			}
 
-		if (confirmation.equals("y")) {
-			confirmationYN = true;
-		} else if (confirmation.equals("n")) {
-			confirmationYN = false;
-		} else {
-			System.out.println("Try again");
-
-			return;
+			return false;
 
 		}
 
-	}
+		return true;
 
+	}
+/*
+ * 
+ * 
+ * private boolean checkLoss() {
+        int[][] before = deepCopy(board);
+        boolean leftChange = true;
+        updateBoard(KeyEvent.VK_LEFT, false);
+        if (Arrays.deepEquals(before, board)) leftChange = false;
+        board = before;
+        boolean upChange = true;
+        updateBoard(KeyEvent.VK_UP, false);
+        if (Arrays.deepEquals(before, board)) upChange = false;
+        board = before;
+        boolean rightChange = true;
+        updateBoard(KeyEvent.VK_RIGHT, false);
+        if (Arrays.deepEquals(before, board)) rightChange = false;
+        board = before;
+        boolean downChange = true;
+        updateBoard(KeyEvent.VK_DOWN, false);
+        if (Arrays.deepEquals(before, board)) downChange = false;
+        board = before;
+        if (leftChange || upChange || rightChange || downChange) return false;
+        return true;
+    }
+ */
 	public static void pressS() {
 
 		// Bottom to top See Lab 3
@@ -176,33 +220,13 @@ public class Project {
 			}
 
 		}
-		validMoves++;
 
 		checkFull(); // Put Random number on board
-
+		isValid(prevBoard, board);
 		printArr();
 
 	}
 
-	// if row 4 can go up do math
-
-	// if row 3 can go up do math
-
-	// if row two = row 1 numbers do math
-
-	//
-
-	//
-
-	// Disp results
-
-	// break;
-
-	// else {
-
-	// }
-
-	// }
 	public static void pressD() {
 		for (int row = 0; row < board.length; row++) {
 			int count = 0;
@@ -259,9 +283,9 @@ public class Project {
 			}
 
 		}
-		validMoves++;
 
 		checkFull(); // Put Random number on board
+		isValid(prevBoard, board);
 
 		printArr();
 
@@ -307,9 +331,10 @@ public class Project {
 				}
 			}
 		}
-		validMoves++;
 
 		checkFull();
+		isValid(prevBoard, board);
+
 		printArr();
 	}
 
@@ -365,9 +390,10 @@ public class Project {
 			}
 
 		}
-		validMoves++;
 
 		checkFull();
+		isValid(prevBoard, board);
+
 		printArr();
 	}
 
@@ -425,38 +451,56 @@ public class Project {
 		System.out.println();
 		System.out.println(validMoves);
 
-
 	}
 
 	public static boolean checkFull() {
-
+		//IS BOARD IS FULL 
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board[row].length; col++) {
 				if (board[row][col] == 0) {
 					doRandom();
-
-					return true;
+					return true; // BOARD IS NOT NOT FULL
 
 				}
 			}
 
 		}
+		
+		// IF YOU CANNOT MAKE ANY MORE MATCHES
 		System.out.print("Game Over");
-		System.out.print("Valid Moves:" + validMoves);
+		System.out.println("Valid Moves:" + validMoves);
 		quit = true;
-
 		return false;
 
-		/*
-		 * public static void getRidEmpty(String deleteDir) {
-		 * 
-		 * 
-		 * if(deleteDir == "l") { for (int row = 0; row <board.length;++row) { for (int
-		 * col =0; col <board[row].length;++col) { if ( )
-		 * 
-		 * } }
-		 * 
-		 * } }
-		 */
 	}
+
+	public static void confirmation() {
+		Scanner scanCon = new Scanner(System.in);
+
+		System.out.println("Are you sure you wanna restart? input y/n");
+		String confirmation = scanCon.nextLine();
+
+		if (confirmation.equals("y")) {
+			confirmationYN = true;
+		} else if (confirmation.equals("n")) {
+			confirmationYN = false;
+		} else {
+			System.out.println("Try again");
+
+			return;
+
+		}
+
+	}
+
+	public static void copyBoard() {
+
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				prevBoard[i][j] = board[i][j];
+			}
+		}
+
+	}
+
 }
