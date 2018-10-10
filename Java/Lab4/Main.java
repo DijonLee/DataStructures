@@ -14,7 +14,7 @@ public class Main {
 	static String[] instructionArray = new String[1];
 	static sequenceObj[] sequenceArr;
 	static int arraySize;
-	
+
 	public static void main(String[] args) throws FileNotFoundException {
 		arraySize = Integer.parseInt(args[0]);
 		// Argument 1 = Array Size, Argument 2 = File
@@ -120,10 +120,10 @@ public class Main {
 
 		for (int i = 0; i < arraySize; i++) {
 			if (sequenceArr[i] != null) {
-//				 System.out.print(sequenceArr[i].mySequence.myGetString() + " ");
+				// System.out.print(sequenceArr[i].mySequence.myGetString() + " ");
 				sequenceArr[i].mySequence.print();
-				 System.out.print(" "+ sequenceArr[i].myType + " ");
-				 System.out.print(sequenceArr[i].position + "\n");
+				System.out.print(" " + sequenceArr[i].myType + " ");
+				System.out.print(sequenceArr[i].position + "\n");
 				// System.out.print(sequenceArr[i].mySequence.toS + "\n");
 				// System.out.println(sequenceArr[i].myGetString());
 
@@ -171,8 +171,11 @@ public class Main {
 	}
 
 	public static void printPosCommand(String[] commandArr) {
-		 int position = Integer.parseInt(commandArr[1]);
-		 System.out.println(sequenceArr[position].mySequence.toString());
+		int position = Integer.parseInt(commandArr[1]);
+		sequenceArr[position].mySequence.print();
+		System.out.print(" " + sequenceArr[position].myType + " ");
+		System.out.print(sequenceArr[position].position + "\n");
+		System.out.println();
 
 		// sequenceArr[position].mySequence.print();
 		// System.out.println("Print Position" + commandArr[position]); // PRINT
@@ -204,7 +207,9 @@ public class Main {
 
 		if (sequenceArr[position1] != null) {
 			sequenceArr[position2] = sequenceArr[position1];
-		} else {
+
+		sequenceArr[position2].position = position2;
+				} else {
 			System.out.println("UNABLE TO COPY ON NULL");
 		}
 	}
