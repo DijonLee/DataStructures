@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class sequenceObj {
 
@@ -34,18 +35,19 @@ public class sequenceObj {
 
 	}
 
-	
 	/* PRINT ALL SEQUENCES */
 	public String mytoString() {
-		mySequence.print();		
-	//	String seqString = mySequence.();
-		return (" " /*+ myType + " " + position*/ );
+		// mySequence.print();
+		// String seqString = mySequence.();
+		// myse.toString();
+		return ("\n " + myType + " " + position + mySequence.toString());
 
 	}
 
-	
-
-	public void PrintPos() {
+	public String myGetString() {
+//		String getasString = mySequence.getasString();
+		String getasString = mySequence.toString();
+		return getasString;
 
 	}
 
