@@ -123,100 +123,142 @@ public class Project {
 	public static void pressS() {
 
 		// Bottom to top See Lab 3
-		for (int row = board.length - 1; row >= 0; --row) {
-			for (int col = 0; col < board[row].length; ++col) {
-				if (row != board[row].length - 1) {
-					// If they are equal add together
-					if (board[row][col] == board[row + 1][col]) {
-						board[row][col] += board[row + 1][col];
-						board[row + 1][col] = 0;
+		for (int col = 0; col < board.length; col++) {
+			int count = 0;
 
-					}
-					// If Empty space above
-					if (board[row][col] != 0 && board[row + 1][col] == 0) {
-						board[row + 1][col] = board[row][col];
+			for (int row = board[col].length - 1; row >= 0; row--)
+
+			{
+				if (board[row][col] != 0) {
+					board[board.length - 1 - count][col] = board[row][col];
+					// empty the original tile position after tile is moved
+					if (board.length - 1 - count != row) {
 						board[row][col] = 0;
-
 					}
+					count++;
 				}
-
-				// If there is a match
-
-				// if( !((board[row][col]) && (board[row][col] == board[row-1][col])) {
-
-				// System.out.println("match");
 
 			}
 
 		}
 
-		// if row 4 can go up do math
+		for (int col = 0; col < board.length; col++) {
+			for (int row = board.length - 1; row > 0; row--) {
+				if (board[row][col] == board[row - 1][col])
+				// add the two tiles with the same value
+				{
+					board[row][col] += board[row - 1][col];
+					board[row - 1][col] = 0;
+					// update the score ONCE!
+					int sum = board[row][col];
+					// this.score+=sum;
 
-		// if row 3 can go up do math
+					break;
 
-		// if row two = row 1 numbers do math
+				}
+			}
+		}
 
-		//
+		// after adding two tiles, repeat the same first for loop
+		// in this method to move all the tiles to the bottom
+		for (int col = 0; col < board.length; col++) {
+			int count = 0;
 
-		//
+			for (int row = board.length - 1; row >= 0; row--)
 
+			{
+				if (board[row][col] != 0) {
+					board[board.length - 1 - count][col] = board[row][col];
+					// empty the original tile position after tile is moved
+					if (board.length - 1 - count != row) {
+						board[row][col] = 0;
+					}
+					count++;
+				}
+
+			}
+
+		}
 		checkFull(); // Put Random number on board
 
-		printArr(); // Disp results
-
-		// break;
-
-		// else {
+		printArr();
 
 	}
+
+	// if row 4 can go up do math
+
+	// if row 3 can go up do math
+
+	// if row two = row 1 numbers do math
+
+	//
+
+	//
+
+	// Disp results
+
+	// break;
+
+	// else {
 
 	// }
 
 	// }
 	public static void pressD() {
-		for (int row = 0; row < board.length; ++row) {
-			for (int col = board[row].length - 1; col >= 0; --col) {
-				if (col != board[row].length - 1) {
-					// adds them
+		for (int row = 0; row < board.length; row++) {
+			int count = 0;
 
-					// If empty space to the right
+			for (int col = board.length - 1; col >= 0; col--)
 
-					// row 0 and row 2
-					if (board[row][0] != 0 && board[row][1] == 0 & board[row][2] == 0
-							&& board[row][3] != board[row][0]) {
-						board[row][2] = board[row][0];
-						board[row][0] = 0;
-					}
-					// row 0 and row 3
-					if (board[row][0] != 0 && board[row][1] == 0 & board[row][2] == 0 && board[row][3] == 0) {
-						board[row][3] = board[row][0];
-						board[row][0] = 0;
-					}
-					// row 1 and row 3
-					if (board[row][1] != 0 & board[row][2] == 0 && board[row][3] == 0) {
-						board[row][3] = board[row][1];
-						board[row][1] = 0;
-					}
-
-					if (board[row][2] != 0 && board[row][3] == 0) {
-						board[row][3] = board[row][2];
-						board[row][2] = 0;
-					}
-
-					// ADDING
-
-					// moves them
-					// if (board[row][col] != 0 && board[row][col + 1] == 0) {
-					// board[row][col + 1] = board[row][col];
-					// board[row][col] = 0;
-					// }
-					if (board[row][col] == board[row][col + 1]) {
-						board[row][col + 1] += board[row][col];
+			{
+				if (board[row][col] != 0) {
+					board[row][board.length - 1 - count] = board[row][col];
+					// empty the original tile position after tile is moved
+					if (board.length - 1 - count != col) {
 						board[row][col] = 0;
 					}
+					count++;
 				}
 
 			}
+
+		}
+
+		for (int row = 0; row < board.length; row++) {
+			for (int col = board.length - 1; col > 0; col--) {
+				if (board[row][col] == board[row][col - 1])
+				// add the two tiles with the same value
+				{
+					board[row][col] += board[row][col - 1];
+					board[row][col - 1] = 0;
+					// update the score ONCE!
+					int sum = board[row][col];
+					// this.score += sum;
+
+					break;
+
+				}
+			}
+		}
+
+		// after adding two tiles, repeat the same first for loop
+		// in this method to move all the tiles to the right side
+		for (int row = 0; row < board.length; row++) {
+			int count = 0;
+
+			for (int col = board.length - 1; col >= 0; col--)
+
+			{
+				if (board[row][col] != 0) {
+					board[row][board.length - 1 - count] = board[row][col];
+					if (board.length - 1 - count != col) {
+						board[row][col] = 0;
+					}
+					count++;
+				}
+
+			}
+
 		}
 		checkFull(); // Put Random number on board
 
@@ -288,23 +330,23 @@ public class Project {
 
 			for (int col = 0; col < board[row].length; col++) {
 
-				if (board[row][col]!=0) {
+				if (board[row][col] != 0) {
 					board[row][0 + count] = board[row][col];
 
 					if (0 + count != col) {
-							board[row][col] = 0;
-						}
-						count++;
+						board[row][col] = 0;
 					}
+					count++;
 				}
-			
+			}
+
 		}
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board[row].length - 1; col++) {
 				if (board[row][col] == board[row][col + 1])
 				// add the two tiles with the same value
 				{
-					board[row][col]+=board[row][col+1];
+					board[row][col] += board[row][col + 1];
 					board[row][col + 1] = 0;
 					// update the score ONCE!
 					// int sum=board[row][col];
@@ -338,9 +380,6 @@ public class Project {
 		checkFull();
 		printArr();
 	}
-
-	
-	 
 
 	public static void doRandom() {
 
@@ -384,8 +423,11 @@ public class Project {
 		for (int[] row : board) {
 
 			for (int item : row) {
+				if (item == 0) {
+					System.out.printf("%4d", "*");
 
-				System.out.printf("%4d", item);
+				}
+					System.out.printf("%4d", item);
 
 			}
 
