@@ -11,9 +11,10 @@ public class Project {
 	/* VARIABLES */
 
 	static int[][] board = new int[4][4]; // array board
-
+	static int validMoves = 0;
 	static boolean isNotFull;
 	static boolean confirmationYN;
+	static boolean quit;
 
 	public static void main(String[] args) {
 
@@ -30,8 +31,6 @@ public class Project {
 		Scanner sc = new Scanner(System.in);
 
 		String input;
-
-		boolean quit = false;
 
 		while ((quit != true)) {
 
@@ -150,8 +149,6 @@ public class Project {
 					board[row][col] += board[row - 1][col];
 					board[row - 1][col] = 0;
 					// update the score ONCE!
-					int sum = board[row][col];
-					// this.score+=sum;
 
 					break;
 
@@ -179,6 +176,8 @@ public class Project {
 			}
 
 		}
+		validMoves++;
+
 		checkFull(); // Put Random number on board
 
 		printArr();
@@ -260,6 +259,8 @@ public class Project {
 			}
 
 		}
+		validMoves++;
+
 		checkFull(); // Put Random number on board
 
 		printArr();
@@ -267,58 +268,48 @@ public class Project {
 	}
 
 	public static void pressW() {
-		for (int row = 0; row < board.length; ++row) {
-			for (int col = 0; col < board[row].length; ++col) {
-				if (row > 0 && col < board[row].length) {
-					if (board[row][col] == board[row - 1][col]) {
-						board[row - 1][col] += board[row][col];
+
+		// use count tom ove the tiles to the top one by one
+		for (int col = 0; col < board.length; col++) {
+			int count = 0;
+			for (int row = 0; row < board.length; row++) {
+				if (board[row][col] != 0) {
+					board[0 + count][col] = board[row][col];
+					// empty the original tile position after tile is moved
+					if (0 + count != row) {
 						board[row][col] = 0;
 					}
-					// If Empty space below
-					if (board[row][col] != 0 && board[row - 1][col] == 0) {
-						board[row - 1][col] = board[row][col];
-						board[row][col] = 0;
-					}
-
-					// rpw 3 not 0
-					if (board[3][col] != 0 && board[2][col] == 0 && board[1][col] == 0 && board[0][col] == 0) {
-						board[0][col] = board[3][col];
-						board[3][col] = 0;
-					}
-
-					// row 3 not 0 and row 0 not 0
-					if (board[3][col] != 0 && board[2][col] == 0 && board[1][col] == 0 && board[0][col] != 0) {
-						board[1][col] = board[3][col];
-						board[3][col] = 0;
-					}
-
-					// row 2 not 0
-					if (board[3][col] == 0 && board[2][col] != 0 && board[1][col] == 0 && board[0][col] == 0) {
-						board[0][col] = board[2][col];
-						board[2][col] = 0;
-					}
-
-					// adding
-					if (board[row][col] == board[row - 1][col]) {
-						board[row - 1][col] += board[row][col];
-						board[row][col] = 0;
-					}
-
-					if (board[2][col] == board[1][col]) {
-						board[1][col] += board[2][col];
-						board[2][col] = 0;
-					}
-					if (board[1][col] == board[0][col]) {
-						board[0][col] += board[1][col];
-						board[1][col] = 0;
-					}
+					count++;
 				}
-
 			}
-
 		}
-		checkFull(); // Put Random number on board
+		for (int col = 0; col < board.length; col++) {
+			for (int row = 0; row < board.length - 1; row++) {
+				if (board[row][col] == board[row + 1][col]) {
+					// add the two tiles with the same value
+					board[row][col] += board[row + 1][col];
+					board[row + 1][col] = 0;
 
+					break;
+				}
+			}
+		}
+		for (int col = 0; col < board.length; col++) {
+			int count = 0;
+			for (int row = 0; row < board.length; row++) {
+				if (board[row][col] != 0) {
+					board[0 + count][col] = board[row][col];
+					// empty the original tile position after tile is moved
+					if (0 + count != row) {
+						board[row][col] = 0;
+					}
+					count++;
+				}
+			}
+		}
+		validMoves++;
+
+		checkFull();
 		printArr();
 	}
 
@@ -350,8 +341,6 @@ public class Project {
 					board[row][col + 1] = 0;
 					// update the score ONCE!
 					// int sum=board[row][col];
-					// score+=sum;
-
 					break;
 
 				}
@@ -376,6 +365,7 @@ public class Project {
 			}
 
 		}
+		validMoves++;
 
 		checkFull();
 		printArr();
@@ -423,11 +413,8 @@ public class Project {
 		for (int[] row : board) {
 
 			for (int item : row) {
-				if (item == 0) {
-					System.out.printf("%4d", "*");
 
-				}
-					System.out.printf("%4d", item);
+				System.out.printf("%4d", item);
 
 			}
 
@@ -436,6 +423,8 @@ public class Project {
 		}
 
 		System.out.println();
+		System.out.println(validMoves);
+
 
 	}
 
@@ -452,6 +441,10 @@ public class Project {
 			}
 
 		}
+		System.out.print("Game Over");
+		System.out.print("Valid Moves:" + validMoves);
+		quit = true;
+
 		return false;
 
 		/*
