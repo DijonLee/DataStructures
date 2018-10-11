@@ -71,8 +71,7 @@ public class Main {
 				if (commandArr[0].equals("transcribe")) {
 					transcribeCommand(commandArr);
 
-				} else if (commandArr[0].equals("XXXXXXXXXXX")) {
-					removeCommand(commandArr);
+				} else {
 
 				}
 
@@ -159,6 +158,11 @@ public class Main {
 
 		else if (sequenceArr[position].myType == sequenceObj.type.DNA) {
 
+			System.out.println("TRANSCRIBING SEQUENCE");
+			sequenceArr[position].mySequence.transcribe();
+			sequenceArr[position].myType = sequenceArr[position].myType.RNA;
+			sequenceArr[position].mySequence.print();
+
 		}
 		/* RNA TO RNA ERR */
 
@@ -208,8 +212,8 @@ public class Main {
 		if (sequenceArr[position1] != null) {
 			sequenceArr[position2] = sequenceArr[position1];
 
-		sequenceArr[position2].position = position2;
-				} else {
+			sequenceArr[position2].position = position2;
+		} else {
 			System.out.println("UNABLE TO COPY ON NULL");
 		}
 	}
