@@ -1,113 +1,96 @@
-import java.lang.reflect.Array;
+
+/*Jovan-Gianni Lee
+ * CSC 172
+ * 
+ * import java.lang.reflect.Array;
+ */
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Project {
 
-	/* GLOBAL VARIABLES */
+	/* BOARD VARIABLES */
 
 	static int[][] board = new int[4][4]; // array board
 	static int[][] prevBoard = new int[4][4];
 	static int[][] nextBoard = new int[4][4];
-
-	/* BOOLEAN VARIABLES CHECK VALID MOVES */
+	/* BOOLEAN VALID MOVES */
 	static boolean noLeft = true;
 	static boolean noRight = true;
 	static boolean noUp = true;
 	static boolean noDown = true;
-
 	static int validMoves = 0;
 	static boolean isNotFull;
+
+	/* QUIT AND RESTART */
 	static boolean confirmationYN;
 	static boolean quit;
 
 	public static void main(String[] args) {
-
-		/* Scanner for input, boolean for running game */
-
+		// Start Game
 		System.out.println("Game Start");
-
 		doRandom();
 		doRandom();
-
 		printArr();
-		// INTIALIZES PREV BOARD TO BOARD //
-
+		// Initialize Scanner
 		Scanner sc = new Scanner(System.in);
-
 		String input;
 
-		// ends game if there are no valid moves
+		// Game Loop
 		while ((quit != true)) {
 			if ((noLeft || noRight || noUp || noDown || checkFull()) != true) {
-
 				quit = true;
-
 			}
 
 			input = sc.nextLine();
 
 			/* Call Statement Depending on the Direction */
-			if (input.equals("s")) {
+
+			if (input.equals("s")) { // Input S = go Down
+
 				System.out.println("s");
 				pressS();
 
-			} else if (input.equals("a")) {
+			} else if (input.equals("a")) { // Input A = go Left
+
 				System.out.println("a");
 				pressA();
 
-			} else if (input.equals("w")) {
+			} else if (input.equals("w")) { // Input W = go Up
+
 				System.out.println("w");
 
 				pressW();
 
-			} else if (input.equals("d")) {
+			} else if (input.equals("d")) { // Input S = go Right
+
 				System.out.println("d");
-
 				pressD();
+			} else if (input.equals("q")) { // Input Q = Quit
 
-				// If User Input Quit
-			} else if (input.equals("q")) {
-				System.out.println("q");
 				System.out.println("Quit");
+				confirmation(); // Confirm Quit
 
-				// calls method to double confirm user wants to quit
-				confirmation();
-
-				// if yes, quit the game
-				if (confirmationYN) {
-
+				if (confirmationYN) { // Confirm Quit
 					quit = true;
-
 				}
-				refreshBoard();
+				refreshBoard(); // Refresh Board after every command
+				printArr();// Print Array after every command
 
-				printArr();
-
-			} else if (input.equals("r")) {
-
-				// calls method to double confirm user wants to restart
-				confirmation();
-
-				// if yes, reset the board
+			} else if (input.equals("r")) { // Input R = Restart
+				confirmation(); // Confirmation Restart
 				if (confirmationYN) {
-
 					for (int row = 0; row < board.length; ++row) {
-
 						for (int col = 0; col < board[row].length; ++col) {
 							board[row][col] = 0;
-
 						}
 					}
 					System.out.println("Restart");
 
 				}
 				refreshBoard();
-
 				printArr();
-
-				// RESTART - NEW GAME
 
 			} else {
 			}
@@ -118,13 +101,13 @@ public class Project {
 	public static boolean validUp() {
 		for (int col = 0; col < board.length; col++) { // col
 			for (int row = 0; row < board.length - 1; row++) { // row
-				if (board[row][col] == board[row + 1][col]) { // if there are matches
+				if (board[row][col] == board[row + 1][col]) { // if any open spaces
 					noUp = true; // valid moves
 					return true;
 				}
 			}
 		}
-		noUp = false; // invalid moves
+		noUp = false; // if no matches
 		return false;
 	}
 
@@ -132,27 +115,27 @@ public class Project {
 	public static boolean validDown() {
 		for (int col = 0; col < board.length; col++) { // col
 			for (int row = board.length - 1; row > 0; row--) { // row
-				if (board[row][col] == board[row - 1][col]) { // if there are matches
+				if (board[row][col] == board[row - 1][col]) { // if any open spaces
 					noDown = true; // valid moves
 					return true;
 				}
 			}
 		}
-		noDown = false; // invalid moves
+		noDown = false; // if no matches
 		return false;
 	}
 
 	/* CHECK IF ANY VALID MOVES RIGHT */
 	public static boolean validRight() {
-		for (int row = 0; row < board.length; row++) {
-			for (int col = board.length - 1; col > 0; col--) {
-				if (board[row][col] == board[row][col - 1]) {
+		for (int row = 0; row < board.length; row++) { // row
+			for (int col = board.length - 1; col > 0; col--) {// col
+				if (board[row][col] == board[row][col - 1]) {// if any open spaces
 					noRight = true;
 					return true;
 				}
 			}
 		}
-		noRight = false;
+		noRight = false; // if no matches
 		return false;
 	}
 
@@ -160,13 +143,13 @@ public class Project {
 	public static boolean validLeft() {
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board[row].length - 1; col++) {
-				if (board[row][col] == board[row][col + 1]) {
+				if (board[row][col] == board[row][col + 1]) {// if any open spaces
 					noLeft = true;
 					return true;
 				}
 			}
 		}
-		noLeft = false;
+		noLeft = false; // if no matches
 		return false;
 	}
 
@@ -175,21 +158,16 @@ public class Project {
 		for (int i = 0; i < arr1.length; i++) {
 			for (int j = 0; j < arr1[i].length; j++) {
 				boolean check1 = Arrays.deepEquals(arr1, arr2);
-
 				if ((arr1[i][j] != arr2[i][j]) || !(check1)) {
 					System.out.println("Board different");
 					validMoves += 1;
 					doRandom();
-
 					copyBoard();
-
 					System.out.println("That was a valid move");
 
 					break;
-					//
 
-				}
-				else { 
+				} else {
 				}
 			}
 			copyBoard();
@@ -201,13 +179,10 @@ public class Project {
 
 	/* PRESS S */
 	public static void pressS() {
-
 		for (int col = 0; col < board.length; col++) {
 			int count = 0;
 
-			for (int row = board[col].length - 1; row >= 0; row--)
-
-			{
+			for (int row = board[col].length - 1; row >= 0; row--) {
 				if (board[row][col] != 0) {
 					board[board.length - 1 - count][col] = board[row][col];
 					if (board.length - 1 - count != row) {
@@ -254,8 +229,8 @@ public class Project {
 		/* CHECK FULL, CHECK ANY VALID MOVES AVAIL, PRINT BOARD */
 		refreshBoard();
 
-		checkFull(); // random number on baord if not full
-		isValid(prevBoard, board);
+		checkFull(); // Check if Board full
+		isValid(prevBoard, board); // Check if we can do random
 		validUp();
 		validDown();
 		validRight();
@@ -275,7 +250,6 @@ public class Project {
 			{
 				if (board[row][col] != 0) {
 					board[row][board.length - 1 - count] = board[row][col];
-					// empty the original tile position after tile is moved
 					if (board.length - 1 - count != col) {
 						board[row][col] = 0;
 					}
@@ -317,8 +291,8 @@ public class Project {
 		/* CHECK FULL, CHECK ANY VALID MOVES AVAIL, PRINT BOARD */
 		refreshBoard();
 
-		checkFull(); // Put Random number on board
-		isValid(prevBoard, board);
+		checkFull(); // Check if Board full
+		isValid(prevBoard, board); // Check if we can do random
 		validUp();
 		validDown();
 		validRight();
@@ -370,8 +344,8 @@ public class Project {
 		/* CHECK FULL, CHECK ANY VALID MOVES AVAIL, PRINT BOARD */
 		refreshBoard();
 
-		checkFull();
-		isValid(prevBoard, board);
+		checkFull(); // Check if Board full
+		isValid(prevBoard, board); // Check if we can do random
 		validUp();
 		validDown();
 		validRight();
@@ -426,8 +400,8 @@ public class Project {
 		/* CHECK FULL, CHECK ANY VALID MOVES AVAIL, PRINT BOARD */
 		refreshBoard();
 
-		checkFull();
-		isValid(prevBoard, board);
+		checkFull(); // Check if Board full
+		isValid(prevBoard, board); // Check if we can do random
 		validUp();
 		validDown();
 		validRight();
@@ -533,18 +507,20 @@ public class Project {
 
 	}
 
+	/* GET MAX VALUE OF THE BOARD */
 	public static void maxValue() {
 		int maxValue = board[0][0];
-		for (int j = 0; j < board.length; j++) {
-			for (int i = 0; i < board[j].length; i++) {
-				if (board[j][i] > maxValue) {
-					maxValue = board[j][i];
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j] > maxValue) {
+					maxValue = board[i][j];
 				}
 			}
 		}
 		System.out.println("MAX: " + maxValue);
 	}
 
+	/* "CLEAR" CONSOLE */
 	public static void refreshBoard() {
 		System.out.println();
 		System.out.println();
