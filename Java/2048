@@ -33,7 +33,6 @@ public class Project {
 
 		printArr();
 		// INTIALIZES PREV BOARD TO BOARD //
-		
 
 		Scanner sc = new Scanner(System.in);
 
@@ -177,21 +176,20 @@ public class Project {
 			for (int j = 0; j < arr1[i].length; j++) {
 				boolean check1 = Arrays.deepEquals(arr1, arr2);
 
-				if ((arr1[i][j] != arr2[i][j] )|| !(check1)) {
+				if ((arr1[i][j] != arr2[i][j]) || !(check1)) {
 					System.out.println("Board different");
 					validMoves += 1;
 					doRandom();
 
 					copyBoard();
 
-
-
 					System.out.println("That was a valid move");
 
 					break;
 					//
 
-
+				}
+				else { 
 				}
 			}
 			copyBoard();
@@ -293,8 +291,6 @@ public class Project {
 				if (board[row][col] == board[row][col - 1]) {
 					board[row][col] += board[row][col - 1];
 					board[row][col - 1] = 0;
-					int sum = board[row][col];
-
 					break;
 
 				}
@@ -351,7 +347,6 @@ public class Project {
 		for (int col = 0; col < board.length; col++) {
 			for (int row = 0; row < board.length - 1; row++) {
 				if (board[row][col] == board[row + 1][col]) {
-					// add the two tiles with the same value
 					board[row][col] += board[row + 1][col];
 					board[row + 1][col] = 0;
 
@@ -493,7 +488,6 @@ public class Project {
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board[row].length; col++) {
 				if (board[row][col] == 0) {
-					// doRandom();
 					return true; // // board not fullL
 
 				}
