@@ -75,13 +75,33 @@ public class LList<E> implements List<E> {
 		System.out.print(result);
 
 	}
-	
+
 	public void transcribe() {
+
+		// T to U
+		// A to U
+		// C to G
 		Link<E> temp = head.next();
 		while (temp != null) {
-			if ()
+			if (temp.element().equals("T")) {
+				System.out.println("T to U");
+				temp.setElement((E) "U");
+			}
+
+			else if (temp.element().equals("A")) {
+				temp.setElement((E) "U");
+				System.out.println("A to U");
+
+			} else if (temp.element().equals("C")) {
+				System.out.println("C to G");
+
+				temp.setElement((E) "G");
+
+			}
+
+			temp = temp.next();
 		}
-		
+
 	}
 
 	/** Move curr one step left; no change if now at front */
@@ -93,6 +113,14 @@ public class LList<E> implements List<E> {
 		while (temp.next() != curr)
 			temp = temp.next();
 		curr = temp;
+	}
+
+	public void clip() {
+		Link<E> temp = head.next();
+		while (temp != null) {
+			temp = temp.next();
+		}
+
 	}
 
 	/** Move curr one step right; no change if now at end */
