@@ -33,11 +33,7 @@ public class Project {
 
 		printArr();
 		// INTIALIZES PREV BOARD TO BOARD //
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				prevBoard[i][j] = board[i][j];
-			}
-		}
+		
 
 		Scanner sc = new Scanner(System.in);
 
@@ -46,8 +42,6 @@ public class Project {
 		// ends game if there are no valid moves
 		while ((quit != true)) {
 			if ((noLeft || noRight || noUp || noDown || checkFull()) != true) {
-
-				
 
 				quit = true;
 
@@ -181,17 +175,29 @@ public class Project {
 	public static boolean isValid(int[][] arr1, int[][] arr2) {
 		for (int i = 0; i < arr1.length; i++) {
 			for (int j = 0; j < arr1[i].length; j++) {
-				if (arr1[i][j] != arr2[i][j]) {
+				boolean check1 = Arrays.deepEquals(arr1, arr2);
+
+				if ((arr1[i][j] != arr2[i][j] )|| !(check1)) {
+					System.out.println("Board different");
 					validMoves += 1;
-				//	normalMoves +=1;
+					doRandom();
+
 					copyBoard();
+
+
+
 					System.out.println("That was a valid move");
+
+					break;
+					//
+
 
 				}
 			}
+			copyBoard();
+
 			return false;
 		}
-
 		return true;
 	}
 
@@ -258,7 +264,6 @@ public class Project {
 		validLeft();
 		printArr();
 		maxValue();
-		
 
 	}
 
@@ -434,7 +439,9 @@ public class Project {
 		validLeft();
 		printArr();
 		maxValue();
-
+		if (prevBoard == board) {
+			System.out.println("Random");
+		}
 	}
 
 	/* CREATE RANDOM NUMBER */
@@ -476,7 +483,7 @@ public class Project {
 		}
 
 		System.out.println();
-		System.out.println("Valid Moves: "+validMoves);
+		System.out.println("Valid Moves: " + validMoves);
 
 	}
 
@@ -486,7 +493,7 @@ public class Project {
 		for (int row = 0; row < board.length; row++) {
 			for (int col = 0; col < board[row].length; col++) {
 				if (board[row][col] == 0) {
-					doRandom();
+					// doRandom();
 					return true; // // board not fullL
 
 				}
@@ -496,7 +503,7 @@ public class Project {
 
 		printArr(); // board full
 
-		System.out.println("Valid Moves: "+ validMoves);
+		System.out.println("Valid Moves: " + validMoves);
 		return false;
 
 	}
@@ -531,6 +538,7 @@ public class Project {
 		}
 
 	}
+
 	public static void maxValue() {
 		int maxValue = board[0][0];
 		for (int j = 0; j < board.length; j++) {
@@ -542,7 +550,7 @@ public class Project {
 		}
 		System.out.println("MAX: " + maxValue);
 	}
-	
+
 	public static void refreshBoard() {
 		System.out.println();
 		System.out.println();
@@ -557,7 +565,6 @@ public class Project {
 		System.out.println();
 		System.out.println();
 
-	
 	}
 
 }
