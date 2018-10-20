@@ -114,12 +114,35 @@ public class LList<E> implements List<E> {
 			temp = temp.next();
 		curr = temp;
 	}
+	/*
+	 * 
+	 * public E remove() { if (curr.next() == null) return null; // Nothing to
+	 * remove E it = curr.next().element(); // Remember value if (tail ==
+	 * curr.next()) tail = curr; // Removed last curr.setNext(curr.next().next());
+	 * // Remove from list cnt--; // Decrement count return it; // Return value }
+	 */
 
-	public void clip() {
-		Link<E> temp = head.next();
-		while (temp != null) {
-			temp = temp.next();
+	public E clip(int start, int end) {
+		int counter = 1;
+		Link<E> temp = head;
+		Link<E> myNext = head;
+		// If head is null do nothing
+		if (head == null) {
+			return null;
 		}
+
+		while (temp.next() != null) {
+
+			if (counter == start) {
+				head = temp;
+
+			} else {
+				counter++;
+				temp = temp.next();
+			}
+
+		}
+		return null;
 
 	}
 
