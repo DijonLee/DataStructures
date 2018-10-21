@@ -3,12 +3,12 @@ import java.util.Arrays;
 public class sequenceObj {
 
 	enum type {
-		DNA, RNA;
+		DNA, RNA, NONE;
 	}
 
 	type myType;
 	int position;
-	LList<String> mySequence = new LList<String>();
+	Node<String> mySequence = new Node<String>();
 
 	public sequenceObj(String takeInPosition, String takeType, String takeSequence) {
 		// SET DNA OR RNA
@@ -25,21 +25,14 @@ public class sequenceObj {
 		// CREATE A LINKEDLIST SEQUENCE
 		String[] sequenceLink = takeSequence.split("");
 		for (int i = 0; i < sequenceLink.length; i++) {
-			// System.out.println(sequenceLink[i]);
 			mySequence.append(sequenceLink[i]);
-			// System.out.println(sequenceLink[i]);
 
 		}
-		// System.out.println("INNER SEQUENCE");
-		// mySequence.print();
 
 	}
 
 	/* PRINT ALL SEQUENCES */
 	public String mytoString() {
-		// mySequence.print();
-		// String seqString = mySequence.();
-		// myse.toString();
 		return ("\n " + myType + " " + position + mySequence.toString());
 
 	}
