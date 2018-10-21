@@ -5,32 +5,32 @@ import java.util.List;
 import java.util.ListIterator;
 
 /** Linked list implementation */
-public class LList<E> implements List<E> {
-	private Link<E> head; // Pointer to list header
-	private Link<E> tail; // Pointer to last element
-	protected Link<E> curr; // Access to current element
+public class Node<E> implements List<E> {
+	private myList<E> head; // Pointer to list header
+	private myList<E> tail; // Pointer to last element
+	protected myList<E> curr; // Access to current element
 	private int cnt; // Size of list
 
 	/** Constructors */
-	LList(int size) {
+	Node(int size) {
 		this();
 	} // Constructor -- Ignore size
 
-	LList() {
-		curr = tail = head = new Link<E>(null); // Create header
+	Node() {
+		curr = tail = head = new myList<E>(null); // Create header
 		cnt = 0;
 	}
 
 	/** Remove all elements */
 	public void clear() {
 		head.setNext(null); // Drop access to links
-		curr = tail = head = new Link<E>(null); // Create header
+		curr = tail = head = new myList<E>(null); // Create header
 		cnt = 0;
 	}
 
 	/** Insert "it" at current position */
 	public void insert(E it) {
-		curr.setNext(new Link<E>(it, curr.next()));
+		curr.setNext(new myList<E>(it, curr.next()));
 		if (tail == curr)
 			tail = curr.next(); // New tail
 		cnt++;
@@ -38,7 +38,7 @@ public class LList<E> implements List<E> {
 
 	/** Append "it" to list */
 	public void append(E it) {
-		tail = tail.setNext(new Link<E>(it, null));
+		tail = tail.setNext(new myList<E>(it, null));
 		cnt++;
 	}
 
@@ -64,24 +64,33 @@ public class LList<E> implements List<E> {
 		curr = tail;
 	}
 
-	public void print() {
-		String result = " ";
+	/** Set print at list end */
 
-		Link<E> temp = head.next();
-		while (temp != null) {
+	public E  print() {
+		String result = " ";
+		myList<E> temp = head.next();
+		
+		if (head == null) {
+			return null;
+		}		while (temp != null) {
 			result += temp.element();
 			temp = temp.next();
 		}
+		
 		System.out.print(result);
+		return null;
 
 	}
 
+	/** Set transcribe at list end */
+
+	@SuppressWarnings("unchecked")
 	public void transcribe() {
 
 		// T to U
 		// A to U
 		// C to G
-		Link<E> temp = head.next();
+		myList<E> temp = head.next();
 		while (temp != null) {
 			if (temp.element().equals("T")) {
 				System.out.println("T to U");
@@ -108,37 +117,31 @@ public class LList<E> implements List<E> {
 	public void prev() {
 		if (curr == head)
 			return; // No previous element
-		Link<E> temp = head;
+		myList<E> temp = head;
 		// March down list until we find the previous element
 		while (temp.next() != curr)
 			temp = temp.next();
 		curr = temp;
 	}
-	/*
-	 * 
-	 * public E remove() { if (curr.next() == null) return null; // Nothing to
-	 * remove E it = curr.next().element(); // Remember value if (tail ==
-	 * curr.next()) tail = curr; // Removed last curr.setNext(curr.next().next());
-	 * // Remove from list cnt--; // Decrement count return it; // Return value }
-	 */
 
 	public E clip(int start, int end) {
+
 		int counter = 1;
-		Link<E> temp = head;
-		Link<E> myNext = head;
+		myList<E> temp = head;
 		// If head is null do nothing
 		if (head == null) {
 			return null;
 		}
-
+		// ELse transverse list
 		while (temp.next() != null) {
-
+			temp = temp.next();
+			counter++;
 			if (counter == start) {
 				head = temp;
 
-			} else {
-				counter++;
-				temp = temp.next();
+			}
+			if (counter > end) {
+				temp.setNext(null);
 			}
 
 		}
@@ -157,9 +160,23 @@ public class LList<E> implements List<E> {
 		return cnt;
 	}
 
+	/** Move Check is Sequence is Null */
+
+	public boolean isSqNull() {
+		myList<E> temp = head.next();
+
+		while (temp != null) {
+
+			if (!(temp.element().equals("") || temp.element().equals(" "))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/** @return The position of the current element */
 	public int currPos() {
-		Link<E> temp = head;
+		myList<E> temp = head;
 		int i;
 		for (i = 0; curr != temp; i++)
 			temp = temp.next();
@@ -312,6 +329,5 @@ public class LList<E> implements List<E> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-}
 
-//
+}
