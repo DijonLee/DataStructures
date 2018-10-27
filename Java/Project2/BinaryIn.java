@@ -1,4 +1,3 @@
-
 /******************************************************************************
  *  Compilation:  javac BinaryIn.java
  *  Execution:    java BinaryIn input output
@@ -371,15 +370,15 @@ public final class BinaryIn {
 
         // read one 8-bit char at a time
         while (!in.isEmpty()) {
-            char c = in.readChar();
-            out.write(c);
+            boolean b = in.readBoolean();
+            out.write(b);
         }
-        out.flush();
+        out.flush(); // Really Important
     }
 }
 
 /******************************************************************************
- *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *
@@ -401,5 +400,3 @@ public final class BinaryIn {
  *  You should have received a copy of the GNU General Public License
  *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  ******************************************************************************/
-
-

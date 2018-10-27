@@ -1,4 +1,3 @@
-
 /******************************************************************************
  *  Compilation:  javac BinaryOut.java
  *  Execution:    java BinaryOut
@@ -13,7 +12,6 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -31,7 +29,7 @@ import java.net.Socket;
  *  <p>
  *  The client must {@code flush()} the output stream when finished writing bits.
  *  <p>
- *  The client should not intermix calls to {@code BinaryOut} with calls
+ *  The client should not intermixing calls to {@code BinaryOut} with calls
  *  to {@code Out}; otherwise unexpected behavior will result.
  *
  *  @author Robert Sedgewick
@@ -156,7 +154,7 @@ public final class BinaryOut {
     }
 
    /**
-     * Flushes and closes the binary output stream.
+     * Closes and flushes the binary output stream.
      * Once it is closed, bits can no longer be written.
      */
     public void close() {
@@ -305,7 +303,7 @@ public final class BinaryOut {
 
 
    /**
-     * Writes the string of r-bit characters to the binary output stream.
+     * Writes the String of r-bit characters to the binary output stream.
      * @param  s the {@code String} to write
      * @param  r the number of relevants bits in each character
      * @throws IllegalArgumentException unless r is between 1 and 16
@@ -333,8 +331,8 @@ public final class BinaryOut {
 
         // read from standard input and write to file
         while (!in.isEmpty()) {
-            char c = in.readChar();
-            out.write(c);
+            boolean b = in.readBoolean();
+            out.write(b);
         }
         out.flush();
     }
@@ -342,7 +340,7 @@ public final class BinaryOut {
 }
 
 /******************************************************************************
- *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *
