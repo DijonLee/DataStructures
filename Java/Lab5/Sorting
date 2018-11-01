@@ -108,26 +108,33 @@ public class Sorting {
 			String algorithmUsed = "built in sort";
 			// TODO: Replace with the array used
 			String arrayUsed = "a";
+			
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
+
+			
+			
 			System.setOut(streamA);
 
 			System.out.println(Arrays.toString(a));
 			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
-			System.setOut(consoleA); 
-	        System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]); 
-		
+			
 			/* SORT B */
 			Stopwatch timer2 = new Stopwatch();
 			Arrays.sort(b);
 			double time2 = timer2.elapsedTimeMillis();
 			String timeStamp2 = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 			String arrayUsedb = "b";
-
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID,
+					args[0]);
+			
+			
 			System.setOut(streamB);
 			System.out.println(Arrays.toString(b));
 			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID, args[0]);
-			System.setOut(consoleA); 
-	        System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID, args[0]); 
-		
+			
+
 			/* SORT C */
 			Stopwatch timer3 = new Stopwatch();
 			Arrays.sort(c);
@@ -135,24 +142,31 @@ public class Sorting {
 			String timeStamp3 = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 			String arrayUsedc = "c";
 
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID,
+					args[0]);
+			
+			
 			System.setOut(streamC);
 			System.out.println(Arrays.toString(c));
 			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID, args[0]);
-			System.setOut(consoleA); 
-	        System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID, args[0]); 
-		
+			
+
 			/* SORT D */
 			Stopwatch timer4 = new Stopwatch();
 			Arrays.sort(d);
 			double time4 = timer4.elapsedTimeMillis();
 			String timeStamp4 = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 			String arrayUsedd = "d";
+			
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID,
+					args[0]);
+			
 			System.setOut(streamD);
 			System.out.println(Arrays.toString(c));
 			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID, args[0]);
-			System.setOut(consoleA); 
-	        System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID, args[0]); 
-		
+			
 
 		}
 		if (sortMethod == 1) { // BUBBLE
@@ -180,13 +194,15 @@ public class Sorting {
 			String algorithmUsed = "bubble sort";
 			// TODO: Replace with the array used
 			String arrayUsed = "a";
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
 
+			
+			
 			System.setOut(streamA);
 			System.out.println(Arrays.toString(a));
 			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
-			System.setOut(consoleA); 
-	        System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]); 
-		
+			
 			/************************ SORT B ************************/
 			Stopwatch timer2 = new Stopwatch();
 			int nb = b.length;
@@ -202,12 +218,15 @@ public class Sorting {
 			double time2 = timer2.elapsedTimeMillis();
 			String timeStamp2 = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 			String arrayUsedb = "b";
+			
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID,
+					args[0]);
+			
 			System.setOut(streamB);
 			System.out.println(Arrays.toString(b));
 			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID, args[0]);
-			System.setOut(consoleA); 
-	        System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID, args[0]); 
-		
+			
 
 			/************************ SORT C ************************/
 
@@ -226,12 +245,15 @@ public class Sorting {
 			double time3 = timer3.elapsedTimeMillis();
 			String timeStamp3 = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 			String arrayUsedc = "c";
+			
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID,
+					args[0]);
+
 			System.setOut(streamC);
 			System.out.println(Arrays.toString(c));
 			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID, args[0]);
-			System.setOut(consoleA); 
-	        System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID, args[0]); 
-		
+			
 			/************************ SORT B ************************/
 			Stopwatch timer4 = new Stopwatch();
 			int nd = d.length;
@@ -248,18 +270,20 @@ public class Sorting {
 			String timeStamp4 = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 			String arrayUsedd = "d";
 
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID,
+					args[0]);
+			
 			System.setOut(streamD);
 			System.out.println(Arrays.toString(d));
 			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID, args[0]);
-			System.setOut(consoleA); 
-	        System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID, args[0]); 
-		
+			
+
 		}
 
 		if (sortMethod == 2) {
 			Stopwatch timer = new Stopwatch();
-			// TODO: Perform Sorting and store the result in an array
-
+			/************************* A ******************/
 			int n = a.length;
 			for (int i = 0; i < n - 1; i++) {
 				// Find the minimum element in unsorted array
@@ -283,15 +307,17 @@ public class Sorting {
 			// TODO: Replace with the algorithm used
 			String algorithmUsed = "selection sortss";
 			String arrayUsed = "a";
+			
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
+			
+			
 			System.setOut(streamA);
 			System.out.println(Arrays.toString(a));
 			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
-			System.setOut(consoleA); 
-	        System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]); 
-		
+			
+			/*************************** B ***************************/
 			Stopwatch timer2 = new Stopwatch();
-			// TODO: Perform Sorting and store the result in an array
-
 			int nb = b.length;
 			for (int i = 0; i < nb - 1; i++) {
 				// Find the minimum element in unsorted array
@@ -306,27 +332,31 @@ public class Sorting {
 				b[min_idx] = b[i];
 				b[i] = temp;
 			}
-			// TODO Auto-generated method stub
 
-			double time2 = timer.elapsedTimeMillis();
+			double time2 = timer2.elapsedTimeMillis();
 			String arrayUsedb = "b";
 			String timeStamp2 = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 			// TODO: Replace with your own netid
 			// TODO: Replace with the algorithm used
+			
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID,
+					args[0]);
+			
+			
 			System.setOut(streamB);
 			System.out.println(Arrays.toString(b));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time2, timeStamp2, netID, args[0]);
-			System.setOut(consoleA); 
-	        System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID, args[0]); 
-		
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID, args[0]);
+			
+
 			Stopwatch timer3 = new Stopwatch();
 			// TODO: Perform Sorting and store the result in an array
 
 			int nc = c.length;
-			for (int i = 0; i < n - 1; i++) {
+			for (int i = 0; i < nc - 1; i++) {
 				// Find the minimum element in unsorted array
 				int min_idx = i;
-				for (int j = i + 1; j < n; j++)
+				for (int j = i + 1; j < nc; j++)
 					if (c[j] < c[min_idx])
 						min_idx = j;
 
@@ -338,15 +368,21 @@ public class Sorting {
 			}
 			// TODO Auto-generated method stub
 
-			double time3 = timer.elapsedTimeMillis();
+			double time3 = timer3.elapsedTimeMillis();
 			String timeStamp3 = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 			String arrayUsedc = "c";
+			
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID,
+					args[0]);
+
+			
+			
+			
 			System.setOut(streamC);
 			System.out.println(Arrays.toString(c));
 			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID, args[0]);
-			System.setOut(consoleA); 
-	        System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID, args[0]); 
-		
+			
 			Stopwatch timer4 = new Stopwatch();
 			// TODO: Perform Sorting and store the result in an array
 
@@ -366,17 +402,20 @@ public class Sorting {
 			}
 			// TODO Auto-generated method stub
 
-			double time4 = timer.elapsedTimeMillis();
+			double time4 = timer4.elapsedTimeMillis();
 			String timeStamp4 = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 			String arrayUsedd = "d";
 			// TODO: Replace with the algorithm used
-			System.setOut(streamD);
-
-			System.out.println(Arrays.toString(d));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID, args[0]);
+			
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID,
 					args[0]);
+			
+			
+			System.setOut(streamD);
+			System.out.println(Arrays.toString(d));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID, args[0]);
+			
 
 		} else if (sortMethod == 3) {
 			// ISNERTION SORT
@@ -405,15 +444,19 @@ public class Sorting {
 			// TODO: Replace with your own netid
 			String netID = "jlee251";
 			// TODO: Replace with the algorithm used
-			String algorithmUsed = "bubblesort";
+			String algorithmUsed = "insertion";
 			// TODO: Replace with the array used
 			String arrayUsed = "a";
-			System.setOut(streamA);
-			System.out.println(Arrays.toString(a));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
+			
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
 
+			
+			
+			System.setOut(streamA);
+			System.out.println(Arrays.toString(a));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
+		
 			/* SORT B */
 			Stopwatch timer2 = new Stopwatch();
 			// TODO: Perform Sorting and store the result in an array
@@ -439,12 +482,16 @@ public class Sorting {
 			// TODO: Replace with the algorithm used
 			// TODO: Replace with the array used
 			String arrayUsedb = "b";
-			System.setOut(streamB);
-			System.out.println(Arrays.toString(b));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time2, timeStamp2, netID, args[0]);
+			
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time2, timeStamp2, netID,
 					args[0]);
+			
+			
+			System.setOut(streamB);
+			System.out.println(Arrays.toString(b));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time2, timeStamp2, netID, args[0]);
+			
 
 			/* SORT A */
 			Stopwatch timer3 = new Stopwatch();
@@ -471,12 +518,16 @@ public class Sorting {
 			// TODO: Replace with the algorithm used
 			// TODO: Replace with the array used
 			String arrayUsedc = "c";
-			System.setOut(streamC);
-			System.out.println(Arrays.toString(c));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time3, timeStamp3, netID, args[0]);
+			
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time3, timeStamp3, netID,
 					args[0]);
+			
+			
+			System.setOut(streamC);
+			System.out.println(Arrays.toString(c));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time3, timeStamp3, netID, args[0]);
+			
 
 			/* SORT A */
 			Stopwatch timer4 = new Stopwatch();
@@ -503,12 +554,16 @@ public class Sorting {
 			// TODO: Replace with the algorithm used
 			// TODO: Replace with the array used
 			String arrayUsedd = "d";
-			System.setOut(streamD);
-			System.out.println(Arrays.toString(d));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID, args[0]);
+			
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID,
 					args[0]);
+			
+			
+			System.setOut(streamD);
+			System.out.println(Arrays.toString(d));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID, args[0]);
+			
 
 		} else if (sortMethod == 4) {
 
@@ -524,15 +579,19 @@ public class Sorting {
 			// TODO: Replace with your own netid
 			String netID = "jlee251";
 			// TODO: Replace with the algorithm used
-			String algorithmUsed = "mergesort";
+			String algorithmUsed = "merge";
 			// TODO: Replace with the array used
 			String arrayUsed = "a";
-			System.setOut(streamA);
-			System.out.println(Arrays.toString(a));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
+			
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
 
+			
+			
+			System.setOut(streamA);
+			System.out.println(Arrays.toString(a));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
+			
 			/* SORT B */
 			Stopwatch timer2 = new Stopwatch();
 			// TODO: Perform Sorting and store the result in an array
@@ -544,12 +603,16 @@ public class Sorting {
 			// TODO: Replace with the algorithm used
 			// TODO: Replace with the array used
 			String arrayUsedb = "b";
-			System.setOut(streamB);
-			System.out.println(Arrays.toString(b));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID, args[0]);
+			
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID,
 					args[0]);
+			
+			
+			System.setOut(streamB);
+			System.out.println(Arrays.toString(b));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID, args[0]);
+			
 
 			/* SORT A */
 			Stopwatch timer3 = new Stopwatch();
@@ -562,12 +625,16 @@ public class Sorting {
 			// TODO: Replace with the algorithm used
 			// TODO: Replace with the array used
 			String arrayUsedc = "c";
-			System.setOut(streamC);
-			System.out.println(Arrays.toString(c));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID, args[0]);
+			
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID,
 					args[0]);
+			
+			
+			System.setOut(streamC);
+			System.out.println(Arrays.toString(c));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID, args[0]);
+			
 
 			/* SORT A */
 			Stopwatch timer4 = new Stopwatch();
@@ -579,13 +646,19 @@ public class Sorting {
 			// TODO: Replace with your own netid
 			// TODO: Replace with the algorithm used
 			// TODO: Replace with the array used
+			
+			
+		
+			
 			String arrayUsedd = "d";
-			System.setOut(streamD);
-			System.out.println(Arrays.toString(d));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID, args[0]);
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID,
 					args[0]);
+			
+			System.setOut(streamD);
+			System.out.println(Arrays.toString(d));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID, args[0]);
+			
 
 		} else if (sortMethod == 5) {
 
@@ -603,15 +676,19 @@ public class Sorting {
 			// TODO: Replace with your own netid
 			String netID = "jlee251";
 			// TODO: Replace with the algorithm used
-			String algorithmUsed = "mergesort";
+			String algorithmUsed = "quick";
 			// TODO: Replace with the array used
 			String arrayUsed = "a";
-			System.setOut(streamA);
-			System.out.println(Arrays.toString(a));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
+			
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
 
+			
+			
+			System.setOut(streamA);
+			System.out.println(Arrays.toString(a));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsed, time, timeStamp, netID, args[0]);
+		
 			/* SORT B */
 			Stopwatch timer2 = new Stopwatch();
 			// TODO: Perform Sorting and store the result in an array
@@ -625,12 +702,16 @@ public class Sorting {
 			// TODO: Replace with the algorithm used
 			// TODO: Replace with the array used
 			String arrayUsedb = "b";
-			System.setOut(streamB);
-			System.out.println(Arrays.toString(b));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID, args[0]);
+			
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID,
 					args[0]);
+			
+			
+			System.setOut(streamB);
+			System.out.println(Arrays.toString(b));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedb, time2, timeStamp2, netID, args[0]);
+			
 
 			/* SORT C */
 			Stopwatch timer3 = new Stopwatch();
@@ -645,12 +726,16 @@ public class Sorting {
 			// TODO: Replace with the algorithm used
 			// TODO: Replace with the array used
 			String arrayUsedc = "c";
-			System.setOut(streamC);
-			System.out.println(Arrays.toString(c));
-			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID, args[0]);
+			
 			System.setOut(consoleA);
 			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID,
 					args[0]);
+			
+			
+			System.setOut(streamC);
+			System.out.println(Arrays.toString(c));
+			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedc, time3, timeStamp3, netID, args[0]);
+			
 
 			/* SORT A */
 			Stopwatch timer4 = new Stopwatch();
@@ -665,13 +750,17 @@ public class Sorting {
 			// TODO: Replace with the algorithm used
 			// TODO: Replace with the array used
 			String arrayUsedd = "d";
+			
+			System.setOut(consoleA);
+			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID,
+					args[0]);
+			
+			
 			System.setOut(streamA);
 			System.out.println(Arrays.toString(a));
 			StdOut.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID, args[0]);
 
-			System.setOut(consoleA);
-			System.out.printf("%s %s %8.1f   %s  %s  %s\n", algorithmUsed, arrayUsedd, time4, timeStamp4, netID,
-					args[0]);
+			
 		}
 	}
 
