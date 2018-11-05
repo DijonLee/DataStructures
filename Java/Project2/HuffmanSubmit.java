@@ -3,10 +3,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
@@ -18,6 +20,9 @@ public class HuffmanSubmit implements Huffman {
 
 	static int frequencyListSize;
 	static Map<Character, Integer> frequencies = new HashMap<>();
+	static Map<Character, String> encodedfreqs = new HashMap<>();
+
+	static PriorityQueue<Node> queue = new PriorityQueue<Node>();
 
 	static class Node {
 		int data;
@@ -34,10 +39,11 @@ public class HuffmanSubmit implements Huffman {
 	}
 
 	public static void printTree(Node root, String s) {
-		if (root.left == null && root.right == null ) {
+		if (root.left == null && root.right == null) {
 
 			// c is the character in the node
 			System.out.println(root.c + ":" + s);
+			encodedfreqs.put(root.c, s);
 
 			return;
 		}
@@ -48,7 +54,7 @@ public class HuffmanSubmit implements Huffman {
 
 	// Feel free to add more methods and variables as required.
 
-	public void encode(String inputFile, String outputFile, String freqFile) {
+	public void encode(String inputFile, String outputFile, String freqFile) throws IOException {
 		// TODO: Your code here
 		// get frequency
 
@@ -69,7 +75,7 @@ public class HuffmanSubmit implements Huffman {
 		// TODO: Your code here
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		Huffman huffman = new HuffmanSubmit();
 
@@ -86,8 +92,8 @@ public class HuffmanSubmit implements Huffman {
 		FileWriter outputStream = null;
 
 		try {
-			inputStream = new FileReader("urBin.txt");
-			// outputStream = new FileWriter("characteroutput.txt");
+			inputStream = new FileReader("alice30.txt");
+			outputStream = new FileWriter("freqFile.txt");
 
 			int c;
 			while ((c = inputStream.read()) != -1) {
@@ -99,25 +105,92 @@ public class HuffmanSubmit implements Huffman {
 		} finally {
 			if (inputStream != null) {
 				inputStream.close();
+
 			}
 			// if (outputStream != null) {
 			// outputStream.close();
 			// }
 		}
-		 System.out.println(Collections.singletonList(frequencies)); // Print Map of
-		// Freqs
+		// outputStream.write(c);
+
+		// normal char
 
 		// *********************** //
 		frequencyListSize = frequencies.size();
+
+		// THEN ENCODE
+
+	}
+
+	private static void counttoEncode() throws IOException {
+		FileReader inputStream = null;
+		FileWriter outputStream = null;
+		FileWriter outputStream2 = null;
+
+		System.out.println("got here");
+		try {
+			inputStream = new FileReader("alice30.txt");
+			outputStream = new FileWriter("ur.enc");
+			outputStream2 = new FileWriter("freqFile.txt");
+
+			int c;
+
+			while ((c = inputStream.read()) != -1) {
+				char cToChar = (char) c;
+				// System.out.println(cToChar);
+				// System.out.println(encodedfreqs.get(cToChar));
+
+				if (encodedfreqs.containsKey(cToChar)) {
+					// LOOP THROUGH BITS
+
+					// CONVERT BITS TO ENCODED
+					// System.out.println(frequencies.get(cToChar));
+
+					// WRITE STUFF
+					// outputStream.write(frequencies.get(cToChar));
+					outputStream.write(encodedfreqs.get(cToChar));
+					// }
+
+					// System.out.print((char) c);
+
+				}
+				
+				
+			}
+			
+
+		} finally
+
+		{
+			
+			
+			
+			
+			if (inputStream != null) {
+				inputStream.close();
+				for (Entry<Character, String> pair : encodedfreqs.entrySet()) {
+					// iterate over the pairs
+					//System.out.println(pair.getKey() + " " + pair.getValue());
+					//outputStream2.write(encodedfreqs);
+
+				}
+			}
+			if (outputStream != null) {
+				outputStream.close();
+				// }
+			}
+		}
+
+		// System.out.println(Collections.singletonList(encodedfreqs)); // Print Map of
+
 	}
 
 	// myNode.data = frequencies.get(i);
 
-	public static void makeHeap() {
-		//System.out.println(frequencyListSize);
-		
-		PriorityQueue<Node> queue = new PriorityQueue<Node>(frequencyListSize, new MyComparator());
+	public static void makeHeap() throws IOException {
+		// System.out.println(frequencyListSize);
 
+		queue = new PriorityQueue<Node>(frequencyListSize, new MyComparator());
 
 		for (Entry<Character, Integer> entry : frequencies.entrySet()) {
 			Node myNode = new Node();
@@ -164,7 +237,10 @@ public class HuffmanSubmit implements Huffman {
 		}
 
 		// print the codes by traversing the tree
+
 		printTree(root, "");
+		counttoEncode();
+
 	}
 
 }
