@@ -1,3 +1,4 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -5,7 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -168,21 +172,28 @@ public class HuffmanSubmit implements Huffman {
 			}
 		}
 
-		File file = new File("freqFile.txt");  
-		 FileOutputStream f = new FileOutputStream(file);  
-		 ObjectOutputStream s = new ObjectOutputStream(f);        
-		 Properties properties = new Properties();
+		//Writ/er //out = new BufferedWriter(new OutputStreamWriter(
+			   // new FileOutputStream("freqFile.txt"), "UTF-8"));    
+		 //Properties properties = new Properties();
 		 
+		 PrintStream logout = new PrintStream(new FileOutputStream("freqFile.txt"));
 
 		 
 		 
 		 for (Entry<Character, String> entry : encodedfreqs.entrySet()) {
-			    properties.put(entry.getKey(), entry.getValue());
-				 s.writeObject(properties.get(entry.getKey()) + "=" +  properties.get(entry.getValue()));
-			}
+			 //   properties.put(entry.getKey(), entry.getValue());
+			
+			 System.setOut(logout);
+			 System.out.println(String.valueOf(entry.getKey()) + "=" +  String.valueOf(entry.getValue()));
+
+
+	
+		 }
+		 
+		 
+		 
 		// properties.store(new FileOutputStream("freqFile.txt"), null);
 
-		 s.close();
 		 /*
 		  * 
 		  *  
@@ -195,6 +206,9 @@ public class HuffmanSubmit implements Huffman {
 		 s.close();
 		  */
 	}
+	
+	
+	
 
 	// myNode.data = frequencies.get(i);
 
