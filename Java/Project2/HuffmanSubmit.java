@@ -1,8 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,6 +14,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
+import java.util.Properties;
 import java.util.Scanner;
 
 // Import any package as required
@@ -38,12 +41,16 @@ public class HuffmanSubmit implements Huffman {
 		}
 	}
 
-	public static void printTree(Node root, String s) {
+	public static void printTree(Node root, String s) throws IOException {
+		// FileWriter outputStream2 = null;
+		// outputStream2 = new FileWriter("freqFile.txt");
+
 		if (root.left == null && root.right == null) {
 
 			// c is the character in the node
-			System.out.println(root.c + ":" + s);
+			System.out.println(root.c + ":" + s); // Prints freq chart
 			encodedfreqs.put(root.c, s);
+			// outputStream2.write(encodedfreqs.get(root.c));
 
 			return;
 		}
@@ -61,10 +68,8 @@ public class HuffmanSubmit implements Huffman {
 		try {
 			countFrequency();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		makeHeap();
@@ -93,23 +98,26 @@ public class HuffmanSubmit implements Huffman {
 
 		try {
 			inputStream = new FileReader("alice30.txt");
-			outputStream = new FileWriter("freqFile.txt");
+			// outputStream = new FileWriter("freqFile.txt");
 
 			int c;
 			while ((c = inputStream.read()) != -1) {
 				// System.out.print((char) c);
 				frequencies.put(((char) c), frequencies.getOrDefault(((char) c), 0) + 1);
 
+				// Possible solution
+				// System.out.println(encodedfreqs.get(c));
 				// outputStream.write(c);
 			}
+
 		} finally {
 			if (inputStream != null) {
 				inputStream.close();
 
 			}
-			// if (outputStream != null) {
-			// outputStream.close();
-			// }
+			if (outputStream != null) {
+				outputStream.close();
+			}
 		}
 		// outputStream.write(c);
 
@@ -127,53 +135,32 @@ public class HuffmanSubmit implements Huffman {
 		FileWriter outputStream = null;
 		FileWriter outputStream2 = null;
 
-		System.out.println("got here");
+		/* Writes encoded file */
 		try {
 			inputStream = new FileReader("alice30.txt");
 			outputStream = new FileWriter("ur.enc");
 			outputStream2 = new FileWriter("freqFile.txt");
-
 			int c;
 
 			while ((c = inputStream.read()) != -1) {
 				char cToChar = (char) c;
-				// System.out.println(cToChar);
-				// System.out.println(encodedfreqs.get(cToChar));
 
 				if (encodedfreqs.containsKey(cToChar)) {
-					// LOOP THROUGH BITS
 
-					// CONVERT BITS TO ENCODED
-					// System.out.println(frequencies.get(cToChar));
-
-					// WRITE STUFF
-					// outputStream.write(frequencies.get(cToChar));
 					outputStream.write(encodedfreqs.get(cToChar));
-					// }
-
-					// System.out.print((char) c);
 
 				}
-				
-				
+
 			}
-			
 
 		} finally
 
 		{
-			
-			
-			
-			
-			if (inputStream != null) {
-				inputStream.close();
-				for (Entry<Character, String> pair : encodedfreqs.entrySet()) {
-					// iterate over the pairs
-					//System.out.println(pair.getKey() + " " + pair.getValue());
-					//outputStream2.write(encodedfreqs);
 
-				}
+			if (inputStream != null) {
+
+				inputStream.close();
+
 			}
 			if (outputStream != null) {
 				outputStream.close();
@@ -181,8 +168,32 @@ public class HuffmanSubmit implements Huffman {
 			}
 		}
 
-		// System.out.println(Collections.singletonList(encodedfreqs)); // Print Map of
+		File file = new File("freqFile.txt");  
+		 FileOutputStream f = new FileOutputStream(file);  
+		 ObjectOutputStream s = new ObjectOutputStream(f);        
+		 Properties properties = new Properties();
+		 
 
+		 
+		 
+		 for (Entry<Character, String> entry : encodedfreqs.entrySet()) {
+			    properties.put(entry.getKey(), entry.getValue());
+				 s.writeObject(properties.get(entry.getKey()) + "=" +  properties.get(entry.getValue()));
+			}
+		// properties.store(new FileOutputStream("freqFile.txt"), null);
+
+		 s.close();
+		 /*
+		  * 
+		  *  
+		 for (Entry<Character, String> entry : encodedfreqs.entrySet()) {
+			    properties.put(entry.getKey(), entry.getValue());
+				 s.writeObject(properties.get(entry.getKey()) + "=" +  properties.get(entry.getValue()));
+			}
+		// properties.store(new FileOutputStream("freqFile.txt"), null);
+
+		 s.close();
+		  */
 	}
 
 	// myNode.data = frequencies.get(i);
