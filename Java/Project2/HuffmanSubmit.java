@@ -20,17 +20,23 @@ import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.Set;
 
 // Import any package as required
 
 public class HuffmanSubmit implements Huffman {
-
+	/* Global Variables */
 	static int frequencyListSize;
 	static Map<Character, Integer> frequencies = new HashMap<>();
 	static Map<Character, String> encodedfreqs = new HashMap<>();
+	static Map<String, String> binfreq = new HashMap<>();
+
+	static String hEncodeInputFile;
+	static String hDecodeFile;
 
 	static PriorityQueue<Node> queue = new PriorityQueue<Node>();
 
+	/* Node Class */
 	static class Node {
 		int data;
 		char c;
@@ -38,6 +44,7 @@ public class HuffmanSubmit implements Huffman {
 		Node right;
 	}
 
+	/* Compare Nodes */
 	static class MyComparator implements Comparator<Node> {
 		public int compare(Node x, Node y) {
 
@@ -46,15 +53,9 @@ public class HuffmanSubmit implements Huffman {
 	}
 
 	public static void printTree(Node root, String s) throws IOException {
-		// FileWriter outputStream2 = null;
-		// outputStream2 = new FileWriter("freqFile.txt");
-
 		if (root.left == null && root.right == null) {
-
-			// c is the character in the node
-			System.out.println(root.c + ":" + s); // Prints freq chart
+	//		System.out.println(root.c + ":" + s); // Prints freq chart
 			encodedfreqs.put(root.c, s);
-			// outputStream2.write(encodedfreqs.get(root.c));
 
 			return;
 		}
@@ -63,32 +64,30 @@ public class HuffmanSubmit implements Huffman {
 
 	}
 
-	// Feel free to add more methods and variables as required.
-
-	public void encode(String inputFile, String outputFile, String freqFile) throws IOException {
-		// TODO: Your code here
-		// get frequency
-
+	public void encode(String inputFile, String outputFile, String freqFile) {
+		hEncodeInputFile = inputFile;
 		try {
 			countFrequency();
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		makeHeap();
+		try {
+			makeHeap();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-	}
-
-	public void decode(String inputFile, String outputFile, String freqFile) {
-		// TODO: Your code here
 	}
 
 	public static void main(String[] args) throws IOException {
 
 		Huffman huffman = new HuffmanSubmit();
 
-		huffman.encode("ur.jpg", "ur.enc", "freq.txt");
+		huffman.encode("alice30.txt", "ur.enc", "freq.txt");
 		huffman.decode("ur.enc", "ur_dec.jpg", "freq.txt");
 
 		// After decoding, both ur.jpg and ur_dec.jpg should be the same.
@@ -101,13 +100,16 @@ public class HuffmanSubmit implements Huffman {
 		FileWriter outputStream = null;
 
 		try {
-			inputStream = new FileReader("alice30.txt");
+			inputStream = new FileReader(hEncodeInputFile);
 			// outputStream = new FileWriter("freqFile.txt");
 
 			int c;
 			while ((c = inputStream.read()) != -1) {
 				// System.out.print((char) c);
 				frequencies.put(((char) c), frequencies.getOrDefault(((char) c), 0) + 1);
+
+				// System.out.println(frequencies.get((char)c));
+				// System.out.println(frequencies.((char)c));
 
 				// Possible solution
 				// System.out.println(encodedfreqs.get(c));
@@ -136,12 +138,16 @@ public class HuffmanSubmit implements Huffman {
 
 	private static void counttoEncode() throws IOException {
 		FileReader inputStream = null;
+		FileReader inputStream2 = null;
+
 		FileWriter outputStream = null;
 		FileWriter outputStream2 = null;
 
 		/* Writes encoded file */
 		try {
 			inputStream = new FileReader("alice30.txt");
+			inputStream2 = new FileReader("ur.enc");
+
 			outputStream = new FileWriter("ur.enc");
 			outputStream2 = new FileWriter("freqFile.txt");
 			int c;
@@ -170,45 +176,47 @@ public class HuffmanSubmit implements Huffman {
 				outputStream.close();
 				// }
 			}
+
+			int c;
+
+			// COUNT 010101
+
+			// binfreq.put(frequencies.get(key),encodedfreqs.get)
+
 		}
 
-		//Writ/er //out = new BufferedWriter(new OutputStreamWriter(
-			   // new FileOutputStream("freqFile.txt"), "UTF-8"));    
-		 //Properties properties = new Properties();
-		 
-		 PrintStream logout = new PrintStream(new FileOutputStream("freqFile.txt"));
+		/*
+		 * 
+		 * for (Entry<Character, Integer> entry : frequencies.entrySet()) {
+		 * binfreq.put(String.valueOf(entry.getValue()), 0);
+		 * 
+		 * 
+		 * }
+		 */
 
-		 
-		 
-		 for (Entry<Character, String> entry : encodedfreqs.entrySet()) {
-			 //   properties.put(entry.getKey(), entry.getValue());
-			
-			 System.setOut(logout);
-			 System.out.println(String.valueOf(entry.getKey()) + "=" +  String.valueOf(entry.getValue()));
+		PrintWriter writer = new PrintWriter("freqFile.txt", "UTF-8");
 
+		/*
+		 * for (Entry<Character, String> entry : encodedfreqs.entrySet()) {
+		 * 
+		 * // System.setOut(logout); writer.println(String.valueOf(entry.getKey()) + "="
+		 * + String.valueOf(entry.getValue()));
+		 * 
+		 * }
+		 */
 
-	
-		 }
-		 
-		 
-		 
-		// properties.store(new FileOutputStream("freqFile.txt"), null);
+		Iterator it = frequencies.entrySet().iterator();
+		Iterator it2 = encodedfreqs.entrySet().iterator();
 
-		 /*
-		  * 
-		  *  
-		 for (Entry<Character, String> entry : encodedfreqs.entrySet()) {
-			    properties.put(entry.getKey(), entry.getValue());
-				 s.writeObject(properties.get(entry.getKey()) + "=" +  properties.get(entry.getValue()));
-			}
-		// properties.store(new FileOutputStream("freqFile.txt"), null);
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			Map.Entry pair2 = (Map.Entry) it2.next();
 
-		 s.close();
-		  */
+			writer.println(pair2.getValue() + " : " + pair.getValue());
+		}
+		writer.close();
+
 	}
-	
-	
-	
 
 	// myNode.data = frequencies.get(i);
 
@@ -266,6 +274,61 @@ public class HuffmanSubmit implements Huffman {
 		printTree(root, "");
 		counttoEncode();
 
+	}
+
+	/* DECODE */
+	public void decode(String inputFile, String outputFile, String freqFile) {
+		System.out.println("DECODING");
+
+		FileReader inputStream = null;
+		FileWriter outputStream = null;
+		try {
+			PrintStream out = new PrintStream(new FileOutputStream(outputFile));
+			System.setOut(out);
+
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+
+		try {
+			// Open File "input file" so we can decode it
+			inputStream = new FileReader(inputFile);
+			outputStream = new FileWriter(outputFile);
+			int c;
+			String huffCode = "";
+
+			while ((c = inputStream.read()) != -1) { // Iterate through numbers
+				char cToChar = (char) c;
+				huffCode += cToChar;
+				if (encodedfreqs.containsValue(huffCode)) { // If Match
+					// outputStream.write(encodedFreq.); //Writes to file
+					for (Object o : encodedfreqs.keySet()) {
+						if (encodedfreqs.get(o).equals(huffCode)) {
+							System.out.print(o.toString());
+				// outputStream.write(o.toString()); //Writes to file
+
+						}
+						// Get key from value
+
+
+					}
+					
+					huffCode = "";
+
+
+					// System.out.println(cToChar);
+					// System.out.println(huffCode);
+					// System.out.println(encodedfreqs.get(key))
+					// System.out.println(Collections.singletonList(encodedfreqs)); // method 2
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+
+		}
 	}
 
 }
