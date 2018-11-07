@@ -69,7 +69,7 @@ public class HuffmanSubmit implements Huffman {
 		}
 		printTree(root.left, s + "0");
 		printTree(root.right, s + "1");
-		System.out.println(Collections.singletonList(encodedfreqs));
+		// System.out.println(Collections.singletonList(encodedfreqs));
 
 	}
 
@@ -264,6 +264,7 @@ public class HuffmanSubmit implements Huffman {
 			String line;
 			while ((line = in.readLine()) != null) {
 				if (line.contains("=")) {
+					System.out.println(line);
 					String[] strings = line.split("=");
 					map.put(strings[0], (strings[1]));
 				}
@@ -305,9 +306,19 @@ public class HuffmanSubmit implements Huffman {
 				for (Map.Entry entry : map.entrySet()) {
 					if (decoder.equals(entry.getValue())) {
 						key = (String) entry.getKey();
-						// System.out.println("found and changing to" + key);
-						decoder = "";
-						outputStream.write(key);
+						System.out.println("found and changing to" + entry.getValue());
+
+						if (entry.getValue().equals("01010")) {  // Where is my problem???
+							outputStream.write('\n');
+							decoder = "";
+							outputStream.write(key);
+						}
+
+						else {
+							decoder = "";
+							outputStream.write(key);
+
+						}
 						break; // breaking because its one to one map }
 					}
 				}
