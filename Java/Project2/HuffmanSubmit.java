@@ -54,7 +54,7 @@ public class HuffmanSubmit implements Huffman {
 
 	public static void printTree(Node root, String s) throws IOException {
 		if (root.left == null && root.right == null) {
-	//		System.out.println(root.c + ":" + s); // Prints freq chart
+			// System.out.println(root.c + ":" + s); // Prints freq chart
 			encodedfreqs.put(root.c, s);
 
 			return;
@@ -87,7 +87,7 @@ public class HuffmanSubmit implements Huffman {
 
 		Huffman huffman = new HuffmanSubmit();
 
-		huffman.encode("alice30.txt", "ur.enc", "freq.txt");
+		 huffman.encode("alice30.txt", "ur.enc", "freq.txt");
 		huffman.decode("ur.enc", "ur_dec.jpg", "freq.txt");
 
 		// After decoding, both ur.jpg and ur_dec.jpg should be the same.
@@ -139,18 +139,21 @@ public class HuffmanSubmit implements Huffman {
 	private static void counttoEncode() throws IOException {
 		FileReader inputStream = null;
 		FileReader inputStream2 = null;
+		 //FileOutputStream  out = new PrintStream(new FileOutputStream(outputFile));
 
 		FileWriter outputStream = null;
 		FileWriter outputStream2 = null;
 
 		/* Writes encoded file */
 		try {
-			inputStream = new FileReader("alice30.txt");
-			inputStream2 = new FileReader("ur.enc");
+			inputStream = new FileReader(hEncodeInputFile);
+			//inputStream2 = new FileReader("ur.enc");
 
 			outputStream = new FileWriter("ur.enc");
 			outputStream2 = new FileWriter("freqFile.txt");
 			int c;
+	        File file = new File("ur.enc");
+
 
 			while ((c = inputStream.read()) != -1) {
 				char cToChar = (char) c;
@@ -278,19 +281,21 @@ public class HuffmanSubmit implements Huffman {
 
 	/* DECODE */
 	public void decode(String inputFile, String outputFile, String freqFile) {
+
+		// huffman.decode("ur.enc", "ur_dec.jpg", "freq.txt");
+
 		System.out.println("DECODING");
 
 		FileReader inputStream = null;
 		FileWriter outputStream = null;
-		try {
-			PrintStream out = new PrintStream(new FileOutputStream(outputFile));
-			System.setOut(out);
-
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
+		// try {
+		// PrintStream out = new PrintStream(new FileOutputStream(outputFile));
+		// System.setOut(out);
+		//
+		// } catch (FileNotFoundException e1) {
+		// // TODO Auto-generated catch block
+		// e1.printStackTrace();
+		// }
 
 		try {
 			// Open File "input file" so we can decode it
@@ -298,25 +303,28 @@ public class HuffmanSubmit implements Huffman {
 			outputStream = new FileWriter(outputFile);
 			int c;
 			String huffCode = "";
+			System.out.println("got here");
 
-			while ((c = inputStream.read()) != -1) { // Iterate through numbers
+			while ((c = inputStream.read()) != -1) {
+
+				// Iterate through numbers
 				char cToChar = (char) c;
 				huffCode += cToChar;
+				//System.out.println(cToChar);
+
 				if (encodedfreqs.containsValue(huffCode)) { // If Match
+
 					// outputStream.write(encodedFreq.); //Writes to file
 					for (Object o : encodedfreqs.keySet()) {
 						if (encodedfreqs.get(o).equals(huffCode)) {
-							System.out.print(o.toString());
-				// outputStream.write(o.toString()); //Writes to file
+							//System.out.print(o.toString());
+							 outputStream.write(o.toString()); //Writes to file
 
 						}
-						// Get key from value
-
 
 					}
-					
-					huffCode = "";
 
+					huffCode = "";
 
 					// System.out.println(cToChar);
 					// System.out.println(huffCode);
