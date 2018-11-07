@@ -30,7 +30,6 @@ public class HuffmanSubmit implements Huffman {
 	static int frequencyListSize;
 	static Map<Character, Integer> frequencies = new HashMap<>();
 	static Map<Character, String> encodedfreqs = new HashMap<>();
-	static Map<String, String> binfreq = new HashMap<>();
 
 	static String hEncodeInputFile;
 	static String hDecodeFile;
@@ -60,12 +59,17 @@ public class HuffmanSubmit implements Huffman {
 	public static void printTree(Node root, String s) throws IOException {
 		if (root.left == null && root.right == null) {
 			// System.out.println(root.c + ":" + s); // Prints freq chart
-			encodedfreqs.put(root.c, s);
 
+			if ((root.c == '\n')) {
+				encodedfreqs.put('\n', s);
+			} else {
+				encodedfreqs.put(root.c, s);
+			}
 			return;
 		}
 		printTree(root.left, s + "0");
 		printTree(root.right, s + "1");
+		System.out.println(Collections.singletonList(encodedfreqs));
 
 	}
 
@@ -107,7 +111,7 @@ public class HuffmanSubmit implements Huffman {
 			int c;
 			while ((c = inputStream.read()) != -1) {
 				frequencies.put(((char) c), frequencies.getOrDefault(((char) c), 0) + 1);
-				outputStream.write(c); // 146 kb here
+				outputStream.write(c); // 146kb here (kept whitespace)
 			}
 
 		} finally {
@@ -132,7 +136,7 @@ public class HuffmanSubmit implements Huffman {
 		/* Writes encoded file */
 		try {
 			inputStream = new FileReader(hEncodeInputFile);
-			outputStream2 = new FileWriter("mytest.txt"); // test to ensure coding keeps whitespace works
+			outputStream2 = new FileWriter("mytest.txt"); // 146kb here (kept whitespace)
 
 			outputStream = new FileWriter("ur.enc");
 			inputStream2 = new FileReader("ur.enc");
