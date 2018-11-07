@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,9 +31,12 @@ public class HuffmanSubmit implements Huffman {
 	static int frequencyListSize;
 	static Map<Character, Integer> frequencies = new HashMap<>();
 	static Map<Character, String> encodedfreqs = new HashMap<>();
+     static Charset ASCII = Charset.forName("ASCII");
 
 	static String hEncodeInputFile;
 	static String hDecodeFile;
+	static String hDecodeFileOut;
+
 
 	Properties prop = new Properties();
 
@@ -95,23 +99,24 @@ public class HuffmanSubmit implements Huffman {
 
 		Huffman huffman = new HuffmanSubmit();
 
-		huffman.encode("alice30.txt", "ur.enc", "freq.txt");
+		//huffman.encode("ur.jpg", "ur.enc", "freq.txt");
 		huffman.decode("ur.enc", "ur_dec.jpg", "freq.txt");
 	}
 
 	public static void countFrequency() throws IOException {
 
 		FileReader inputStream = null;
-		FileWriter outputStream = null;
+		PrintWriter outputStream = null;
 
 		try {
 			inputStream = new FileReader(hEncodeInputFile);
-			outputStream = new FileWriter("tester.txt");
+			outputStream = new PrintWriter("tester.txt");
 
 			int c;
 			while ((c = inputStream.read()) != -1) {
 				frequencies.put(((char) c), frequencies.getOrDefault(((char) c), 0) + 1);
-				outputStream.write(c); // 146kb here (kept whitespace)
+				outputStream.write((char) c); // 146kb here (kept whitespace)
+				//System.out.print(Collections.singletonList(frequencies));
 			}
 
 		} finally {
@@ -130,15 +135,15 @@ public class HuffmanSubmit implements Huffman {
 		FileReader inputStream = null;
 		FileReader inputStream2 = null;
 
-		FileWriter outputStream = null;
-		FileWriter outputStream2 = null;
+		PrintWriter outputStream = null;
+		PrintWriter outputStream2 = null;
 
 		/* Writes encoded file */
 		try {
 			inputStream = new FileReader(hEncodeInputFile);
-			outputStream2 = new FileWriter("mytest.txt"); // 146kb here (kept whitespace)
+			outputStream2 = new PrintWriter("mytest.txt"); // 146kb here (kept whitespace)
 
-			outputStream = new FileWriter("ur.enc");
+			outputStream = new PrintWriter("ur.enc");
 			inputStream2 = new FileReader("ur.enc");
 
 			int c;
@@ -175,7 +180,8 @@ public class HuffmanSubmit implements Huffman {
 
 		}
 
-		PrintWriter writer = new PrintWriter("freq.txt", "UTF-8");
+		PrintWriter writer = new PrintWriter("freq.txt", "ASCII");
+		
 
 		Iterator it = frequencies.entrySet().iterator();
 		Iterator it2 = encodedfreqs.entrySet().iterator();
@@ -247,7 +253,8 @@ public class HuffmanSubmit implements Huffman {
 
 	/* DECODE */
 	public void decode(String inputFile, String outputFile, String freqFile) {
-		// huffman.decode("ur.enc", "ur_dec.jpg", "freq.txt");
+		// huffman.decode("ur.enc", "ur_dec.jpg", "");
+		
 
 		FileReader inputStream = null;
 		FileReader inputFreq = null;
@@ -276,6 +283,8 @@ public class HuffmanSubmit implements Huffman {
 			e.printStackTrace();
 		}
 		hDecodeFile = inputFile;
+		hDecodeFileOut = outputFile;
+		
 		try {
 			DecodeNext();
 		} catch (IOException e) {
@@ -287,8 +296,11 @@ public class HuffmanSubmit implements Huffman {
 
 		FileReader inputStream = null;
 		inputStream = new FileReader(hDecodeFile);
-		FileWriter outputStream = null;
-		outputStream = new FileWriter("ur_dec.txt");
+		//FileWriter outputStream = null;
+		//outputStream = new FileWriter(hDecodeFileOut);
+		
+		File file = new File(hDecodeFile);
+		BufferedWriter outputStream = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), ASCII));
 		int c;
 		String decoder = "";
 
@@ -306,12 +318,15 @@ public class HuffmanSubmit implements Huffman {
 				for (Map.Entry entry : map.entrySet()) {
 					if (decoder.equals(entry.getValue())) {
 						key = (String) entry.getKey();
-						System.out.println("found and changing to" + entry.getValue());
+	//					 System.out.println("Value" + entry.getValue());
+						 
+//						 System.out.print(" Key" + entry.getKey());
 
-						if (entry.getValue().equals("01010")) {  // Where is my problem???
-							outputStream.write('\n');
+						System.out.println(entry.getKey());
+						if (entry.getKey().equals("")) { // Where is my problem???
+							outputStream.write("\n");
 							decoder = "";
-							outputStream.write(key);
+						//	outputStream.write(key);
 						}
 
 						else {
