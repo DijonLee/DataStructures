@@ -4,213 +4,206 @@ import java.util.Map.Entry;
 
 public class HuffmanSubmit implements Huffman {
 
- static HashMap < Character, Integer > numOfChar = new HashMap < Character, Integer > ();
- static HashMap < Character, String > encoding = new HashMap < Character, String > ();
- static PriorityQueue < Node > pq2 = new PriorityQueue < Node > ();
- static PriorityQueue < Node > pq = new PriorityQueue < Node > ();
- HashMap < Character, Integer > decode = new HashMap < Character, Integer > ();
+	static HashMap<Character, Integer> encoded = new HashMap<Character, Integer>();
+	static HashMap<Character, String> toencode = new HashMap<Character, String>();
+	static PriorityQueue<Node> enqueue2 = new PriorityQueue<Node>();
+	static PriorityQueue<Node> enqueue = new PriorityQueue<Node>();
+	static HashMap<Character, Integer> decode = new HashMap<Character, Integer>();
 
- public void encode(String inputFile, String outputFile, String freqFile) {
-  BinaryIn bin = new BinaryIn(inputFile);
+	public void encode(String inputFile, String outputFile, String freqFile) {
+		BinaryIn bin = new BinaryIn(inputFile);
+		char c2;
 
-  // filling hashmap with quantity of each char
+		while (bin.isEmpty() == !true) {
+			c2 = bin.readChar();
 
-  while (bin.isEmpty() == !true) {
-   char c2 = bin.readChar();
+			if (encoded.containsKey(c2)) {
+				encoded.put(c2, encoded.get(c2) + 1);
+				c2 = 0;
 
-   if (numOfChar.containsKey(c2)) {
-    numOfChar.put(c2, numOfChar.get(c2) + 1);
-   } else {
-    numOfChar.put(c2, 1);
-   }
+			} else {
+				encoded.put(c2, 1);
+				c2 = 0;
+			}
 
-  }
+		}
 
-  // System.out.println(numOfChar);
+		for (Entry<Character, Integer> item : encoded.entrySet()) {
 
-  // creating tree using priority queue
-  // Fixed
-  for (Entry < Character, Integer > item: numOfChar.entrySet()) {
-   Character key = item.getKey();
-   Integer value = item.getValue();
+			char c = item.getKey();
+			Node newLeaf = new Node(encoded.get(c), c);
+			enqueue.add(newLeaf);
+		}
 
-   char c = item.getKey();
-   Node newLeaf = new Node(numOfChar.get(c), c);
-   pq.add(newLeaf);
-  }
+		while ((enqueue.size() <= 1) == false) {
+			Node min = enqueue.remove();
+			Node maxMin = enqueue.remove();
+			Node newNode = new Node(min, maxMin);
+			enqueue.add(newNode);
+		}
 
-  while ((pq.size() <= 1) == false) {
-   Node smallest = pq.remove();
-   Node secondSmallest = pq.remove();
-   Node newNode = new Node(smallest, secondSmallest);
-   pq.add(newNode);
-  }
+		Node root = enqueue.remove();
 
-  Node root = pq.remove();
+		traverseTree(root, toencode, "");
 
-  traverseTree(root, encoding, "");
+		BinaryOut bout = new BinaryOut(outputFile);
+		BinaryIn bin2 = new BinaryIn(inputFile);
+		while (bin2.isEmpty() == false) {
+			char c = bin2.readChar();
+			String str = toencode.get(c);
+			for (int i = 0; i < str.length(); i++) {
 
-  // System.out.println(encoding);
+				char binary = str.charAt(i);
+				if (binary != '0') {
+					bout.write(true);
 
-  // writing to output file
-  BinaryOut bout = new BinaryOut(outputFile);
-  BinaryIn bin2 = new BinaryIn(inputFile);
-  while (!bin2.isEmpty()) {
-   char c = bin2.readChar();
-   String str = encoding.get(c);
-   for (int i = 0; i < str.length(); i++) {
+				} else {
+					bout.write(false);
 
-    char binary = str.charAt(i);
-    if (binary != '0') {
-     bout.write(true);
-     // bout.flush();
-    } else {
-     bout.write(false);
-     // bout.flush();
-    }
-   }
-   // bout.flush();
-  }
-  bout.close();
-  // writing to freq file
-  try {
-   PrintWriter writer = new PrintWriter(freqFile);
+				}
+			}
 
-   for (Character c: numOfChar.keySet()) {
-    String str = Integer.toBinaryString(c);
-    int freq = numOfChar.get(c);
-    writer.println(str + ":" + freq);
-   }
-   writer.close();
-  } catch (FileNotFoundException e) {
-   e.printStackTrace();
-  }
+		}
+		bout.close();
 
- }
+		try {
+			String str = "";
+			PrintWriter writer = new PrintWriter(freqFile);
 
- public static void traverseTree(Node root, HashMap < Character, String > encoding, String binary)
- throws NullPointerException {
-  try {
+			for (Character c : encoded.keySet()) {
+				str = Integer.toBinaryString(c);
+				int freq = encoded.get(c);
+				writer.println(str + ":" + freq);
+				str = "";
+			}
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
-   if (!(root.leftChild == (null))) {
-    traverseTree(root.leftChild, encoding, binary + "0");
-   }
-   if (!(root.rightChild == null)) {
-    traverseTree(root.rightChild, encoding, binary + "1");
-   }
-   if (root.leftChild == null && root.rightChild == null) {
-    encoding.put(root.character, binary);
-   }
-  } finally {
+	}
 
-  }
- }
+	public static void traverseTree(Node root, HashMap<Character, String> toencode, String binary)
+			throws NullPointerException {
+		try {
 
- public void decode(String inputFile, String outputFile, String freqFile) {
-  try {
-   Scanner sc = new Scanner(new File("freq.txt"));
-   while (sc.hasNext() != false) {
-    String line = sc.nextLine();
-    String[] binary = line.split(":");
-    char c = (char) Integer.parseInt(binary[0], 2); // parsing string as a binary number
-    decode.put(c, Integer.parseInt(binary[1]));
-   }
+			if (!(root.left == (null))) {
+				traverseTree(root.left, toencode, binary + "0");
+			}
+			if (!(root.right == null)) {
+				traverseTree(root.right, toencode, binary + "1");
+			}
+			if (root.left == null && root.right == null) {
+				toencode.put(root.data, binary);
+			}
+		} finally {
 
-   // creating tree using priority queue
+		}
+	}
 
-   Iterator < Character > it = decode.keySet().iterator();
-   while (it.hasNext()) {
-    char c = it.next();
-    Node newLeaf = new Node(decode.get(c), c);
-    pq2.add(newLeaf);
-   }
+	public void decode(String inputFile, String outputFile, String freqFile) {
+		try {
+			Scanner sc = new Scanner(new File("freq.txt"));
+			while (sc.hasNext() != false) {
+				String line = sc.nextLine();
+				String[] binary = line.split(":");
+				char c = (char) Integer.parseInt(binary[0], 2);
 
-   while (!(pq2.size() <= 1) == true) {
-    Node smallest = pq2.remove();
-    Node secondSmallest = pq2.remove();
-    Node newNode = new Node(smallest, secondSmallest);
-    pq2.add(newNode);
-   }
+				decode.put(c, Integer.parseInt(binary[1]));
+			}
 
-   Node root = pq2.remove();
+			Iterator<Character> it = decode.keySet().iterator();
+			while (it.hasNext() != false) {
+				char c = it.next();
+				Node newLeaf = new Node(decode.get(c), c);
+				enqueue2.add(newLeaf);
+			}
 
-   // writing to output file
-   BinaryOut bout = new BinaryOut(outputFile);
-   BinaryIn bin = new BinaryIn(inputFile);
+			while (!(enqueue2.size() <= 1) == true) {
+				Node min = enqueue2.remove();
+				Node maxMin = enqueue2.remove();
+				Node newNode = new Node(min, maxMin);
+				enqueue2.add(newNode);
+			}
 
-   Node node = root;
+			Node root = enqueue2.remove();
 
-   while (bin.isEmpty() == false) {
+			BinaryOut bout = new BinaryOut(outputFile);
+			BinaryIn bin = new BinaryIn(inputFile);
 
-    boolean move = bin.readBoolean();
-    if (node.leftChild == null && node.rightChild == null) {
-     bout.write(node.character);
-     node = root;
-    }
-    if (move) {
-     node = node.rightChild;
-    } else {
-     node = node.leftChild;
-    }
+			Node node = root;
 
-   }
-   bout.close();
+			while (bin.isEmpty() != true) {
 
-  } catch (FileNotFoundException e) {
-   e.printStackTrace();
-  }
- }
+				boolean read = bin.readBoolean();
+				if (node.left == null && node.right == null) {
+					bout.write(node.data);
+					node = root;
+				}
+				if (read) {
+					node = node.right;
+				} else {
+					node = node.left;
+				}
 
- public static void main(String[] args) {
+			}
+			bout.close();
 
-  Huffman huffman = new HuffmanSubmit();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
-  huffman.encode(args[0], "ur.enc", "freq.txt");
-  huffman.decode("ur.enc", "ur.decode", "freq.txt");
+	public static void main(String[] args) {
 
- }
+		Huffman huffman = new HuffmanSubmit();
+
+		huffman.encode(args[0], "ur.enc", "freq.txt");
+		huffman.decode("ur.enc", "ur.decode", "freq.txt");
+
+	}
 
 }
 
 class Node implements Comparable {
- int freq;
- char character;
- Node leftChild;
- Node rightChild;
+	int freq;
+	char data;
+	Node left;
+	Node right;
 
- public Node(int val, char character) {
-  this.freq = val;
-  this.character = character;
-  leftChild = null;
-  rightChild = null;
- }
+	public Node(int val, char data) {
+		this.freq = val;
+		this.data = data;
+		left = null;
+		right = null;
+	}
 
- public Node(Node x, Node y) {
-  this.freq = x.freq + y.freq;
-  this.character = '-';
+	public Node(Node x, Node y) {
+		this.freq = x.freq + y.freq;
+		this.data = '-';
 
-  if (x.freq < y.freq) {
-   leftChild = x;
+		if (x.freq < y.freq) {
+			left = x;
 
-  } else {
-   leftChild = y;
+		} else {
+			left = y;
 
-  }
-  if (x.freq >= y.freq) {
-   rightChild = x;
-  } else {
-   rightChild = y;
+		}
+		if (x.freq >= y.freq) {
+			right = x;
+		} else {
+			right = y;
 
-  }
+		}
 
- }
+	}
 
- public int compareTo(Object o) {
-  Node o2 = (Node) o;
-  if ((o2.freq <= this.freq) == false) {
-   return -1;
-  } else {
-   return 1;
-  }
- }
+	public int compareTo(Object o) {
+		Node o2 = (Node) o;
+		if ((o2.freq <= this.freq) == false) {
+			return -1;
+		} else {
+			return 1;
+		}
+	}
 }
