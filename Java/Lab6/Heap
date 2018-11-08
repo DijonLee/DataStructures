@@ -1,15 +1,54 @@
 
 public class Heap {
 
-	
-	public static void heapify(int[] arr) {
-		
-		
-		
+	public static void heapify(int[] integerArr, int i) {
+		int max = i;
+		int left = 2 * i + 1;
+		int right = 2 * i + 2;
+
+		if (((left < integerArr.length) && (integerArr[left] > integerArr[i]))) {
+			max = left;
+		} else {
+			max = i;
+		}
+
+		if (((right < integerArr.length) && (integerArr[right] > integerArr[max]))) {
+			max = right;
+		}
+		if (max != i) {
+			int t = integerArr[i];
+			integerArr[i] = integerArr[max];
+			integerArr[max] = t;
+
+			heapify(integerArr, max);
+		}
 	}
+
+	public static void heapsort(int[] integerArr2) {
+
+		// Build Heap
+		for (int i = (((integerArr2.length-1 )/2)); i >= 0; i--) {
+
+			heapify(integerArr2, i);
+
+		}
 	
+	}
+
 	
-	public static void heapsort(int[] arr2) {
-		
+
+	public static boolean HeapCheck(int[] integerArr) {
+		for (int i = 0; i < integerArr.length; i++) {
+			if ((i * 2 + 1) < integerArr.length)
+				if (integerArr[i * 2 + 1] > integerArr[i])
+					return false;
+
+			if ((i * 2 + 2) < integerArr.length)
+				if (integerArr[i * 2 + 2] > integerArr[i])
+					return false;
+		}
+		System.out.println("");
+		return true;
+
 	}
 }
