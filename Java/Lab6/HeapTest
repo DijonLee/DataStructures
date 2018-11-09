@@ -6,12 +6,16 @@ public class HeapTest {
 		// TODO Auto-generated method stub
 
 		Heap myHeap = new Heap();
+Radix2 radixSort2 = new Radix2();
+
+RadixSort radixSortOriginal = new RadixSort();
+
 
 		int[] arr = { 5,18,3,25,27,45,97,88,26,16,59};
 		
 		
 		System.out.println(Arrays.toString(arr)); /// print aelements in arr
-		myHeap.heapify(arr,  arr.length);
+		myHeap.buildheap(arr);
 		System.out.println(Arrays.toString(arr)); /// print aelements in arr
 		
 		
@@ -20,17 +24,26 @@ public class HeapTest {
 		int[] arr2 = { 15,99,3,77,27,45,7,88,26,5};
 		System.out.println(Arrays.toString(arr2)); /// print aelements in arr
 
-		myHeap.heapsort(arr2);
+		myHeap.heapSort(arr2);
 		System.out.println(Arrays.toString(arr2)); /// print aelements in arr
 		
-	//	System.out.println(arr2);
-		//System.out.println("==");
+		System.out.println("--");
+		// Radix 1
 		
-	//	myHeap.HeapCheck(arr);
+		
+		int[] arr3 = {5,99,3,100,4};
+		System.out.println(Arrays.toString(arr3)); /// print aelements in arr
+		radixSortOriginal.radixsort(arr3,arr3.length);;
+		System.out.println(Arrays.toString(arr3)); /// print aelements in arr
+System.out.println("--");
+		
+		
+		// Radix 2
+		int[] arr4 =  { 15,99,3,77,27,45,7,88,26,5};
+		System.out.println(Arrays.toString(arr4)); /// print aelements in arr
+		radixSort2.rsort(arr4,arr4.length);
+		System.out.println(Arrays.toString(arr4));
 
-		//myHeap.HeapCheck(arr2);
-		
-		//myHeap.printHeap();
 	}
 
 }
