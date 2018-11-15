@@ -1,34 +1,57 @@
+import java.io.*;
+import java.util.Arrays;
 
 public class HashPlot {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		
-		    
-		    int a = Integer.parseInt(args[0]); // multiplied 
-		    int b = Integer.parseInt(args[1]); // to be added
-		    int m = Integer.parseInt(args[2]); // to be added
 
+		// int a = Integer.parseInt(args[0]); // multiplied
+		// int b = Integer.parseInt(args[1]); // to be added
+		// int m = Integer.parseInt(args[2]); // to be added
+
+		// Read Text File
+
+
+		// File to String
+		InputStream is = new FileInputStream("input.txt");
+		BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+
+		String line = buf.readLine();
+		StringBuilder sb = new StringBuilder();
+
+		while (line != null) {
+			sb.append(line).append("");
+			line = buf.readLine();
 		}
-// integer sequence to take in
-	hash(intArray);
-	
+		String fileAsString = sb.toString();
+		// System.out.println("Contents : " + fileAsString)
+		String[] strToArr = fileAsString.split(" ");
+		int[] intArr = new int[strToArr.length];
+		for (int i = 0; i < strToArr.length; i++) {
+
+			intArr[i] = Integer.parseInt(strToArr[i]);
+		}
+		System.out.println(Arrays.toString(intArr));
+
 	}
+
+	// hash(intArray);
 
 	public static void hash(int[] arr) {
- // a *k + b mod m
-		
-		for (int i = 0; i < arr.length; i++) {
-		    arr[i] = (arr[i] *31 + 8);
-		}
-		
-		String k = args[0];
-		String[] kArr = k.split(" ");
-		int[] intArray = new int[kArr.length]; 
-		for(int i = 0; i < kArr.length; i++) {
-		    intArray[i] = Integer.parseInt(kArr[i]);
-		    
-		    
-	}
+		// a *k + b mod m
 
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = (arr[i] * 31 + 8);
+		}
+
+		/*
+		 * String k = args[0]; String[] kArr = k.split(" "); int[] intArray = new
+		 * int[kArr.length]; for(int i = 0; i < kArr.length; i++) { intArray[i] =
+		 * Integer.parseInt(kArr[i]);
+		 */
+
+		// Export Hash
+
+	}
 }
