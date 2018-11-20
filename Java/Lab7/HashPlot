@@ -3,15 +3,18 @@ import java.util.Arrays;
 
 public class HashPlot {
 
+	static int a;
+	static int b;
+	static int m;
+
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-
-		// int a = Integer.parseInt(args[0]); // multiplied
-		// int b = Integer.parseInt(args[1]); // to be added
-		// int m = Integer.parseInt(args[2]); // to be added
+		a = Integer.parseInt(args[0]);
+		// multiplied
+		b = Integer.parseInt(args[1]); // to be added
+		m = Integer.parseInt(args[2]); // to be added
 
 		// Read Text File
-
 
 		// File to String
 		InputStream is = new FileInputStream("input.txt");
@@ -21,7 +24,7 @@ public class HashPlot {
 		StringBuilder sb = new StringBuilder();
 
 		while (line != null) {
-			sb.append(line).append("");
+			sb.append(line).append(" ");
 			line = buf.readLine();
 		}
 		String fileAsString = sb.toString();
@@ -32,26 +35,23 @@ public class HashPlot {
 
 			intArr[i] = Integer.parseInt(strToArr[i]);
 		}
-		System.out.println(Arrays.toString(intArr));
+		// System.out.println(Arrays.toString(intArr));
+		hash(intArr);
 
 	}
 
-	// hash(intArray);
+	public static void hash(int[] arr) throws FileNotFoundException, UnsupportedEncodingException {
+		PrintWriter writer = new PrintWriter("output_sequence.txt", "UTF-8");
 
-	public static void hash(int[] arr) {
-		// a *k + b mod m
+		int[] hashedArr = new int[arr.length];
 
 		for (int i = 0; i < arr.length; i++) {
-			arr[i] = (arr[i] * 31 + 8);
+			hashedArr[i] = ((arr[i] * a + b) % 10000);
+			System.out.println(hashedArr[i]);
+			writer.println(hashedArr[i]);
 		}
 
-		/*
-		 * String k = args[0]; String[] kArr = k.split(" "); int[] intArray = new
-		 * int[kArr.length]; for(int i = 0; i < kArr.length; i++) { intArray[i] =
-		 * Integer.parseInt(kArr[i]);
-		 */
-
-		// Export Hash
+		writer.close();
 
 	}
 }
