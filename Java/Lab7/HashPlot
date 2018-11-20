@@ -53,5 +53,8 @@ public class HashPlot {
 
 		writer.close();
 
+		// https://yodalearning.com/tutorials/create-scatter-plots-excel/
+		//https://www.random.org/integers/
+		//https://stackoverflow.com/questions/12702340/how-to-remove-linebreaks-and-replace-them-with-a-comma-in-notepad
 	}
 }
