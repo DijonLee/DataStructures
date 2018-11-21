@@ -8,46 +8,50 @@ public class HashPlot {
 	static int m;
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		a = Integer.parseInt(args[0]);
-		// multiplied
-		b = Integer.parseInt(args[1]); // to be added
-		m = Integer.parseInt(args[2]); // to be added
 
+		a = Integer.parseInt(args[0]);//multiply
+		b = Integer.parseInt(args[1]); // add
+		m = Integer.parseInt(args[2]); // mod
+
+		
+//		a = 2;
+	//	b = 7;
+	//	m = 120;
+		 
 		// Read Text File
 
 		// File to String
-		InputStream is = new FileInputStream("input.txt");
+		InputStream is = new FileInputStream("input_sequence");
 		BufferedReader buf = new BufferedReader(new InputStreamReader(is));
 
 		String line = buf.readLine();
 		StringBuilder sb = new StringBuilder();
 
 		while (line != null) {
-			sb.append(line).append(" ");
+			sb.append(line).append(", ");
 			line = buf.readLine();
 		}
 		String fileAsString = sb.toString();
 		// System.out.println("Contents : " + fileAsString)
-		String[] strToArr = fileAsString.split(" ");
+		String[] strToArr = fileAsString.split(", ");
 		int[] intArr = new int[strToArr.length];
 		for (int i = 0; i < strToArr.length; i++) {
 
 			intArr[i] = Integer.parseInt(strToArr[i]);
 		}
-		// System.out.println(Arrays.toString(intArr));
+		 //System.out.println(Arrays.toString(intArr));
 		hash(intArr);
 
 	}
-
+//Hash to File Out
 	public static void hash(int[] arr) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer = new PrintWriter("output_sequence.txt", "UTF-8");
 
 		int[] hashedArr = new int[arr.length];
 
 		for (int i = 0; i < arr.length; i++) {
-			hashedArr[i] = ((arr[i] * a + b) % 10000);
-			System.out.println(hashedArr[i]);
+			hashedArr[i] = ((arr[i] * a + b) % m);
+			//System.out.println( /*arr[i] + " converted to"+ */hashedArr[i]);
 			writer.println(hashedArr[i]);
 		}
 
