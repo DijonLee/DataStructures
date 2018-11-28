@@ -1,15 +1,14 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class P2 {
-
-	static int S;
-	static int T;
 
 	public static class Graph {
 		int V;
@@ -21,6 +20,14 @@ public class P2 {
 			for (int i = 0; i < V; i++) {
 				adjListArray[i] = new LinkedList<>();
 			}
+		}
+
+		public boolean isNeighbor(int u, int v) {
+
+			if (adjListArray[u] == null)
+				return false;
+			return adjListArray[u].contains(v);
+
 		}
 	}
 
@@ -43,65 +50,58 @@ public class P2 {
 		}
 	}
 
-	public static boolean BFS(Graph graph, int src, int dest, int v, int pred[], int dist[]) {
-		Queue<Integer> q = new LinkedList();
-		boolean[] visited = new boolean[v];
+	public static ArrayList<Integer> BFS(Graph graph, int src, int dest) {
+		ArrayList<Integer> shortestPath = new ArrayList<Integer>();
+		boolean[] visited = new boolean[graph.V];
+		if (src == dest) {
+			return null;
 
-		for (int i = 0; i < v; i++) {
-			visited[i] = false;
-			dist[i] = Integer.MAX_VALUE;
-			pred[i] = -1;
 		}
-		visited[src] = true;
-		dist[src] = 0;
+		Queue<Integer> q = new LinkedList();
+		Stack<Integer> paths = new Stack<Integer>();
+
 		q.add(src);
+		paths.add(src);
+		visited[src] = true;
 
 		while (!q.isEmpty()) {
 			int u = q.poll();
-			q.remove();
 			for (Integer pCrawl : graph.adjListArray[u]) {
 				if (visited[pCrawl] == false) {
+					q.add(pCrawl);
 					visited[pCrawl] = true;
-					dist[pCrawl] = dist[u] + 1;
-					pred[pCrawl] = u;
-					q.remove(pCrawl);
+					paths.add(pCrawl);
+					System.out.println(u + " " + dest);
+
+					if (u == dest)
+						break;
 				}
-				// We stop BFS when we find
-				// destination.
-				if (pCrawl == dest) {
-					return true;
-				}
+
+			}
+		}
+		int node = dest;
+		int currentSrc = dest;
+		shortestPath.add(dest);
+
+		while (!paths.isEmpty()) {
+			System.out.println("got here2");
+
+			node = paths.pop();
+			if (graph.isNeighbor(currentSrc, node)) {
+				shortestPath.add(node);
+				currentSrc = node;
+				System.out.println("got here2222");
+
+				if (node == src)
+					System.out.println("got here");
+
+					System.out.println(node + " " + src);
+
+					break;
 			}
 		}
 
-		return false;
-
-	}
-	
-	public static void printShortestDistance(Graph graph, int src, int dest, int v){
-		
-		
-	    int pred[] = new int [v];
-	    int dist[] = new int [v]; 
-
-	    if (BFS(graph, src, dest, v, pred, dist) == false) 
-	    { 
-	    System.out.println("not connected");; 
-	        return; 
-	    }
-	    
-	    LinkedList<Integer> path = new LinkedList();
-	    int go = dest;
-	    path.add(go);
-	    while(pred[go] != -1) {
-	    	path.add(pred[go]);
-	    	go = pred[go];
-	    }
-	    System.out.println("The shortest path is length" + dist[dest]);
-	    
-	    for (int i=path.size()-1;i>=0;i--) {
-	    	System.out.print(path.get(i) +" ");
-	    }
+		return shortestPath;
 	}
 
 	public static void main(String[] args) {
@@ -166,30 +166,26 @@ public class P2 {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("--");
-		System.out.println(realMatrix.length);
-		for (int i = 0; i < realMatrix.length; i++) {
-			for (int j = 0; j < realMatrix[i].length; j++) {
-				System.out.print(realMatrix[i][j]);
 
-			}
-			System.out.println();
-
-		}
 		// getShortestPath(graph, S, T);
-
+		// Dont delete
 		LinkedList<Integer> adjListArray[];
 		adjListArray = new LinkedList[maxNum];
+		//
 		printGraph(graph);
 		System.out.println();
-		
-	    printShortestDistance(graph, 7, 5, graph.V); 
+
+		printShortestDistance(graph, 7, 4);
 
 	}
 
-	private static int getShortestPath() {
-		return 0;
-		// TODO Auto-generated method stub
+	public static void printShortestDistance(Graph graph, int src, int dest) {
+
+		ArrayList<Integer> path = BFS(graph, src, dest);
+
+		for (int node : path) {
+			System.out.print(node + " ");
+		}
 
 	}
 
