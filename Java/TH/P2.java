@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class P2 {
-	
+
 	static int S;
 	static int T;
-	
+
 	public static class Graph {
 		int V;
 		LinkedList<Integer> adjListArray[];
@@ -23,7 +24,7 @@ public class P2 {
 		}
 	}
 
-	static void addEdges(Graph graph, int src, int dest) {
+	public static void addEdges(Graph graph, int src, int dest) {
 		graph.adjListArray[src].add(dest);
 
 		// Since graph is undirected, add an edge from dest
@@ -31,7 +32,7 @@ public class P2 {
 		graph.adjListArray[dest].add(src);
 	}
 
-	static void printGraph(Graph graph) {
+	public static void printGraph(Graph graph) {
 		for (int v = 0; v < graph.V; v++) {
 			System.out.println("Adjacency list of vertex " + v);
 			System.out.print("head");
@@ -40,6 +41,67 @@ public class P2 {
 			}
 			System.out.println("\n");
 		}
+	}
+
+	public static boolean BFS(Graph graph, int src, int dest, int v, int pred[], int dist[]) {
+		Queue<Integer> q = new LinkedList();
+		boolean[] visited = new boolean[v];
+
+		for (int i = 0; i < v; i++) {
+			visited[i] = false;
+			dist[i] = Integer.MAX_VALUE;
+			pred[i] = -1;
+		}
+		visited[src] = true;
+		dist[src] = 0;
+		q.add(src);
+
+		while (!q.isEmpty()) {
+			int u = q.poll();
+			q.remove();
+			for (Integer pCrawl : graph.adjListArray[u]) {
+				if (visited[pCrawl] == false) {
+					visited[pCrawl] = true;
+					dist[pCrawl] = dist[u] + 1;
+					pred[pCrawl] = u;
+					q.remove(pCrawl);
+				}
+				// We stop BFS when we find
+				// destination.
+				if (pCrawl == dest) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+
+	}
+	
+	public static void printShortestDistance(Graph graph, int src, int dest, int v){
+		
+		
+	    int pred[] = new int [v];
+	    int dist[] = new int [v]; 
+
+	    if (BFS(graph, src, dest, v, pred, dist) == false) 
+	    { 
+	    System.out.println("not connected");; 
+	        return; 
+	    }
+	    
+	    LinkedList<Integer> path = new LinkedList();
+	    int go = dest;
+	    path.add(go);
+	    while(pred[go] != -1) {
+	    	path.add(pred[go]);
+	    	go = pred[go];
+	    }
+	    System.out.println("The shortest path is length" + dist[dest]);
+	    
+	    for (int i=path.size()-1;i>=0;i--) {
+	    	System.out.print(path.get(i) +" ");
+	    }
 	}
 
 	public static void main(String[] args) {
@@ -114,11 +176,14 @@ public class P2 {
 			System.out.println();
 
 		}
-		//getShortestPath(graph, S, T);
+		// getShortestPath(graph, S, T);
 
 		LinkedList<Integer> adjListArray[];
 		adjListArray = new LinkedList[maxNum];
 		printGraph(graph);
+		System.out.println();
+		
+	    printShortestDistance(graph, 7, 5, graph.V); 
 
 	}
 
