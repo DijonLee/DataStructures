@@ -34,7 +34,7 @@ public class P4 {
 					time = Integer.parseInt(words[2]);
 					getFirst = false;
 					System.out.println("Default values " + vertices + " " + edges + "  " + time);
-					c3 = vertices;
+					c3 = time;
 					// System.out.println("falsified" + vertices);
 				}
 				/*
@@ -56,7 +56,6 @@ public class P4 {
 			e.printStackTrace();
 		}
 		Graph graph = new Graph(vertices);
-		
 
 		try {
 			boolean getFirst = true;
@@ -77,7 +76,7 @@ public class P4 {
 				}
 
 				else {
-					System.out.println(Arrays.toString(words));
+					// System.out.println(Arrays.toString(words));
 					graph.addEgde(Integer.parseInt(words[0]), Integer.parseInt(words[1]), Integer.parseInt(words[2]));
 
 				}
@@ -93,16 +92,17 @@ public class P4 {
 		}
 
 		/* TRUE MAIN */
-		graph.printGraph();
+		// graph.printGraph();
 		int sourceVertex = 0;
 
 		graph.dijkstra_GetMinDistances(sourceVertex);
 	}
 
-	static class HeapNode{ 
+	static class HeapNode {
 		int vertex;
-        int distance;	
+		int distance;
 	}
+
 	static class Edge {
 		int source;
 		int destination;
@@ -131,9 +131,9 @@ public class P4 {
 		public void addEgde(int source, int destination, int weight) {
 			Edge edge = new Edge(source, destination, weight);
 			adjacencylist[source].addFirst(edge); // for directed graph
-			
-			 edge = new Edge(destination, source, weight);
-            adjacencylist[destination].addFirst(edge);
+
+			edge = new Edge(destination, source, weight);
+			adjacencylist[destination].addFirst(edge);
 		}
 
 		public void printGraph() {
@@ -210,20 +210,29 @@ public class P4 {
 		}
 
 		public void printDijkstra(HeapNode[] resultSet, int sourceVertex) {
+			int counter = 0;
 			System.out.println("Dijkstra Algorithm: (Adjacency List + Min Heap)");
 			for (int i = 0; i < vertices; i++) {
+				//System.out.println(c3);
 				String PF = "";
-				if( resultSet[i].distance > c3)
-				{
-					PF = "Failed";
-				
+				if (resultSet[i].distance < c3 || resultSet[i].distance == c3 && resultSet[i].distance != 0) {
+					counter++;
+					PF = "passed";
+					System.out.println("Source Vertex: " + sourceVertex + " to vertex " + +i + " distance: "
+							+ resultSet[i].distance + " " + PF);
 				}
-				else { 
-				
+
+				else if (resultSet[i].distance == 0) {
+
+				} else {
+					counter++;
+					PF = "failed";
+					System.out.println("Source Vertex: " + sourceVertex + " to vertex " + +i + " distance: "
+							+ resultSet[i].distance + " " + PF);
 				}
-				System.out.println(
-						"Source Vertex: " + sourceVertex + " to vertex " + +i + " distance: " + resultSet[i].distance);
+
 			}
+			System.out.println(counter-1 + " participants enter the city");
 		}
 	}
 
@@ -323,7 +332,7 @@ public class P4 {
 			return currentSize;
 		}
 	}
-	
-	//https://algorithms.tutorialhorizon.com/dijkstras-shortest-path-algorithm-spt-adjacency-list-and-min-heap-java-implementation/
+
+	// https://algorithms.tutorialhorizon.com/dijkstras-shortest-path-algorithm-spt-adjacency-list-and-min-heap-java-implementation/
 
 }
