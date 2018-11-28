@@ -131,6 +131,9 @@ public class P4 {
 		public void addEgde(int source, int destination, int weight) {
 			Edge edge = new Edge(source, destination, weight);
 			adjacencylist[source].addFirst(edge); // for directed graph
+			
+			 edge = new Edge(destination, source, weight);
+            adjacencylist[destination].addFirst(edge);
 		}
 
 		public void printGraph() {
