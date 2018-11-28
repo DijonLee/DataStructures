@@ -35,7 +35,7 @@ public class P3 {
 					// System.out.println(line);
 					graph = line.split("");
 					for (int i = 0; i < graph.length; i++) {
-					//	System.out.println(graph[i]);
+						// System.out.println(graph[i]);
 						myGraph[col][i] = graph[i];
 					}
 
@@ -55,26 +55,41 @@ public class P3 {
 	}
 
 	public static int Solution(int a, int b, String[] graph, String[][] myGraph) {
+		// Player Location
+		int p1i;
+		int p1j;
 
-		// Determine exits
+		int p2i;
+		int p2j;
 
-		// System.out.println("sep");
-	//	System.out.println(Arrays.toString(graph));
 		System.out.println("--");
 
 		System.out.println(Arrays.toString(myGraph[0]));
 		System.out.println(Arrays.toString(myGraph[1]));
 		System.out.println(Arrays.toString(myGraph[2]));
 
-		for (int i = 0; i <= a; i++) {
-			for (int j = 0; j < graph.length; j++) {
-				// System.out.println(String.valueOf(graph[i].charAt(0)));
-				// System.out.println(j);
+		// Find Location Player1
 
-				// System.out.println(graph[i]);
+		for (int i = 0; i < myGraph.length; i++) {
+			for (int j = 0; j < myGraph[i].length; j++) {
+				// System.out.println(i);
+				System.out.print(myGraph[i][j]);
+				// Find Location Player1
 
+				if (myGraph[i][j].equals("1")) {
+					p1i = i;
+					p1j = j;
+
+				}
+				// Find Location Player2
+
+				if (myGraph[i][j].equals("2")) {
+					p2i = i;
+					p2j = j;
+
+				}
 			}
-
+			System.out.println();
 		}
 
 		return 0;
