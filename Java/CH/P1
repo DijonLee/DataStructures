@@ -82,42 +82,43 @@ class P1 {
 				// if the distance to the destination u can be
 				// shortened by taking the edge u-> v
 				if (distance[u] != Integer.MAX_VALUE && (distance[u] + w < distance[v])) {
-					System.out.println("Negative Weight Cycle Found!!");
+					System.out.println("YES");
 					return;
 				}
 			}
 
-			for (int i = 0; i < N; i++) {
+			/*for (int i = 0; i < N; i++) {
 				System.out.print(
 						"Distance of vertex " + i + " from the " + "source is " + distance[i] + ". It's path is [ ");
 
 				printPath(parent, i);
 				System.out.println("]");
-			}
+			} */
+			System.out.println("NO");
 		}
 
 		public static void main(String[] args) throws FileNotFoundException, IOException {
 			// vector of graph edges as per above diagram
 			List<Edge> edges = new ArrayList<Edge>();
 
-			try (BufferedReader br = new BufferedReader(new FileReader("input-1.1"))) {
+			try (BufferedReader br = new BufferedReader(new FileReader("P1input-1.4"))) {
 
 				String line;
 				boolean firstline = false;
 				while ((line = br.readLine()) != null) {
 					// Get First Line
 					if (firstline == false) {
-						System.out.println("Skipping first line.. values of first line are");
+						//System.out.println("Skipping first line.. values of first line are");
 						String[] lineSplitter = line.split(" ");
-						System.out.println(Arrays.toString(lineSplitter));
+						//System.out.println(Arrays.toString(lineSplitter));
 						N = (Integer.parseInt(lineSplitter[0])+1);
 						firstline = true;
 					} else {
 
 						// Get Input Files After first Line
-						System.out.println(line);
+						//System.out.println(line);
 						String[] lineSplitter = line.split(" ");
-						System.out.println(Arrays.toString(lineSplitter));
+					//	System.out.println(Arrays.toString(lineSplitter));
 						edges.add(new Edge(Integer.parseInt(lineSplitter[0]), Integer.parseInt(lineSplitter[1]),
 								Integer.parseInt(lineSplitter[2])));
 					//	edges.add(new Edge(1, 2, 3));
