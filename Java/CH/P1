@@ -1,8 +1,14 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 // Data structure to store graph edges
 
 class P1 {
+	static int N;
+	static int source;
 
 	static class Edge {
 		int source, dest, weight;
@@ -90,30 +96,58 @@ class P1 {
 			}
 		}
 
-		public static void main(String[] args) {
+		public static void main(String[] args) throws FileNotFoundException, IOException {
 			// vector of graph edges as per above diagram
-			List<Edge> edges =  new ArrayList<Edge>(); // Arrays.asList(
-					
-					
-					// (x, y, w) -> edge from x to y having weight w
-					//new Edge(1, 2, 3),
-				//	new Edge(2, 3, 5), 
-				//	new Edge(3, 4, -10), 
-				//	new Edge(4, 1, 1),
-					//new Edge (4,3,20));//,
-			edges.add( new Edge(1,2,3));
-			edges.add( new Edge(2,3,5));
-			edges.add( new Edge(3,4,-10));
-			edges.add( new Edge(4,1,2));
-			edges.add( new Edge(4,3,20));
+			List<Edge> edges = new ArrayList<Edge>();
 
+			try (BufferedReader br = new BufferedReader(new FileReader("input-1.1"))) {
 
+				String line;
+				boolean firstline = false;
+				while ((line = br.readLine()) != null) {
+					// Get First Line
+					if (firstline == false) {
+						System.out.println("Skipping first line.. values of first line are");
+						String[] lineSplitter = line.split(" ");
+						System.out.println(Arrays.toString(lineSplitter));
+						N = (Integer.parseInt(lineSplitter[0])+1);
+						firstline = true;
+					} else {
+
+						// Get Input Files After first Line
+						System.out.println(line);
+						String[] lineSplitter = line.split(" ");
+						System.out.println(Arrays.toString(lineSplitter));
+						edges.add(new Edge(Integer.parseInt(lineSplitter[0]), Integer.parseInt(lineSplitter[1]),
+								Integer.parseInt(lineSplitter[2])));
+					//	edges.add(new Edge(1, 2, 3));
+						//edges.add(new Edge(1, 2, 3));
+						//edges.add(new Edge(1, 2, 3));
+
+					}
+					// process the line.
+				}
+			}
+
+			// Arrays.asList(
+
+			// (x, y, w) -> edge from x to y having weight w
+			// new Edge(1, 2, 3),
+			// new Edge(2, 3, 5),
+			// new Edge(3, 4, -10),
+			// new Edge(4, 1, 1),
+			// new Edge (4,3,20));//,
+			// edges.add( new Edge(1,2,3));
+			// edges.add( new Edge(2,3,5));
+			// edges.add( new Edge(3,4,-10));
+			// edges.add( new Edge(4,1,2));
+			// edges.add( new Edge(4,3,20));
 
 			// Number of vertices in the graph
-			final int N = 5;
+			// N = 5;
 
 			// let source be vertex 0
-			int source = 4;
+			source = 4;
 
 			// run Bellman Ford Algorithm from given source
 			BellmanFord(edges, source, N);
