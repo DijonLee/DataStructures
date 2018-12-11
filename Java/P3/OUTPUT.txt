@@ -1,0 +1,20 @@
+Jack Fredericksen
+CSC 172
+Fall 2016
+Project 4
+
+Couple of tests:
+
+java Mapping CSC172SP15_project4_data/ur.txt -directions ITS SUEB
+
+OUT: ITS, i60, i76, UHS, SUEB,  0.1381418124986201 miles
+
+java Mapping CSC172SP15_project4_data/ur.txt -directions LOVEJOY LECHASE
+
+OUT: LOVEJOY, i14, i16, i41, i36, i37, i38, LECHASE,  0.12352313969472295 miles
+
+
+
+
+StreetMap CSC172SP15_project4_data/ur.txt --directions ITS SUEB
+ITS, i60, i76, UHS, SUEB,  0.1381418124986201 miles
